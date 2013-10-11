@@ -243,6 +243,16 @@ border-bottom: 1px dotted black;
 	text-shadow: -1px 0 black, 0 -1px black, 0 1px black, 1px 0 black, 0.2em 0.2em #000000;
 }
 
+.whiteShadow{
+	text-shadow: -1px 0 white, 0 -1px white, 0 1px white, 1px 0 white, 0.2em 0.2em #FFFFFF;
+}
+#shadowdiv {
+	position: relative;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	height: 18px;
+}
+
 /*styles outline item in 'style' dropdown*/
 #outline {
 	color: white;
@@ -280,10 +290,8 @@ border-bottom: 1px dotted black;
 
 
 .textoutline {
-	background: blue;
-	color: yellow;
 	text-shadow: -1px 0 white, 0 -1px white, 0 1px white,
-    1px 0 white;
+    1px 0 white !important;
 }
 
 

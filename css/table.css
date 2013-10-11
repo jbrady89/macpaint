@@ -1,7 +1,52 @@
 /*for future styling*/
 body{}
-
-/*defines dimensions & adds background, but does nothing now apparently*/
+/* pop-up/pic for 'about macpaint' section*/
+#aboutDiv {
+	position: absolute;
+	display: none;
+	left:115px;
+	top: 85px;
+	z-index: 1000;
+}
+#aboutPic{
+	position:absolute;
+}
+#aboutOk {
+	position: absolute;
+	height: 16px;
+	width: 69px;
+	left: 282px;
+	top: 64px;
+	padding-bottom: 2px;
+}
+#aboutText {
+	position:relative;
+	top: -1px;
+}
+/*image that appears if user clicks 'no' inside quit pop-up while 'eject' is grayed out*/
+#discPopup {
+	position:absolute;
+	display: none;
+	top: 90px;
+	left: 130px;
+}
+/*temp canvas/container used for selection tool*/
+#newselectioncanvas {
+	display: block;
+	z-index: 999;
+	position: absolute;
+}
+#selectionContainer {
+	position: absolute;
+	display: none;
+	z-index: 1001;
+}
+#selected {
+	display: block;
+	position:absolute;
+	z-index: 1000;
+}
+/*set dimensions and add main background*/
 .content {
 	height: 341px;
 	width:511px;
@@ -29,6 +74,7 @@ body{}
 }
 
 .tools td {
+	border: 1px solid black;
 	padding: 0px;
 	margin: 0px;
 }
@@ -556,15 +602,16 @@ body{}
 .popupbuttons {
 	position: absolute;
 	background: white;
-	width: 80px;
-	line-height: 10px;
+	width: 78px;
+	height: 14px;
 	border: 1px solid black;
 	font-family: "Chicago";
 	text-align: center;
 	font-size: 12px;
-	-moz-border-radius: 6px 6px 6px 6px;
-    -webkit-border-radius: 6px 6px 6px 6px;
-    border-radius: 6px 6px 6px 6px;
+	padding-bottom: 2px;
+	-moz-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
 	z-index:700;
 }
 /*stylings for introduction feature*/
@@ -588,6 +635,10 @@ body{}
 #introbutton {
 	left: 320px;
 	top: 205px;
+	width: 62px;
+   	height: 16px;
+   	width: 78px;
+	padding: 0;
 }
 /*stylings for shortcuts feature*/
 #shortcut {
@@ -610,6 +661,10 @@ body{}
 #sCutbutton {
 	left: 318px;
 	top: 205px;
+	width: 62px;
+    height: 16px;
+   	width: 78px;
+	padding: 0;
 }
 /*pop-up container with buttons*/
 .popupdiv {
@@ -628,15 +683,15 @@ body{}
 .choicespopup {
 	position: absolute;
 	background:white;
-	line-height: 10px;
 	width: 74px;
 	border: 1px solid black;
 	font-family: "Chicago";
 	text-align: center;
 	font-size: 12px;
-	-moz-border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    -ms-border-radius: 4px 4px 4px 4px;
     -webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -649,45 +704,76 @@ body{}
 #cancelSave {
 	left: 161px;
 	top: 69px;
+    height: 16px;
+   	width: 72px;
+	padding: 0;
 }
 #yesSave {
 	left: 23px;
 	top:45px;
+    height: 16px;
+   	width: 72px;
+	padding: 0;
 }
 
 #noSave {
 	left:23px;
 	top: 69px;
+    height: 16px;
+   	width: 72px;
+	padding: 0;
 }
 
 #cancelQuit {
 	left: 161px;
 	top: 69px;
+    height: 16px;
+   	width: 72px;
+	padding: 0;
 }
 
 #yesQuit {
 	left: 23px;
 	top:45px;
+    height: 16px;
+   	width: 72px;
+	padding: 0;
 }
 
 #noQuit {
 	left:23px;
 	top: 69px;
+    height: 16px;
+   	width: 72px;
+	padding: 0;
 }
 
 #cancelClose {
 	left: 161px;
 	top: 69px;
+   	height: 16px;
+   	width: 72px;
+	padding: 0;
+}
+.closeText {
+	position: relative;
+	top: -2px;
 }
 
 #yesClose {
 	left: 23px;
 	top:45px;
+    height: 16px;
+   	width: 72px;
+	padding: 0;
 }
 
 #noClose {
 	left:23px;
 	top: 69px;
+    height: 16px;
+   	width: 72px;
+	padding: 0;
 }
 #revertdiv {
 	position: absolute;
@@ -703,25 +789,61 @@ body{}
 	position: absolute;
 	top: 70px;
 	left: 182px;
-	width: 80px;
+	height: 14px;
+   	width: 78px;
+	padding: 0;
 	z-index: 5500;
 	background: white;
+	padding-bottom: 2px;
 	-moz-border-radius: 5px 5px;
     -webkit-border-radius: 5px 5px;
     border-radius: 5px 5px;
+
 }
 #yesRevert{
 	position: absolute;
 	top: 70px;
 	left: 86px;
-	width: 80px;
+	height: 14px;
+   	width: 78px;
+	padding: 0;
 	z-index: 5500;
 	background: white;
+	padding-bottom: 2px;
 	-moz-border-radius: 5px 5px;
     -webkit-border-radius: 5px 5px;
     border-radius: 5px 5px;
 }
 /*giant container for canvas used for dragging tool implementation*/
+#lefttop {
+	display: none;
+	position: absolute;
+	left: 41px;
+	top: 25px;
+	z-index: 300000;
+}
+#leftbottom {
+	display: none;
+	position: absolute;
+	left: 41px;
+	top: 25px;
+	z-index: 300000;
+}
+#leftmiddle {
+	display: none;
+	position: absolute;
+	left: 41px;
+	top: 25px;
+	z-index: 300000;
+}
+#middletop {
+	display: none;
+	position: absolute;
+	left: 41px;
+	top: 25px;
+	z-index: 300000;
+}
+
 #canvasbox {
 	position:absolute;
 	overflow: hidden;
@@ -756,7 +878,6 @@ body{}
 }
 #selected {
 	position:absolute;
-	background: white;
 	z-index: 1000;
 }
 #scaledCanvas {
@@ -770,12 +891,18 @@ body{}
 	left: 320px;
 	top: 160px;
 	z-index: 550;
+	width: 78px;
+    height: 14px;
+    padding-bottom: 2px;
 }
 #cancelScaled{
 	position:absolute;
 	left: 320px;
 	top: 190px;
 	z-index: 550;
+	width: 78px;
+    height: 14px;
+    padding-bottom: 2px;
 }
 #scaledcanvasdiv{
 	position: absolute;
@@ -787,13 +914,23 @@ body{}
 	width: 190px;
 }
 #viewBox {
+	left: 0px;
+	top: 0px;
+	width: 135px;
+	height: 77px;
+	background: white;
+	opacity: 0;
+	border: 1px dotted black;
+	z-index: 550;
+}
+#vbContainer {
 	position: relative;
 	left: 29px;
 	top: 34px;
 	width: 135px;
 	height: 77px;
-	border: 1px dotted black;
 	background: none;
+	border: 1px dotted black;
 	z-index: 550;
 }
 #img {
@@ -804,134 +941,137 @@ body{}
 
 
 #brushespopup{
-      display:none;
-      position:absolute;
-      z-index: 5000;
-      top: 100px;
-      left: 100px;
-    }
-    #brushpopupimage{}
+	display:none;
+	position:absolute;
+	z-index: 5000;
+	top: 100px;
+	left: 100px;
+}
+#brushpopupimage{}
+
+#brushestablediv{
+	background: none;
+	position: absolute;
+	z-index: 100000;
+	width: 270px;
+	height: 130px;
+	top: 22px;
+	left: 18px
+
+}
     
-    #brushestablediv{
-      background: none;
-      position: absolute;
-      border: 1px solid blue;
-      z-index: 100000;
-      width: 270px;
-      height: 130px;
-      top: 22px;
-      left: 18px
+#brushestable{
+	background:white;
+	opacity: 0;
+	width: 270px;
+	height: 130px;
+	position: absolute;
+	border-collapse:collapse;
+	border:none;
 
-    }
-    
-    #brushestable{
-      background:none;
-      width: 270px;
-      height: 130px;
-      position: absolute;
-      border-collapse:collapse;
-      z-index: 1000;
-      /*border: 2px solid black;*/
-    }
+	z-index: 1000;
+	/*border: 2px solid black;*/
+}
 
-    #brushestable td{
-    }
-	#brushbox {
-      display: none;
-      position: absolute;
-      height: 28px;
-      width: 28px;
-      left: 156px;
-      top: 156px;
-      border: 2px solid black;
-      z-index: 6000;
-    }
+#brushestable td{
+	border: none;
+}
+#brushbox {
+	display: none;
+	position: absolute;
+	height: 28px;
+	width: 28px;
+	left: 156px;
+	top: 156px;
+	border: 2px solid black;
+	z-index: 6000;
+}
 
 
-    #gamepic {
-    	display: none;
-		position: absolute;
-	    left: 109px;
-	    top: 88px;
-	    z-index: 1000000;
-    }
+#gamepic {
+	display: none;
+	position: absolute;
+	left: 109px;
+	top: 88px;
+	z-index: 1000000;
+}
 
-    #alarmpic {
-    	display: block;
-		position: absolute;
-	    left: 270px;
-	    top: 70px;
-	    z-index: 1000001;
-    }
-    #txt {
-    	display: block;
-		position: absolute;
-	    left: 296px;
-	    top: 70px;
-	    z-index: 1000002;
-	    font-family: "Chicago";
-	    font-size: 12px;
-	    cursor: default;
-    }
-    #txt2 {
-    	display: block;
-		position: absolute;
-	    left: 296px;
-	    top: 91px;
-	    z-index: 100000000;
-	    font-family: "Chicago";
-	    font-size: 12px;
-	    cursor: url('line2cross.png'), default;
-    }
-    #txt3 {
-    	display: none;
-		position: absolute;
-	    left: 296px;
-	    top: 91px;
-	    z-index: 100000000;
-	    font-family: "Chicago";
-	    font-size: 12px;
-	    cursor: url('line2cross.png'), default;
-    }
+#alarmpic {
+	display: block;
+	position: absolute;
+	left: 270px;
+	top: 70px;
+	z-index: 1000001;
+}
+#txt {
+	display: block;
+	position: absolute;
+	left: 296px;
+	top: 70px;
+	z-index: 1000002;
+	font-family: "Chicago";
+	font-size: 12px;
+	cursor: default;
+}
+#txt2 {
+	display: block;
+	position: absolute;
+	left: 296px;
+	top: 91px;
+	z-index: 100000000;
+	font-family: "Chicago";
+	font-size: 12px;
+	cursor: url('line2cross.png'), default;
+}
+#txt3 {
+	display: none;
+	position: absolute;
+	left: 296px;
+	top: 91px;
+	z-index: 100000000;
+	font-family: "Chicago";
+	font-size: 12px;
+	cursor: url('line2cross.png'), default;
+}
 
-      #txt4 {
-    	display: none;
-		position: absolute;
-	    left: 296px;
-	    top: 91px;
-	    z-index: 100000000;
-	    font-family: "Chicago";
-	    font-size: 12px;
-	    cursor: url('line2cross.png'), default;
-    }
+#txt4 {
+	display: none;
+	position: absolute;
+	left: 296px;
+	top: 91px;
+	z-index: 100000000;
+	font-family: "Chicago";
+	font-size: 12px;
+	cursor: url('line2cross.png'), default;
+}
 
-    #gametable {
-    	display: none;
-		position: absolute;
-		left: 114px;
-	    top: 111px;
-		z-index: 1000001;
-		margin: 0;
-		padding:0;
-		border-collapse: collapse;
-    }
+#gametable {
+	display: none;
+	position: absolute;
+	left: 114px;
+	top: 111px;
+	z-index: 1000001;
+	margin: 0;
+	padding:0;
+	border-collapse: collapse;
+}
 
-     #filename{
-      position: absolute;
-      height: 11px;
-      line-height: .9em;
-      width: 64px;
-      left: 181px;
-      top: 4px;
-      padding: 0;
-      margin: 0 auto;
-      border: none;
-      background: white;
-      z-index: 600;
-      text-align: center;
-      font-family: 'Chicago';
-      font-size: 12px;
-    }
+#filename{
+	position: absolute;
+	height: 11px;
+	line-height: .9em;
+	width: 64px;
+	left: 181px;
+	top: 4px;
+	padding: 0;
+	margin: 0 auto;
+	border: none;
+	background: white;
+	z-index: 600;
+	text-align: center;
+	font-family: 'Chicago';
+	font-size: 12px;
+}
 
 #filenameinner{
       position: absolute;
@@ -956,212 +1096,304 @@ body{}
     }
 }
 
-    #namecontainer {
-      position: absolute;
-      width: 414px;
-      height: 19px;
-      top: 37px;
-      left:88px;
-    }
+#namecontainer {
+	position: absolute;
+	width: 414px;
+	height: 19px;
+	top: 37px;
+	left:88px;
+}
 
-    #savedocumentdiv{
-      position: absolute;
-      display: block;
-      z-index: 10000;
-      left: 100px;
-      top: 100px;
-    }
-    #savedocument{
-      position: absolute;
-      display: none;
-      z-index: 10000;
-    }
-    #filenametext{
-      position: absolute;
-      display: none;
-      z-index: 10000;
-      width: 200px;
-    }
-    #typed{	
-    	position: absolute;
-    	top: 39px;
-    	left: 19px;
-    	width: 170px;
-    }
-    #saveYes{
-      display: none;
-      position:absolute;
-      background:white;
-      border: 1px solid black;
-      left: 20px;
-      top: 82px;
-      width: 70px;
-    }
-    #saveCancel{
-      display: none;
-      position:absolute;
-      background:white;
-      border: 1px solid black;
-      margin: 0 auto;
-      left: 122px;
-      top: 82px;
-      width: 70px;
-    }
-    #saveEject{
-      display: none;
-      position:absolute;
-      background:white;
-      border: 1px solid black;
-      left: 225px;
-      top: 51px;
-      width: 70px;
-    }
-    #saveDrive{
-      display: none;
-      position:absolute;
-      background:white;
-      border: 1px solid black;
-      left: 225px;
-      top: 82px;
-      width: 70px;
-    }
-    .saveDivs {
-      position: absolute;
-  background:white;
-  line-height: 10px;
-  width: 74px;
-  cursor:default;
-  border: 1px solid black;
-  font-family: "Chicago";
-  text-align: center;
-  font-size: 12px;
-  -moz-border-radius: 3px 3px 3px 3px;
-  -webkit-border-radius: 3px 3px 3px 3px;
-  border-radius: 3px 3px 3px 3px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  z-index:10000;
+#savedocumentdiv{
+	position: absolute;
+	display: block;
+	z-index: 10000;
+	left: 100px;
+	top: 100px;
+}
+#savedocument{
+	position: absolute;
+	display: none;
+	z-index: 10000;
+}
+#filenametext{
+	position: absolute;
+	display: none;
+	z-index: 10000;
+	width: 200px;
+}
+#typed{	
+	position: absolute;
+	top: 39px;
+	left: 19px;
+	width: 170px;
+}
+::selection {
+  background: black;
+  color: white;
+  text-shadow: none;
+}
 
-    }
+::-moz-selection {
+  background: black;
+  color: white;
+  text-shadow: none;
+}
+#saveYes{
+	display: none;
+	position:absolute;
+	background:white;
+	border: 1px solid black;
+	left: 20px;
+	top: 82px;
+	height: 14px;
+	padding-bottom: 2px;
+}
+#saveCancel{
+	display: none;
+	position:absolute;
+	background:white;
+	border: 1px solid black;
+	margin: 0 auto;
+	left: 122px;
+	top: 82px;
+	height: 14px;
+	padding-bottom: 2px;
+}
+#saveEject{
+	display: none;
+	position:absolute;
+	background:white;
+	border: 1px solid black;
+	left: 225px;
+	top: 51px;
+	height: 14px;
+	padding-bottom: 2px;
+}
+#saveDrive{
+	display: none;
+	position:absolute;
+	background:white;
+	border: 1px solid black;
+	left: 225px;
+	top: 82px;
+	height: 14px;
+	padding-bottom: 2px;
+}
+.saveDivs {
+	position: absolute;
+	background:white;
+	width: 68px;
+	cursor:default;
+	border: 1px solid black;
+	font-family: "Chicago";
+	text-align: center;
+	font-size: 12px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	z-index:10000;
+}
 
- /*stuff that was in the head */
-    .inactive {
-      background: none !important;
-      color:gray !important;
-    }
-    .inactive:hover{
-      background: none !important;
-      color: gray !important;
-    }
-    #alarmCheckbox {
-      left: 280px;
-      top: 75px;
-      border: 1px solid black;
-      position: absolute;
-      height: 9px;
-      width: 9px;
-      background: none;
-      z-index: 1100000;
-    }
-    #closeAlarm{
-      display: none;
-      position: absolute;
-      border:none;
-      left: 0px;
-      top: 0px;
-      z-index: 1100000;
-    }
-    #alarmdiv{
-    	background:white;
-    }
-    #keyover {
-      left: 382px;
-      top: 71px;
-      position: absolute;
-      z-index: 1200000;
-    }
-    #keyoverpic {
-      display: block;
-      left: 0px;
-      top: 0px;
-      position: absolute;
-      z-index: 1200000;
-    }
-    #keydowno {
-      left: 385px;
-      top: 77px;
-      position: absolute;
-      z-index: 1200000;
-    }
-    #keydownopic {
-      display: none;
-      left: 0px;
-      top: 0px;
-      position: absolute;
-      z-index: 1200000;
-    }
-    
-    #alarmdropdown {
-      left: 270px;
-      top: 89px;
-      position: absolute;
-      background: white;
-      cursor: url('line2cross.png'), default;
-      z-index: 1200000;
-    }
-    #alarmdropdownpic {
-      display: none;
-      left: 0px;
-      top: 0px;
-      position: absolute;
-      z-index: 1200000;
-    }
-     #alarmdropdown2 {
-      left: 270px;
-      top: 110px;
-      position: absolute;
-      z-index: 1200000;
-      background: white;
-      display: none;
-    }
-    #alarmdrop {
-      position: absolute;
-      border-collapse: collapse;
-      background: white;
-      width: 130px;
-      height: 32px;
-      left: 270px;
-      top: 110px;
-      z-index: 10000000;
-      border: 1px solid black;
-    }
+.inactive {
+	background: none !important;
+	color:gray !important;
+}
+.inactive:hover{
+	background: none !important;
+	color: gray !important;
+}
+#alarmCheckbox {
+	left: 280px;
+	top: 75px;
+	border: 1px solid black;
+	position: absolute;
+	height: 9px;
+	width: 9px;
+	background: none;
+	z-index: 1100000;
+}
+#closeAlarm{
+	display: none;
+	position: absolute;
+	border:none;
+	left: 0px;
+	top: 0px;
+	z-index: 1100000;
+}
+#alarmdiv{
+	background:white;
+}
+#keyover {
+	left: 382px;
+	top: 71px;
+	position: absolute;
+	z-index: 1200000;
+}
+#keyoverpic {
+	display: block;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	z-index: 1200000;
+}
+#keydowno {
+	left: 385px;
+	top: 77px;
+	position: absolute;
+	z-index: 1200000;
+}
+#keydownopic {
+	display: none;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	z-index: 1200000;
+}
 
-    #inverseclock {
-      display: none;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-    }
+#alarmdropdown {
+	left: 270px;
+	top: 89px;
+	position: absolute;
+	background: white;
+	cursor: url('line2cross.png'), default;
+	z-index: 1200000;
+}
+#alarmdropdownpic {
+	display: none;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	z-index: 1200000;
+}
+#alarmdropdown2 {
+	left: 270px;
+	top: 110px;
+	position: absolute;
+	z-index: 1200000;
+	background: white;
+	display: none;
+}
+#alarmdrop {
+	position: absolute;
+	border-collapse: collapse;
+	background: white;
+	width: 130px;
+	height: 32px;
+	left: 270px;
+	top: 110px;
+	z-index: 10000000;
+	border: 1px solid black;
+}
+#inverseclock {
+	display: none;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+}
 
-    #inversealarm{
-      display: none;
-      position: absolute;
-      left: 88px;
-      top: 2px;
-    }
-    #inversedate{
-      display: none;
-      position: absolute;
-      left: 45px;
-      top: 2px;
-     }
-     #url{
-     	border: 1px solid black;
-     	background: white;
-     	position: absolute;
-     	z-index: 10000;
-     }
+#inversealarm{
+	display: none;
+	position: absolute;
+	left: 88px;
+	top: 2px;
+}
+#inversedate{
+	display: none;
+	position: absolute;
+	left: 45px;
+	top: 2px;
+}
+#url{
+	border: 1px solid black;
+	background: white;
+	position: absolute;
+	z-index: 10000;
+}
+#editflashdiv{
+	position: absolute;
+	display: none;
+	color: transparent;
+  	width: 124px;
+  	height: 228px;
+	left: 76px;
+	top: 27px;
+	z-index: 20000;
+}
+#goodiesflashdiv{
+	position: absolute;
+	display: none;
+	color: transparent;
+  	width: 105px;
+  	height: 145px;
+	left: 113px;
+	top: 27px;
+	z-index: 20000;
+}
+#fileflashdiv{
+	position: absolute;
+	display: none;
+	color: transparent;
+  	width: 100px;
+  	height: 182px;
+	left: 41px;
+	top: 27px;
+	z-index: 20000;
+}
+#fontflashdiv{
+	position: absolute;
+	display: none;
+	color: transparent;
+  	width: 75px;
+  	height: 127px;
+	left: 177px;
+	top: 27px;
+	z-index: 20000;
+}
+#fontsizeflashdiv{
+	position: absolute;
+	display: none;
+	color: transparent;
+  	width: 67px;
+  	height: 164px;
+	left: 217px;
+	top: 27px;
+	z-index: 20000;
+}
+#styleflashdiv{
+	position: absolute;
+	display: none;
+	color: transparent;
+  	width: 127px;
+  	height: 177px;
+	left: 285px;
+	top: 27px;
+	z-index: 20000;
+}
+#appleflashdiv{
+	position: absolute;
+	display: none;
+	color: transparent;
+  	width: 130px;
+  	height: 177px;
+	left: 23px;
+	top: 27px;
+	z-index: 20000;
+}
+#cursorcanvas {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: transparent;
+	z-index: 21000;
+	cursor: none;
+}
+
+
+

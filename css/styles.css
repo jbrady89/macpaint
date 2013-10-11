@@ -8,6 +8,9 @@ body
 	-ms-user-select: none;
 	user-select: none;
 }
+div {
+  cursor: default;
+}
 
 
 /*disables highlighting when dragging over content;
@@ -123,139 +126,181 @@ body
 }
 
 #shadowdiv {
-      height:14px;
-       font-size:12px;
-       filter:DropShadow(Color=#000000, OffX=1, OffY=1) 
-       progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=-1);
-    }
-    #outlinediv {
-      height:14px;
-       font-size:12px;
-       filter:progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=1) 
-       progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=-.5,offY=.5) 
-       progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=-1) 
-       progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=-.5,offY=-.5);
-    }
+  height:14px;
+  font-size:12px;
+  filter:DropShadow(Color=#000000, OffX=1, OffY=1);
+  progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=-1);
+}
+#outlinediv {
+  height:14px;
+  font-size:12px;
+  filter:progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=1) 
+  progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=-.5,offY=.5) 
+  progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=-1) 
+  progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=-.5,offY=-.5);
+}
 
-    .divfont {
-      filter:progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=1) 
-      progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=-.5,offY=.5) 
-      progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=-1) 
-      progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=-.5,offY=-.5);
-    }
+.divfont {
+  filter:progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=1) 
+  progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=-.5,offY=.5) 
+  progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=.5,offY=-1) 
+  progid:DXImageTransform.Microsoft.dropshadow(color=#000000,offX=-.5,offY=-.5);
+}
 
-    #myCanvas {
-    	
-    }
+#myCanvas {}
 
-    #patternchangeboxdiv {
-      display: none;
-    	position: absolute;
-    	left: 100px;
-    	top: 100px;
-    	z-index: 601;
-      margin: 0;
-      padding: 0;
-    }
-    #patternchangebox {
-      display: block;
-    }
+#patternchangeboxdiv {
+  display: none;
+	position: absolute;
+	left: 100px;
+	top: 100px;
+	z-index: 601;
+  margin: 0;
+  padding: 0;
+}
+#patternchangebox {
+  display: block;
+}
 
-    #leftBox {
-    position: absolute;
-    left: 23px;
-    top: 23px;
-    height: 65px;
-  	width:65px;
-  	background-image:url('mpbackground.jpg');
-  	background-repeat:repeat;
-  	z-index: 1000;
+#leftBox {
+  position: absolute;
+  left: 23px;
+  top: 23px;
+  height: 65px;
+	width:65px;
+	background-image:url('mpbackground.jpg');
+	background-repeat:repeat;
+	z-index: 1000;
+}
+#rightBox {
+  position: absolute;
+  left: 103px;
+  top: 23px;
+  height: 65px;
+  width:65px;
+  background-image:url('18.jpg');
+  background-repeat:repeat;
+  z-index: 1000;
+}
 
-    }
-    #rightBox {
-    position: absolute;
-    left: 103px;
-    top: 23px;
-    height: 65px;
-    width:65px;
-    background-image:url('18.jpg');
-    background-repeat:repeat;
-    z-index: 1000;
+#okEdits{
+  position:absolute;
+  top: 102px;
+  left: 24px;
+  z-index: 1001;
+  width: 62px;
+  height: 14px;
+   padding-bottom: 2px;
+}
+#cancelEdits{
+  position: absolute;
+  z-index: 1001;
+  left: 104px;
+  top: 102px;
+  width: 62px;
+  height: 14px;
+   padding-bottom: 2px;
+}
 
-    }
+#Mirrors {
+  display: none;
+  position: absolute;
+  left: 120px;
+  top: 80px;
+  z-index: 10001;
+  margin: 0;
+  padding: 0;
+}
+#MirrorsPic {
+  display: block;
+}
+#editMirrorBox{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid yellow;
+  z-index: 1000;
+}
+#okMirrors{
+  position:absolute;
+  top: 152px;
+  left: 24px;
+  z-index: 10002;
+  width: 62px;
+  height: 12px;
+  padding-bottom: 2px;
+}
+#noneMirrors{
+  position: absolute;
+  z-index: 10002;
+  left: 104px;
+  top: 152px;
+  width: 62px;
+  height: 12px;
+   padding-bottom: 2px;
+}
 
-    #okEdits{
-      position:absolute;
-      top: 102px;
-      left: 24px;
-      z-index: 1001;
-      width: 62px;
-      height: 14px;
-      padding-top: 2px;
-    }
-    #cancelEdits{
-      position: absolute;
-      z-index: 1001;
-      left: 104px;
-      top: 102px;
-      width: 62px;
-      height: 14px;
-      padding-top: 2px;
-    }
+.mirrorText {
+  position: relative;
+  top: -3px;
+}
+#overlay{
+  position: absolute;
+  z-index: 10000;
+  left: 0px;
+  top: 0px;
+  width: 800px;
+  height: 500px;
+  display: none;
+  background: black;
+  opacity: .3;
+}
 
-    #Mirrors {
-      display: none;
-      position: absolute;
-      left: 120px;
-      top: 80px;
-      z-index: 10001;
-      margin: 0;
-      padding: 0;
-    }
-    #MirrorsPic {
-      display: block;
-    }
-    #editMirrorBox{
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      height: 50px;
-      width: 50px;
-      border: 1px solid yellow;
-      z-index: 1000;
-    }
-  #okMirrors{
-      position:absolute;
-      top: 152px;
-      left: 24px;
-      z-index: 10002;
-      width: 62px;
-      height: 14px;
-      padding-top: 2px;
-    }
-    #noneMirrors{
-      position: absolute;
-      z-index: 10002;
-      left: 104px;
-      top: 152px;
-      width: 62px;
-      height: 14px;
-      padding-top: 2px;
-    }
-    #overlay{
-      position: absolute;
-      z-index: 10000;
-      left: 0px;
-      top: 0px;
-      width: 800px;
-      height: 500px;
-      display: none;
-      background: black;
-      opacity: 0.5;
-    }
+.goodiesCheck {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
 
-    .goodiesCheck {
-      position: relative;
-      margin: 0;
-      padding: 0;
-    }
+#tempContainer {
+  position: absolute;
+  top: 0px;
+  left: 600px;
+  border: 1px solid black;
+}
+
+#temp {
+  border: 1px solid black;
+}
+
+#tempContainer2 {
+  position: absolute;
+  display: none;
+  top: 0px;
+  left: 1200px;
+  border: 1px solid black;
+}
+
+#temp2 {
+  border: 1px solid black;
+}
+
+#newPatContainer{
+  position: absolute;
+  top: 360px;
+  left: 200px;
+}
+#newPat{
+
+}
+
+#newPatContainer2{
+  position: absolute;
+  top: 360px;
+  left: 250px;
+}
+#newPat{
+
+}
