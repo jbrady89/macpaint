@@ -1,110 +1,68 @@
 // register onLoad event with anonymous function
 // disable image dragging
 window.ondragstart = function() { return true; } ;
-
-
 $(document).ready(function(){
-  vBoxStartLeft = $('#viewBox').css('left');
-  vBoxStartTop = $('#viewBox').css('top');
+  //adjusts the viewbox div based on main canvas location
+  var vBoxStartLeft = $('#vbContainer').css('left');//viewbox starting positions
+  var vBoxStartTop = $('#vbContainer').css('top');
   $('.canvas').mouseup(function(){
-    vBoxLeft = parseInt($('#viewBox').css('left'));
-    vBoxTop = parseInt($('#viewBox').css('top'));
-    var canvasLeft = parseInt($('.canvas').css('left')) / -3.09;
-    var canvasTop = parseInt($('.canvas').css('top')) / -2.98
-    $('#viewBox').css('left', canvasLeft + 'px').css('top', canvasTop + 'px');
+    var canvasLeft = parseInt($('.canvas').css('left')) / -3.1; //set viewbox position based on canvas position
+    var canvasTop = parseInt($('.canvas').css('top')) / -2.8;
+    $('#vbContainer').css('left', canvasLeft + 'px').css('top', canvasTop + 'px');
+    console.log($('#vbContainer').css('left'), $('#vbContainer').css('top'));
   });
-  $('#yesScaled, #cancelScaled').mousedown(function(){
-    vBoxLeft = parseInt($('#viewBox').css('left'));
-    vBoxTop = parseInt($('#viewBox').css('top'));
+  $('#yesScaled, #cancelScaled').mousedown(function(){//enables hover after mousedown on button
+    //$(this).css('z-index', 9000);
     $(this).css({'background':'black','color':'white'});
     $(this).hover(
       function(){$(this).css({'background':'black','color':'white'})},
       function(){$(this).css({'background':'white','color':'black'});
     });
-    $('#yesScaled').mouseup(function(){
-      $(this).css({'background':'white','color':'black'});
-      var sourceX = -3.09 * parseInt($('#viewBox').css('left'));
-      var sourceY = -2.98 * parseInt($('#viewBox').css('top'));
-      $('.canvas').css('top', sourceY + 'px').css('left', sourceX + 'px');
-      $('.canvas').show();
-    });
     $('#cancelScaled').mouseup(function(){
+      var vbLastLeft = parseInt($('.canvas').css('left')) / -3.1; //set viewbox position based on canvas position
+      var vbLastTop = parseInt($('.canvas').css('top')) / -2.8;
       $('.canvas').show();
-      $('#viewBox').css({'left':vBoxStartLeft ,'top': vBoxStartTop})
+      $('#vbContainer').css({'left': vbLastLeft,'top': vbLastTop})//returns viewbox to most recent position
     });
     $(document).mouseup(function(){
       $('#yesScaled, #cancelScaled').css({'background':'white','color':'black'});
       $('#yesScaled, #cancelScaled').unbind('hover');
     });
   });
-  $('#viewBox').draggable({containment: '#scaledCanvas'});
-/*theDate();
-startTime();
-      function theDate(){
-        var currentDate = new Date()
-        var day = currentDate.getDate()
-        var month = currentDate.getMonth() + 1
-        var year = new Date().getFullYear().toString().substr(2, 2);
-        document.getElementById('txt3').innerHTML=month+"/"+day+"/"+year+"";
-    }
-      $('#alarm').mouseup(function(){
-        var grayItems = $('#file, #goodies, #font, #fontsize, #style');
-        $('#alarmdiv, #alarmdrop, #inversedate, #txt3').show();
-        $('#inverseclock, #inversealarm, #txt2').hide();
-        $('.rowlines, #closecanvastable').hide();
-        grayItems.addClass('inactive');
-        theDate();
-        $('#alarmcell').mousedown(function(){
-          $('#inverseclock, #inversedate, #txt2, #txt3').hide();
-          $('#inversealarm, #txt4').show();
-        });
-        $('#datecell').mousedown(function(){
-          $('#inverseclock, #inversealarm, #txt2').hide();
-          $('#inversedate, #txt3').show();
-          theDate();
-        });
-        $('#clockcell').mousedown(function(){
-          $('#inversedate, #inversealarm, #txt3').hide();
-          $('#inverseclock,#txt2').show()
-          startTime2();
-        });
-        $('#alarmCheckbox').mousedown(function(){
-          $('#closeAlarm').show();
-          $('#alarmCheckbox').mouseup(function(){
-            $('#alarmdiv, #closeAlarm, #alarmdrop').hide();
-            $('.rowlines, #closecanvastable').show();
-            grayItems.removeClass('inactive');
-          });
-        });
-      });
-  $('#myCanvas').hover(function(){
-    var el = document.getElementById("myCanvas");
-     el.onkeypress = function(evt) {
-         var charCode = evt.which;
-         var charStr = String.fromCharCode(charCode);
-         alert(charStr);
-     };
+   $('#yesScaled').mouseup(function(){
+      console.log($('#vbContainer').css('left'), $('#vbContainer').css('top'));
+      console.log($('.canvas').css('left'));
+      $(this).css({'background':'white','color':'black'});
+      var sourceX = -3.1 * parseInt($('#vbContainer').css('left'));//set canvas position based on viewbox position
+      var sourceY = -2.8 * parseInt($('#vbContainer').css('top'));
+      
+      $('.canvas').css({'top':sourceY,'left': sourceX});
+      $('.canvas').show();
     });
-  //Alarm Clock
-    function startTime(){
-      var currentTime = new Date()
-      var hours = currentTime.getHours()
-      var minutes = currentTime.getMinutes()
-      var seconds = currentTime.getSeconds()
-    
-    if (minutes < 10)
-      minutes = "0" + minutes
-      var suffix = "AM";
-      if (hours >= 12) {
-        suffix = "PM";
-        hours = hours - 12;
-      }
-      if (hours == 0) {
-        hours = 12;
-      }
-      document.getElementById('txt').innerHTML=hours+":"+minutes+":"+seconds+" "+suffix;
-      t=setTimeout(function(){startTime()},500);
-      document.getElementById('txt2').innerHTML=hours+":"+minutes+":"+seconds+" "+suffix;
-      t=setTimeout(function(){startTime2()},500);
-    }*/
+  if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){//ie specific code for dragging the viewBox
+    $('#viewBox').mousedown(function(){
+      $('#vbContainer').trigger('mousedown');
+      $('#vbContainer').draggable({containment: '#scaledCanvas'});
+    });
+  }
+  $('#vbContainer').draggable({containment: '#scaledCanvas'});
+  $('#about').mouseup(function(){
+    setTimeout(aboutPopup, 500);
+    function aboutPopup(){
+      $('#aboutDiv').show();
+    }
+    $('#aboutOk').mousedown(function(){
+      $('#aboutOk').css({'background':'black','color':'white'})
+      $(this).hover(function(){ $(this).css({'background':'black','color':'white'})},
+        function(){$(this).css({'background':'white','color':'black'});
+      });
+      $(document).mouseup(function(){
+        $('#aboutOk').unbind('hover');
+      });
+      $('#aboutOk').mouseup(function(){
+        $('#aboutDiv').hide();
+        $(this).css({'background':'white','color':'black'});
+      });
+    });
+  });
 });
