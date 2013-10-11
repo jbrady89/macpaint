@@ -1,0 +1,1167 @@
+/*for future styling*/
+body{}
+
+/*defines dimensions & adds background, but does nothing now apparently*/
+.content {
+	height: 341px;
+	width:511px;
+	background-image:url('mpbackground.jpg');
+	background-repeat:repeat;
+}
+#toolstable {
+	margin: 0;
+	height: 219px;
+	width: 51px;
+	position:absolute;
+	top: 36px;
+	left: 23px;
+	border: 1px solid black;
+	box-shadow: 1px 1px #000000;
+}
+/*tool buttons table*/
+.tools {
+	color: #000000;
+	margin: 0;	
+	position:absolute;
+	left: 23px;
+	top: 36px;
+	border-collapse: collapse;
+}
+
+.tools td {
+	padding: 0px;
+	margin: 0px;
+}
+
+/*images for tools table*/
+* .btn {
+	height: 20px;
+	width: 21px;
+}
+
+.btn1 {background-image:url('button1.jpg');
+}
+.btn2 {background-image:url('button2.jpg');
+}
+.btn3 {background-image:url('button3.jpg');
+}
+.btn4 {background-image:url('button4.jpg');
+}
+.btn5 {background-image:url('button5.jpg');
+}
+.btn6 {background-image:url('button6.jpg');
+}
+.btn7 {background-image:url('button7.jpg');
+}
+.btn8 {background-image:url('button8.jpg');
+}
+.btn9 {background-image:url('button9.jpg');
+}
+.btn10 {background-image:url('button10.jpg');
+}
+.btn11 {background-image:url('button11.jpg');
+}
+.btn12 {background-image:url('button12.jpg');
+}
+.btn13 {background-image:url('button13.jpg');
+}
+.btn14 {background-image:url('14.jpg');
+}
+.btn15 {background-image:url('15.jpg');
+}
+.btn16 {background-image:url('16.jpg');
+}
+.btn17 {background-image:url('17.jpg');
+}
+.btn18 {background-image:url('18.jpg');
+}
+.btn19 {background-image:url('19.jpg');
+}
+.btn20 {background-image:url('20.jpg');
+}
+.btn21 {background-image:url('21.jpg');
+}
+.btn22 {background-image:url('22.jpg');
+}
+.btn23 {background-image:url('23.jpg');
+}
+.btn24 {background-image:url('24.jpg');
+}
+.btn25 {background-image:url('25.jpg');
+}
+.btn26 {background-image:url('26.jpg');
+}
+.btn27 {background-image:url('27.jpg');
+}
+.btn28 {background-image:url('28.jpg');
+}
+.btn29 {background-image:url('29.jpg');
+}
+.btn30 {background-image:url('30.jpg');
+}
+.btn31 {background-image:url('31.jpg');
+}
+.btn32 {background-image:url('32.jpg');
+}
+.btn33 {background-image:url('33.jpg');
+}
+.btn34 {background-image:url('34.jpg');
+}
+.btn35 {background-image:url('35.jpg');
+}
+.btn36 {background-image:url('36.jpg');
+}
+.btn37 {background-image:url('37.jpg');
+}
+.btn38 {background-image:url('38.jpg');
+}
+/*brush patterns table*/
+.rightbrushtable {
+	color: #000000;
+	margin: 0;
+	padding: 0px;
+	position:absolute;
+	left:129px;
+	top: 307px;
+	border: 1px solid #000000;
+	border-collapse: collapse;
+	box-shadow: 1px 1px #000000;
+}
+
+.rightbrushtable td {
+	border-bottom: none;
+	padding: 0px;
+	text-align: left;
+	background-repeat: repeat;
+}
+/*sets the background of each brush pattern table cell*/
+#pattern1 {
+	background-image:url('images/pattern1.jpg');
+	height: 16px;
+	width: 19px;
+}
+#pattern2 {
+	background-image:url('images/pattern2.jpg');
+	height: 16px;
+	width: 19px;
+}
+#pattern3 {
+	background-image:url('images/pattern3.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern4 {
+	background-image:url('images/pattern4.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern5 {
+	background-image:url('images/pattern5.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern6 {
+	background-image:url('images/pattern6.jpg');
+	width: 19px;
+	height: 16px;}
+
+#pattern7 {
+	background-image:url('images/pattern7.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern8 {
+	background-image:url('images/pattern8.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern9 {
+	background-image:url('images/pattern9.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern10 {
+	background-image:url('images/pattern10.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern11 {
+	background-image:url('images/pattern11.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern12 {
+	background-image:url('images/pattern12.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern13 {
+	background-image:url('images/pattern13.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern14 {
+	background-image:url('images/pattern14.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern15 {
+	background-image:url('images/pattern15.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern16 {
+	background-image:url('images/pattern16.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern17 {
+	background-image:url('images/pattern17.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern18 {
+	background-image:url('images/pattern18.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern19 {
+	background-image:url('images/pattern19.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern20 {
+	background-image:url('images/pattern20.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern21 {
+	background-image:url('images/pattern21.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern22 {
+	background-image:url('images/pattern22.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern23 {
+	background-image:url('images/pattern23.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern24 {
+	background-image:url('images/pattern24.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern25 {
+	background-image:url('images/pattern25.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern26 {
+	background-image:url('images/pattern26.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern27 {
+	background-image:url('images/pattern27.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern28 {
+	background-image:url('images/pattern28.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern29 {
+	background-image:url('images/pattern29.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern30 {
+	background-image:url('images/pattern30.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern31 {
+	background-image:url('images/pattern31.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern32 {
+	background-image:url('images/pattern32.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern33 {
+	background-image:url('images/pattern33.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern34 {
+	background-image:url('images/pattern34.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern35 {
+	background-image:url('images/pattern35.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern36 {
+	background-image:url('images/pattern36.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern37 {
+	background-image:url('images/pattern37.jpg');
+	width: 19px;
+	height: 16px;
+}
+#pattern38 {
+	background-image:url('images/pattern38.jpg');
+	width: 19px;
+	height: 16px;
+}
+/*background-image: url('images/pattern1.jpg');*/
+
+/*holds image for current pattern*/
+.innerimagetable {
+	position:absolute;
+	left: 7px;
+	top: 5px;
+	width: 28px;
+	height: 23px;
+	border: 1px solid #000000;
+	background-image: url('images/pattern1.jpg');
+	border-collapse: collapse;
+	background-repeat:repeat;
+	z-index: 500;
+}
+
+.outerleftbrushtable {
+	color: #000000;
+	margin: 0px;
+	padding: 0px;	
+	position:absolute;
+	height: 33px;
+	width: 42px;
+	left: 86px;
+	top: 307px;
+	background: white;
+	border: 1px solid #000000;
+	border-collapse: collapse;
+	box-shadow: 1px 1px #000000;
+}
+/*table for changing line thickness*/
+#linestable{
+	margin: 0;
+	height: 75px;
+	width: 51px;
+	position:absolute;
+	top: 265px;
+	left: 23px;
+	border: 1px solid black;
+	box-shadow: 1px 1px #000000;
+}
+.linethicknesstable {
+	color: #000000;
+	margin: 0px;
+	padding: 0px;
+	line-height: 0em;	
+	position:absolute;
+	left: 23px;
+	top: 265px;
+	width: 51px;
+	height: 75px;
+	background: #FFFFFF;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.linethicknesstable td {
+	padding: 0px;
+	margin: 0px;
+}
+
+#linethicknesscheck {
+	position:absolute;
+	left: 27px;
+	top: 273px;
+	z-index:8000;
+}
+
+#linewhitespace {
+	position:absolute;
+	left: 23px;
+	top: 265px;
+	z-index:7000;
+}
+/*checkbox images for linethicknesstable*/
+#checkrow0 {
+	height: 16px;
+	width: 14px;
+}
+
+#checkrow1 {
+	height: 11px;
+	width: 14px;
+}
+
+#checkrow2 {
+	height: 11px;
+	width: 14px;
+}
+
+#checkrow3 {
+	height:14px;
+	width:14px;
+}
+
+#checkrow4 {
+	height:17px;
+	width: 14px;
+}
+
+/*#linecheckimg {
+	position: absolute;
+	left: 27px;
+	top: 10px;
+	z-index: -20000;
+}*/
+
+/*adds spacing around left box in window bar*/
+#cboxouterbox {
+	position:absolute;
+	top: 41px;
+	left: 96px;
+	width: 13px;
+	height: 11px;
+	background: white;
+	z-index: 600;
+}
+/*left box in window bar*/
+#closecanvastable {
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	width: 9px;
+	height: 9px;
+	z-index:520;
+	left: 97px;
+	top: 41px;
+	border: 1px solid black;
+	background: white;
+	z-index: 650;
+}
+/*cell of closecanvas table*/
+#checkbox {
+	position: absolute;
+	border:none;
+	top: 1px;
+	left: 1px;
+	display:none;
+	padding: 0px;
+	margin: 0px;
+}
+/*image that appears when checkbox is active*/
+#closecanvas {
+	position: absolute;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+	left: -1px;
+	top: -1px;
+
+}
+
+/*holds file name in window bar*/
+/*#filename {
+	position:absolute;
+	left: 181px;
+	top:2px;
+}*/
+#tablefilename {
+	padding-left: 3px;
+	padding-right: 3px;
+	position: absolute;
+	line-height: .9em;
+	top: 38px;
+	left: 260px;
+	height: 12px;
+	background: white;
+	font-family: 'Chicago';
+	font-size: 12px;
+	text-align: center;
+	z-index:600;
+	}
+/*lined window bar canvas*/
+.rowlines {
+	position: absolute;
+	display: block;
+	border:1px solid #000000;
+	box-shadow: 1px 0 #000000;
+	background: white;
+	z-index:550;
+	top: 37px;
+	left:88px;
+}
+/*table becomes visible when window bar disappears*/
+#behinduppercanvastable {
+	position: absolute;
+	display: block;
+	background: white;
+	border:1px solid #000000;
+	box-shadow: 1px 0 #000000;
+	z-index:549;
+	width: 414px;
+	height: 19px;
+	top: 37px;
+	left:88px;
+}
+/*container for window bar and main canvas*/
+#contents{
+	display: block;
+}
+
+/*images for the 4 rounded corners*/
+.topleftcorner {
+	left: 8px;
+	position: absolute;
+	z-index: 900;
+}
+
+.toprightcorner {
+	position: absolute;
+	left: 514px;
+	z-index: 900;
+}
+
+.bottomleftcorner {
+	position: absolute;
+	top: 343px;
+	z-index:650;
+}
+
+.bottomrightcorner {
+	position: absolute;
+	top: 344px;
+	left: 514px;
+	z-index:650;
+}
+
+/*styling for buttons inside pop-up windows*/
+.popupbuttons {
+	position: absolute;
+	background: white;
+	width: 80px;
+	line-height: 10px;
+	border: 1px solid black;
+	font-family: "Chicago";
+	text-align: center;
+	font-size: 12px;
+	-moz-border-radius: 6px 6px 6px 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+	z-index:700;
+}
+/*stylings for introduction feature*/
+#intro {
+	position: absolute;
+	cursor: default;
+	display: none;
+	overflow: hidden;
+	border: 1px solid black;
+	left: 88px;
+	top: 55px;
+	height: 239px;
+	width: 414px;
+	z-index: 10001;
+}
+
+#introduction {
+	display: block;
+}
+
+#introbutton {
+	left: 320px;
+	top: 205px;
+}
+/*stylings for shortcuts feature*/
+#shortcut {
+	position: absolute;
+	cursor: default;
+	display: none;
+	overflow: hidden;
+	border: 1px solid black;
+	left: 88px;
+	top: 55px;
+	height: 239px;
+	width: 414px;
+	z-index: 10001;
+}
+
+#shortcuts {
+	display: block;
+}
+
+#sCutbutton {
+	left: 318px;
+	top: 205px;
+}
+/*pop-up container with buttons*/
+.popupdiv {
+	position: absolute;
+	display: none;
+	cursor: default;
+	border: 1px solid black;
+	left: 150px;
+	top: 120px;
+	height: 108px;
+	width: 258px;
+	z-index: 9000;
+}
+
+/*pop-ups with buttons*/
+.choicespopup {
+	position: absolute;
+	background:white;
+	line-height: 10px;
+	width: 74px;
+	border: 1px solid black;
+	font-family: "Chicago";
+	text-align: center;
+	font-size: 12px;
+	-moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	z-index:10000;
+}
+/*positions buttons within pop-up windows*/
+#cancelSave {
+	left: 161px;
+	top: 69px;
+}
+#yesSave {
+	left: 23px;
+	top:45px;
+}
+
+#noSave {
+	left:23px;
+	top: 69px;
+}
+
+#cancelQuit {
+	left: 161px;
+	top: 69px;
+}
+
+#yesQuit {
+	left: 23px;
+	top:45px;
+}
+
+#noQuit {
+	left:23px;
+	top: 69px;
+}
+
+#cancelClose {
+	left: 161px;
+	top: 69px;
+}
+
+#yesClose {
+	left: 23px;
+	top:45px;
+}
+
+#noClose {
+	left:23px;
+	top: 69px;
+}
+#revertdiv {
+	position: absolute;
+	display: none;
+	width: 285px;
+	height: 105px;
+	left: 120px;
+	top: 100px;
+	z-index: 5000;
+	border: none;
+}
+#cancelRevert {
+	position: absolute;
+	top: 70px;
+	left: 182px;
+	width: 80px;
+	z-index: 5500;
+	background: white;
+	-moz-border-radius: 5px 5px;
+    -webkit-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+#yesRevert{
+	position: absolute;
+	top: 70px;
+	left: 86px;
+	width: 80px;
+	z-index: 5500;
+	background: white;
+	-moz-border-radius: 5px 5px;
+    -webkit-border-radius: 5px 5px;
+    border-radius: 5px 5px;
+}
+/*giant container for canvas used for dragging tool implementation*/
+#canvasbox {
+	position:absolute;
+	overflow: hidden;
+	height: 239px;
+	width: 414px;
+	left: 88px;
+	top: 55px;
+	background-image:url('canvasboxbg.jpg');
+	background-repeat:repeat;
+	border: 1px solid black;
+	box-shadow: 1px 1px #000000;
+	z-index: 550;
+}
+#largebox{
+	position: absolute;
+	left: -165px;
+	top: -479px;
+	height: 1200px;
+	width:745px;
+	background: none;
+	border: 1px solid black;
+}
+/*main drawing canvas*/
+.canvas {
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+    left: -91px;
+    top: -100px;
+	background: white;
+	z-index: 600;
+}
+#selected {
+	position:absolute;
+	background: white;
+	z-index: 1000;
+}
+#scaledCanvas {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: white;
+}
+#yesScaled{
+	position: absolute;
+	left: 320px;
+	top: 160px;
+	z-index: 550;
+}
+#cancelScaled{
+	position:absolute;
+	left: 320px;
+	top: 190px;
+	z-index: 550;
+}
+#scaledcanvasdiv{
+	position: absolute;
+	left: 111px;
+	border: 1px solid black;
+	border-top: none;
+	border-bottom: none;
+	height: 239px;
+	width: 190px;
+}
+#viewBox {
+	position: relative;
+	left: 29px;
+	top: 34px;
+	width: 135px;
+	height: 77px;
+	border: 1px dotted black;
+	background: none;
+	z-index: 550;
+}
+#img {
+	border: 1px solid black;
+}
+
+/*styling for a canvas container that might be used for hand tool implementation*/
+
+
+#brushespopup{
+      display:none;
+      position:absolute;
+      z-index: 5000;
+      top: 100px;
+      left: 100px;
+    }
+    #brushpopupimage{}
+    
+    #brushestablediv{
+      background: none;
+      position: absolute;
+      border: 1px solid blue;
+      z-index: 100000;
+      width: 270px;
+      height: 130px;
+      top: 22px;
+      left: 18px
+
+    }
+    
+    #brushestable{
+      background:none;
+      width: 270px;
+      height: 130px;
+      position: absolute;
+      border-collapse:collapse;
+      z-index: 1000;
+      /*border: 2px solid black;*/
+    }
+
+    #brushestable td{
+    }
+	#brushbox {
+      display: none;
+      position: absolute;
+      height: 28px;
+      width: 28px;
+      left: 156px;
+      top: 156px;
+      border: 2px solid black;
+      z-index: 6000;
+    }
+
+
+    #gamepic {
+    	display: none;
+		position: absolute;
+	    left: 109px;
+	    top: 88px;
+	    z-index: 1000000;
+    }
+
+    #alarmpic {
+    	display: block;
+		position: absolute;
+	    left: 270px;
+	    top: 70px;
+	    z-index: 1000001;
+    }
+    #txt {
+    	display: block;
+		position: absolute;
+	    left: 296px;
+	    top: 70px;
+	    z-index: 1000002;
+	    font-family: "Chicago";
+	    font-size: 12px;
+	    cursor: default;
+    }
+    #txt2 {
+    	display: block;
+		position: absolute;
+	    left: 296px;
+	    top: 91px;
+	    z-index: 100000000;
+	    font-family: "Chicago";
+	    font-size: 12px;
+	    cursor: url('line2cross.png'), default;
+    }
+    #txt3 {
+    	display: none;
+		position: absolute;
+	    left: 296px;
+	    top: 91px;
+	    z-index: 100000000;
+	    font-family: "Chicago";
+	    font-size: 12px;
+	    cursor: url('line2cross.png'), default;
+    }
+
+      #txt4 {
+    	display: none;
+		position: absolute;
+	    left: 296px;
+	    top: 91px;
+	    z-index: 100000000;
+	    font-family: "Chicago";
+	    font-size: 12px;
+	    cursor: url('line2cross.png'), default;
+    }
+
+    #gametable {
+    	display: none;
+		position: absolute;
+		left: 114px;
+	    top: 111px;
+		z-index: 1000001;
+		margin: 0;
+		padding:0;
+		border-collapse: collapse;
+    }
+
+     #filename{
+      position: absolute;
+      height: 11px;
+      line-height: .9em;
+      width: 64px;
+      left: 181px;
+      top: 4px;
+      padding: 0;
+      margin: 0 auto;
+      border: none;
+      background: white;
+      z-index: 600;
+      text-align: center;
+      font-family: 'Chicago';
+      font-size: 12px;
+    }
+
+#filenameinner{
+      position: absolute;
+      height: 11px;
+      line-height: .9em;
+      width: 64px;
+      left: 0px;
+      top: 2px;
+      padding: 0;
+      margin: 0 auto;
+      border: none;
+      background: white;
+      z-index: 600;
+      text-align: center;
+      font-family: 'Chicago';
+      font-size: 12px;
+    }
+
+    @-moz-document url-prefix() {
+    #filenameinner {
+        top: 0px;
+    }
+}
+
+    #namecontainer {
+      position: absolute;
+      width: 414px;
+      height: 19px;
+      top: 37px;
+      left:88px;
+    }
+
+    #savedocumentdiv{
+      position: absolute;
+      display: block;
+      z-index: 10000;
+      left: 100px;
+      top: 100px;
+    }
+    #savedocument{
+      position: absolute;
+      display: none;
+      z-index: 10000;
+    }
+    #filenametext{
+      position: absolute;
+      display: none;
+      z-index: 10000;
+      width: 200px;
+    }
+    #typed{	
+    	position: absolute;
+    	top: 39px;
+    	left: 19px;
+    	width: 170px;
+    }
+    #saveYes{
+      display: none;
+      position:absolute;
+      background:white;
+      border: 1px solid black;
+      left: 20px;
+      top: 82px;
+      width: 70px;
+    }
+    #saveCancel{
+      display: none;
+      position:absolute;
+      background:white;
+      border: 1px solid black;
+      margin: 0 auto;
+      left: 122px;
+      top: 82px;
+      width: 70px;
+    }
+    #saveEject{
+      display: none;
+      position:absolute;
+      background:white;
+      border: 1px solid black;
+      left: 225px;
+      top: 51px;
+      width: 70px;
+    }
+    #saveDrive{
+      display: none;
+      position:absolute;
+      background:white;
+      border: 1px solid black;
+      left: 225px;
+      top: 82px;
+      width: 70px;
+    }
+    .saveDivs {
+      position: absolute;
+  background:white;
+  line-height: 10px;
+  width: 74px;
+  cursor:default;
+  border: 1px solid black;
+  font-family: "Chicago";
+  text-align: center;
+  font-size: 12px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  border-radius: 3px 3px 3px 3px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index:10000;
+
+    }
+
+ /*stuff that was in the head */
+    .inactive {
+      background: none !important;
+      color:gray !important;
+    }
+    .inactive:hover{
+      background: none !important;
+      color: gray !important;
+    }
+    #alarmCheckbox {
+      left: 280px;
+      top: 75px;
+      border: 1px solid black;
+      position: absolute;
+      height: 9px;
+      width: 9px;
+      background: none;
+      z-index: 1100000;
+    }
+    #closeAlarm{
+      display: none;
+      position: absolute;
+      border:none;
+      left: 0px;
+      top: 0px;
+      z-index: 1100000;
+    }
+    #alarmdiv{
+    	background:white;
+    }
+    #keyover {
+      left: 382px;
+      top: 71px;
+      position: absolute;
+      z-index: 1200000;
+    }
+    #keyoverpic {
+      display: block;
+      left: 0px;
+      top: 0px;
+      position: absolute;
+      z-index: 1200000;
+    }
+    #keydowno {
+      left: 385px;
+      top: 77px;
+      position: absolute;
+      z-index: 1200000;
+    }
+    #keydownopic {
+      display: none;
+      left: 0px;
+      top: 0px;
+      position: absolute;
+      z-index: 1200000;
+    }
+    
+    #alarmdropdown {
+      left: 270px;
+      top: 89px;
+      position: absolute;
+      background: white;
+      cursor: url('line2cross.png'), default;
+      z-index: 1200000;
+    }
+    #alarmdropdownpic {
+      display: none;
+      left: 0px;
+      top: 0px;
+      position: absolute;
+      z-index: 1200000;
+    }
+     #alarmdropdown2 {
+      left: 270px;
+      top: 110px;
+      position: absolute;
+      z-index: 1200000;
+      background: white;
+      display: none;
+    }
+    #alarmdrop {
+      position: absolute;
+      border-collapse: collapse;
+      background: white;
+      width: 130px;
+      height: 32px;
+      left: 270px;
+      top: 110px;
+      z-index: 10000000;
+      border: 1px solid black;
+    }
+
+    #inverseclock {
+      display: none;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+    }
+
+    #inversealarm{
+      display: none;
+      position: absolute;
+      left: 88px;
+      top: 2px;
+    }
+    #inversedate{
+      display: none;
+      position: absolute;
+      left: 45px;
+      top: 2px;
+     }
+     #url{
+     	border: 1px solid black;
+     	background: white;
+     	position: absolute;
+     	z-index: 10000;
+     }

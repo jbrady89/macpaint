@@ -1,0 +1,471 @@
+/*sets up Chicago font for menu*/
+@font-face {  
+	  font-family: "Chicago";  
+	  src: url( "Chicago.ttf" ) format("truetype"),
+ 	  url("CHICAGO.eot");
+}
+/*main menu and dropdown styling*/
+#navigation {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 509px;
+	height: 18px;
+	background: #FFFFFF;
+	border: 1px solid black;
+}
+
+ul.nav-main,
+ul.nav-main li {
+	margin: 0;
+	padding: 0px;
+	top:0px;
+}
+.flashing1 {
+	background: none !important;
+	color: black !important;
+}
+.flashing2 {
+	background: black !important;
+	color: white !important;
+}
+ul.nav-main {
+	position: relative;
+	z-index: 700;
+}
+
+ul.nav-main li {
+	position: relative;
+	left: 19px;
+	float:left;
+	display:block;
+	margin-right: 2px;
+	padding-left: 10px;
+	height: 18px;
+	color: #000000;
+	font-family: "Chicago";
+	font-size: 12px;
+	cursor: default;
+	z-index: 5000;
+}
+
+ul.nav-sub {
+	display: none;
+	position: absolute;
+	padding:0px;
+	border: 1px solid #000000;
+	top:18px;
+	z-index: 700;
+	background: #FFFFFF;
+	box-shadow: 1px 1px #000000;
+}
+
+ul.nav-sub li {
+	position: relative;
+	left: 0px;
+	list-style: none;
+	display: block;
+	
+	padding-bottom: 3px;
+	height: 15px;
+	float: none;
+	background: none;
+	margin: 0;
+}
+
+/*ul.nav-sub li:hover{
+	background: black;
+	color:white;
+}*/
+
+/*creates gray menu items when they have class 'inactive'*/
+ul.nav-sub .inactive{
+	color: #888888 !important; 
+}
+ul.nav-sub .inactive:hover{
+	color:#888888;
+	background: white;
+}
+
+/*positioning and width for each dropdown/menu items*/
+#appledrop {
+	left: -6px;
+}
+#filedrop {
+	left: 0px;
+}
+#editdrop {
+	position: absolute;
+	left: 0px;
+	height: 228px;
+}
+#goodiesdrop{
+	left: 0px;
+}
+#fontdrop {
+	left:0px;
+}
+#fontsizedrop {
+	left: 0px;
+}
+#styledrop {
+	position: absolute;
+	left: 0px;
+	z-index: 700;
+}
+
+ul#appledrop li {
+	width: 119px;
+}
+
+ul#filedrop li {
+	width: 90px;	
+}
+
+ul#editdrop li {
+	width:113px;
+	top: 2px;
+}
+
+ul#goodiesdrop li {
+	width: 94px;
+}
+
+ul#fontdrop li {
+	width:67px;	
+}
+
+ul#fontsizedrop li {
+	width:57px;	
+}
+
+ul#styledrop li {
+	width:117px;	
+}
+
+
+
+/*ul#fontsizedrop li:hover{
+	background: black;
+	color:white;
+}*/
+
+/*dotted line styling for apple dropdown*/
+#appledottedline {
+border-bottom: 1px dotted black;
+	position: relative;
+	left: 0px;
+	list-style: none;
+	display: block;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	height: 0px;
+	float: none;
+	width: 531px;
+	background: none;
+	margin: 0;
+}
+
+#appledottedline li:hover{
+	background: none;
+	color: black;
+}
+
+#alarm {
+	margin-top: 5px;
+}
+
+#about {
+	margin-bottom: 8px;
+}
+/*dotted line styling for edit dropdown*/
+#editdottedline{
+	border-bottom: 1px dotted black;
+	position: relative;
+	left: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	height: 0px;
+	width: 531px;
+	background: none;
+	margin: 0;
+}
+
+#undo {
+	margin-top: -2px;
+	margin-bottom: 8px;
+}
+
+#cutline {
+	margin-top: 5px;
+}
+
+/*second dotted line stying for edit dropdown*/
+#editdottedline2 {
+	border-bottom: 1px dotted black;
+	position: relative;
+	left: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	height: 0px;
+	width: 531px;
+	background: none;
+	margin: 0;
+}
+
+#invert {
+	margin-top: 5px;
+}
+
+#clear {
+	margin-bottom: 8px;
+}
+/*dotted line in 'style' dropdown and spacing for shadow/align left*/
+#styledottedline {
+	border-bottom: 1px dotted black;
+	position: relative;
+	left: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	height: 0px;
+	width: 531px;
+	background: none;
+	margin: 0;
+}
+
+#alignleft {
+	margin-top: 5px;
+}
+
+#shadow {
+	margin-bottom: 8px;
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black, 1px 0 black, 0.2em 0.2em #000000;
+}
+
+/*styles outline item in 'style' dropdown*/
+#outline {
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
+    1px 0 black;
+}
+/*styling for checkmarks next to fontsize items*/
+
+.stylechecks {
+	display: none;
+	position: absolute;
+	left: 3px;
+	top: 5px;
+}
+.fontchecks {
+	display: none;
+	position: absolute;
+	left: 3px;
+	top: 5px;
+}
+.fschecks {
+	display: none;
+	position: absolute;
+	left: 3px;
+	top: 5px;
+}
+
+.goodiesCheck {
+	display: none;
+	position: absolute;
+	left: 3px;
+	top: 5px;
+}
+/*styling for fontsize list items*/
+
+
+.textoutline {
+	background: blue;
+	color: yellow;
+	text-shadow: -1px 0 white, 0 -1px white, 0 1px white,
+    1px 0 white;
+}
+
+
+#fontsizedrop li.outline:hover {
+	text-shadow: -1px 0 white, 0 -1px white, 0 1px white,
+    1px 0 white;
+}
+
+
+#fontsize0 {
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
+    1px 0 black;
+}
+
+#fontsize1 {
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
+    1px 0 black;
+}
+
+#fontsize2 {
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
+    1px 0 black;
+}
+
+#fontsize3 {
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
+    1px 0 black;
+}
+
+#fontsize4 {
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
+    1px 0 black;
+}
+
+#fontsize5 {
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
+    1px 0 black;
+}
+/*shortcut symbol spacing*/
+#und0 {
+	margin-left: 23px;
+}
+
+#cut {
+	margin-left: 68px;
+}
+#trace{ 
+	margin-left: 14px;
+}
+#plain{ 
+	margin-left: 64px;
+}
+#b0ld{
+	margin-left: 64px;
+}
+#italic{
+	margin-left: 61px;
+}
+#underline{
+	margin-left: 34px;
+}
+#outl1ne{
+	margin-left: 50px;
+}
+#shad0w{
+	margin-left: 45px;
+}
+#alignL{
+	margin-left:33px;
+}
+#alignM{
+	padding-left: 16px;
+}
+#alignR{
+	padding-left: 26px;
+}
+#und0 {
+	padding-left: 35px;
+}
+#copy {
+	margin-left: 58px;
+}
+#paste {
+	margin-left: 53px;
+}
+
+/*apple image spacing*/
+#applebutton {
+	position: absolute;
+	left: -6px;
+	top: 0px;
+}
+/*spacing for black image that appears for nav-main*/
+#fileblackmenuside {
+	display: none;
+	position: absolute;
+	left: 73px;
+	top: 8px;
+	z-index: 7000;
+}
+
+#editblackmenuside {
+	display: none;
+	position: absolute;
+	left: 110px;
+	top: 8px;
+	z-index: 7000;
+}
+
+#goodiesblackmenuside {
+	display: none;
+	position: absolute;
+	left: 173px;
+	top: 8px;
+	z-index: 7000;
+}
+
+#fontblackmenuside {
+	display: none;
+	position: absolute;
+	left: 214px;
+	top: 8px;
+	z-index: 7000;
+}
+
+#fontsizeblackmenuside {
+	display: none;
+	position: absolute;
+	left: 282px;
+	top: 8px;
+	z-index: 7000;
+}
+
+#styleblackmenuside {
+	display: none;
+	position: absolute;
+	left: 327px;
+	top: 8px;
+	z-index: 7000;
+}
+
+#flashdiv {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 20000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
