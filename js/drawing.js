@@ -2820,8 +2820,8 @@ $(document).ready(function(){
 
     function changeImage(){
         id = $(this).attr('id');
-        $('#innerimagetable').css("background-position", "2px 3px").css("background-image", "url('images/" +id+ ".jpg')");
-        $('#innerimagetable').attr('brushpattern', "images/"+id+".jpg");
+        $('#innerimagetable').css("background-position", "2px 3px").css("background-image", "url('css/img/" +id+ ".jpg')");
+        $('#innerimagetable').attr('brushpattern', "css/img/"+id+".jpg");
     };
 
     for (i=1; i<=1; i++) {
