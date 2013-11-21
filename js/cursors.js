@@ -18,9 +18,9 @@ $(document).ready(function() {
   $('#3b').mousedown(function() {
     $('#myCanvas').css({"cursor":"url(spray.cur), url(cursor/spray.cur), default"});
   });
-  //$('#4a').mousedown(function() {
-  //  $('#myCanvas').css({"cursor":"url(paintbrushb.png), url(paintbrushb.cur), default"});
-  //});
+  $('#4a').mousedown(function() {
+    $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
+  });
   $('#4b').mousedown(function() {
     $('#myCanvas').css({"cursor":"url(pencila.png) 1 14, url(pencil.cur), default"});
   });

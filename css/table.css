@@ -305,7 +305,7 @@ body{}
 	width: 28px;
 	height: 23px;
 	border: 1px solid #000000;
-	background-image: url('images/pattern1.jpg');
+	background-image: url('img/pattern1.jpg');
 	border-collapse: collapse;
 	background-repeat:repeat;
 	z-index: 500;
@@ -775,7 +775,7 @@ body{}
 	width: 414px;
 	left: 88px;
 	top: 55px;
-	background-image:url('canvasboxbg.jpg');
+	background-image:url('img/canvasboxbg.jpg');
 	background-repeat:repeat;
 	border: 1px solid black;
 	box-shadow: 1px 1px #000000;
@@ -945,7 +945,7 @@ body{}
 	z-index: 100000000;
 	font-family: "Chicago";
 	font-size: 12px;
-	cursor: url('line2cross.png'), default;
+	cursor: url('img/line2cross.png'), default;
 }
 #txt3 {
 	display: none;
@@ -955,7 +955,7 @@ body{}
 	z-index: 100000000;
 	font-family: "Chicago";
 	font-size: 12px;
-	cursor: url('line2cross.png'), default;
+	cursor: url('img/line2cross.png'), default;
 }
 
 #txt4 {
@@ -966,7 +966,7 @@ body{}
 	z-index: 100000000;
 	font-family: "Chicago";
 	font-size: 12px;
-	cursor: url('line2cross.png'), default;
+	cursor: url('img/line2cross.png'), default;
 }
 
 #gametable {
@@ -1186,7 +1186,7 @@ body{}
 	top: 89px;
 	position: absolute;
 	background: white;
-	cursor: url('line2cross.png'), default;
+	cursor: url('img/line2cross.png'), default;
 	z-index: 1200000;
 }
 #alarmdropdownpic {

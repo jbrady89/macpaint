@@ -1406,7 +1406,7 @@ $(document).ready(function(){
         }
     }
     function paintbrush (){
-        $('#myCanvas').css({"cursor":"url(paintbrushb.png), url(paintbrushb.cur), default"});
+        $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
         //lastCur.push($('#myCanvas').css('cursor'));
         /*$(document).mousemove(function(){//prevent drawing when mouse moves off canvas
             if ($(this).attr('id') != 'myCanvas') return false;
@@ -1415,7 +1415,7 @@ $(document).ready(function(){
         canvas.onmousedown = function(e) {
             painting = true;
             if (painting = true){
-                $(document).css({"cursor":"url(paintbrushb.png), url(paintbrushb.cur), default"});
+                $(document).css({"cursor":"url(css/imgpaintbrush.png), url(paintbrushb.cur), default"});
             }
             else $(document).css('cursor','default');
             ctx.fillStyle = "pattern";
@@ -2911,22 +2911,22 @@ $(document).ready(function(){
 //adds 'checked' to checkbox0 when page loads
     $('#checkbox0').addClass('checked');
 //sets paintbrush cursor when page loads
-    $('#myCanvas').css({"cursor":"url(paintbrushb.png), url(paintbrushb.cur), default"});
+    $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
 //changes cursor for tools 6a through 10a when line thickness is changed
     function changeCur(){
         var tool = $('.tools').find('img');
         if ($(tool).hasClass('active')){//check to see if button is active
             if ($('#checkbox0').hasClass('checked') || $('#checkbox1').hasClass('checked')){
-                $('#myCanvas').css({"cursor":"url(line2cross.png), default"});
+                $('#myCanvas').css({"cursor":"url(css/img/line2cross.png), default"});
             }      
             else if ($('#checkbox2').hasClass('checked')){
-                $('#myCanvas').css({"cursor":"url(line3cross.png), default"});
+                $('#myCanvas').css({"cursor":"url(css/img/line3cross.png), default"});
             }
             else if ($('#checkbox3').hasClass('checked')){
-                $('#myCanvas').css({"cursor":"url(line4cross.png), default"});
+                $('#myCanvas').css({"cursor":"url(css/img/line4cross.png), default"});
             }
             else if ($('#checkbox4').hasClass('checked')){
-                $('#myCanvas').css({"cursor":"url(line5cross.png), default"});
+                $('#myCanvas').css({"cursor":"url(css/img/line5cross.png), default"});
             }
         }
     }
