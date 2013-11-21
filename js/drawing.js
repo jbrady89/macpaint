@@ -2725,12 +2725,12 @@ $(document).ready(function(){
     function navmainitemshover(){
         $('.list').css({"background":"no-repeat right center","color":"black"});
         $(this).css({"background":"black","color":"white"});
-        $('#applebutton').attr('src', "applebuttonh.png");
+        $('#applebutton').attr('src', "css/img/applebuttonh.png");
         $('.blackmenuside').hide();
     }
   
     function applehover(){
-        $('#applebutton').attr('src', "applebuttoni.png");
+        $('#applebutton').attr('src', "css/img/applebuttoni.png");
         $('.list').css({"background":"no-repeat right center","color":"black"});
         $('.blackmenuside').hide();
     }
