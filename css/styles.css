@@ -18,7 +18,7 @@ div {
 .content {
 	height: 341px;
 	width:511px;
-	background-image:url('mpbackground.jpg');
+	background-image:url('img/mpbackground.jpg');
 	background-repeat:repeat;
     -webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -34,81 +34,81 @@ div {
 	width: 21px;
 
 }
-.btn1 {background-image:url('button1.jpg');
+.btn1 {background-image:url('macpaint/img/button1.jpg');
 }
-.btn2 {background-image:url('button2.jpg');
+.btn2 {background-image:url('macpaint/img/button2.jpg');
 }
-.btn3 {background-image:url('button3.jpg');
+.btn3 {background-image:url('macpaint/img/button3.jpg');
 }
-.btn4 {background-image:url('button4.jpg');
+.btn4 {background-image:url('img/button4.jpg');
 }
-.btn5 {background-image:url('button5.jpg');
+.btn5 {background-image:url('img/button5.jpg');
 }
-.btn6 {background-image:url('button6.jpg');
+.btn6 {background-image:url('img/button6.jpg');
 }
-.btn7 {background-image:url('button7.jpg');
+.btn7 {background-image:url('img/button7.jpg');
 }
-.btn8 {background-image:url('button8.jpg');
+.btn8 {background-image:url('img/button8.jpg');
 }
-.btn9 {background-image:url('button9.jpg');
+.btn9 {background-image:url('img/button9.jpg');
 }
-.btn10 {background-image:url('button10.jpg');
+.btn10 {background-image:url('img/button10.jpg');
 }
-.btn11 {background-image:url('button11.jpg');
+.btn11 {background-image:url('img/button11.jpg');
 }
-.btn12 {background-image:url('button12.jpg');
+.btn12 {background-image:url('img/button12.jpg');
 }
-.btn13 {background-image:url('button13.jpg');
+.btn13 {background-image:url('img/button13.jpg');
 }
-.btn14 {background-image:url('14.jpg');
+.btn14 {background-image:url('img/14.jpg');
 }
-.btn15 {background-image:url('15.jpg');
+.btn15 {background-image:url('img/15.jpg');
 }
-.btn16 {background-image:url('16.jpg');
+.btn16 {background-image:url('img/16.jpg');
 }
-.btn17 {background-image:url('17.jpg');
+.btn17 {background-image:url('img/17.jpg');
 }
-.btn18 {background-image:url('18.jpg');
+.btn18 {background-image:url('img/18.jpg');
 }
-.btn19 {background-image:url('19.jpg');
+.btn19 {background-image:url('img/19.jpg');
 }
-.btn20 {background-image:url('20.jpg');
+.btn20 {background-image:url('img/20.jpg');
 }
-.btn21 {background-image:url('21.jpg');
+.btn21 {background-image:url('img/21.jpg');
 }
-.btn22 {background-image:url('22.jpg');
+.btn22 {background-image:url('img/22.jpg');
 }
-.btn23 {background-image:url('23.jpg');
+.btn23 {background-image:url('img/23.jpg');
 }
-.btn24 {background-image:url('24.jpg');
+.btn24 {background-image:url('img/24.jpg');
 }
-.btn25 {background-image:url('25.jpg');
+.btn25 {background-image:url('img/25.jpg');
 }
-.btn26 {background-image:url('26.jpg');
+.btn26 {background-image:url('img/26.jpg');
 }
-.btn27 {background-image:url('27.jpg');
+.btn27 {background-image:url('img/27.jpg');
 }
-.btn28 {background-image:url('28.jpg');
+.btn28 {background-image:url('img/28.jpg');
 }
-.btn29 {background-image:url('29.jpg');
+.btn29 {background-image:url('img/29.jpg');
 }
-.btn30 {background-image:url('30.jpg');
+.btn30 {background-image:url('img/30.jpg');
 }
-.btn31 {background-image:url('31.jpg');
+.btn31 {background-image:url('img/31.jpg');
 }
-.btn32 {background-image:url('32.jpg');
+.btn32 {background-image:url('img/32.jpg');
 }
-.btn33 {background-image:url('33.jpg');
+.btn33 {background-image:url('img/33.jpg');
 }
-.btn34 {background-image:url('34.jpg');
+.btn34 {background-image:url('img/34.jpg');
 }
-.btn35 {background-image:url('35.jpg');
+.btn35 {background-image:url('img/35.jpg');
 }
-.btn36 {background-image:url('36.jpg');
+.btn36 {background-image:url('img/36.jpg');
 }
-.btn37 {background-image:url('37.jpg');
+.btn37 {background-image:url('img/37.jpg');
 }
-.btn38 {background-image:url('38.jpg');
+.btn38 {background-image:url('img/38.jpg');
 }
 
 #img {
@@ -168,7 +168,7 @@ div {
   top: 23px;
   height: 65px;
 	width:65px;
-	background-image:url('mpbackground.jpg');
+	background-image:url('img/mpbackground.jpg');
 	background-repeat:repeat;
 	z-index: 1000;
 }
@@ -178,7 +178,7 @@ div {
   top: 23px;
   height: 65px;
   width:65px;
-  background-image:url('18.jpg');
+  background-image:url('img/18.jpg');
   background-repeat:repeat;
   z-index: 1000;
 }

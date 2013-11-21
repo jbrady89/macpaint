@@ -50,7 +50,7 @@ body{}
 .content {
 	height: 341px;
 	width:511px;
-	background-image:url('mpbackground.jpg');
+	background-image:url('img/mpbackground.jpg');
 	background-repeat:repeat;
 }
 #toolstable {
