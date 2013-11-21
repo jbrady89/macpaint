@@ -1577,7 +1577,7 @@ $(document).ready(function(){
             });
         });
         lineThickness = 1;
-        if (($('#4b').attr('src')) == ("images/4bi.png")) {
+        if (($('#4b').attr('src')) == ("css/img/4bi.png")) {
             for (i=0; i<5; i++) { 
                 $('#checkbox'+i+'cell').mousedown(pencil);
             }
@@ -1657,7 +1657,7 @@ $(document).ready(function(){
     function drawjellybean (dofill){
 
         changeWidth2();
-        if (($('#9a').attr('src') == "images/9ai.png")|| ($('#9b').attr('src') == 'images/9bi.png')) {
+        if (($('#9a').attr('src') == "css/img/9ai.png")|| ($('#9b').attr('src') == 'css/img/9bi.png')) {
             for (i=0; i<5; i++) { 
                 $('#checkbox'+i+'cell').mousedown(function(){return drawjellybean2(dofill)});
             }
@@ -1858,7 +1858,7 @@ $(document).ready(function(){
         else rubberbandRect.top = loc.y;
     }
     function drawlines (){
-        if (($('#5a').attr('src')) == ("images/5ai.png")) {
+        if (($('#5a').attr('src')) == ("css/img/5ai.png")) {
             for (i=0; i<5; i++) { 
                 $('#checkbox'+i+'cell').mousedown(drawlines2);
             }
@@ -1913,7 +1913,7 @@ $(document).ready(function(){
     }
     
     function drawrect (dofill){
-        if (($('#6b').attr('src') == "images/6bi.png") || ($('#6a').attr('src') == "images/6ai.png")) {
+        if (($('#6b').attr('src') == "css/img/6bi.png") || ($('#6a').attr('src') == "css/img/6ai.png")) {
             for (i=0; i<5; i++) { 
                 $('.thickness').mousedown(function(){return drawrect2(dofill)});
             }
@@ -1984,7 +1984,7 @@ $(document).ready(function(){
     
     function drawcircle (dofill){
 
-        if ((($('#8b').attr('src')) == ("images/8bi.png")) || (($('#8a').attr('src')) == ("images/8ai.png"))) {
+        if ((($('#8b').attr('src')) == ("css/img/8bi.png")) || (($('#8a').attr('src')) == ("css/img/8ai.png"))) {
             for (i=0; i<5; i++) { 
                 $('#checkbox'+i+'cell').mousedown(function(){return drawcircle2(dofill)});
             }
@@ -2061,7 +2061,7 @@ $(document).ready(function(){
     }
     
     function drawroundedrect (dofill) {
-        if ((($('#7a').attr('src')) == ("images/7ai.png")) || (($('#7b').attr('src')) == ("images/7bi.png")) ) {
+        if ((($('#7a').attr('src')) == ("css/img/7ai.png")) || (($('#7b').attr('src')) == ("css/img/7bi.png")) ) {
             for (i=0; i<5; i++) { 
                 $('#checkbox'+i+'cell').mousedown(function(){drawroundedrect2(dofill)});
             }
@@ -2287,7 +2287,7 @@ $(document).ready(function(){
     }
 
  function polygon (dofill){
-      if (($('#10a').attr('src')) == ("images/10ai.png")) {
+      if (($('#10a').attr('src')) == ("css/img/10ai.png")) {
             for (i=0; i<5; i++) { 
                 $('#checkbox'+i+'cell').mousedown(function(){return polygon2(dofill)});
             }
@@ -2376,7 +2376,7 @@ $(document).ready(function(){
     //puzzle code belwo
 
   /*for (i=1;i<17;i++) {
-   if (($("#space" +i).src) == "images/16.png") {
+   if (($("#space" +i).src) == "css/img/16.png") {
 
    }
 
@@ -2387,15 +2387,15 @@ $(document).ready(function(){
         $("#gamepic").show();
         $("#gametable").show();
         $("#space12").one('mousedown',function(){
-            $("#slot16").attr('src', "images/12.png");
-            $("#slot12").attr('src', "images/16.png");
+            $("#slot16").attr('src', "css/img/12.png");
+            $("#slot12").attr('src', "css/img/16.png");
         });
-        if ($("#slot1").attr('src') == "images/16.png") {
+        if ($("#slot1").attr('src') == "css/img/16.png") {
             $("#space2").one('mousedown',function(){
             $('#slot1').attr('src', $('#slot2').attr('src'));
-            $('#slot2').attr('src', "images/16.png");
+            $('#slot2').attr('src', "css/img/16.png");
             setTimeout(function(){
-                if ($("#slot1").attr('src') != "images/16.png") {
+                if ($("#slot1").attr('src') != "css/img/16.png") {
                     $("#space5").one('mousedown',function(){
                       $('#slot1').attr('src', $('#slot1').attr('src'));
                       $('#slot5').attr('src', $('#slot5').attr('src'));
@@ -2406,10 +2406,10 @@ $(document).ready(function(){
             puzzleo();
             });
         }
-        if ($("#slot1").attr('src') == "images/16.png") {
+        if ($("#slot1").attr('src') == "css/img/16.png") {
           $("#space5").one('mousedown',function(){
             $('#slot1').attr('src', $('#slot5').attr('src'));
-            $('#slot5').attr('src', "images/16.png");
+            $('#slot5').attr('src', "css/img/16.png");
             puzzleo;
           });
         }
@@ -2421,20 +2421,20 @@ $(document).ready(function(){
 //inverses checkmark images in font/fontsize/style dropdowns
     for(i=0;i<7;i++){
         $('#font'+ i).hover(
-          function(){$(this).find("img").attr('src',"images/checkfsi.png")},
-          function(){$(this).find("img").attr('src',"images/checkfs.png");
+          function(){$(this).find("img").attr('src',"css/img/checkfsi.png")},
+          function(){$(this).find("img").attr('src',"css/img/checkfs.png");
         });
     }
 
     for(i=0;i<9;i++){
         $('#fontsize'+ i).hover(
-          function(){$(this).find("img").attr('src',"images/checkfsi.png")},
-          function(){$(this).find("img").attr('src',"images/checkfs.png");
+          function(){$(this).find("img").attr('src',"css/img/checkfsi.png")},
+          function(){$(this).find("img").attr('src',"css/img/checkfs.png");
         });
     }
     $('#style > ul > li').hover(
-        function(){$(this).find("img:not(.symbol)").attr('src',"images/checkfsi.png")},
-        function(){$(this).find("img:not(.symbol)").attr('src',"images/checkfs.png");
+        function(){$(this).find("img:not(.symbol)").attr('src',"css/img/checkfsi.png")},
+        function(){$(this).find("img:not(.symbol)").attr('src',"css/img/checkfs.png");
     });
 //display pop-up when paintbrush is dblclicked
     $('#brush').dblclick(function(){
@@ -2487,16 +2487,16 @@ $(document).ready(function(){
         clicked.push('#' + $(this).attr('id'));
         for(i=0;i<11;i++){
           var id = $(this).attr('id');
-          $('#'+i+'a').attr('src','images/'+i+'a.png');
-          $('#'+i+'b').attr('src','images/'+i+'b.png');
-          $(this).attr('src','images/'+id+'i.png');
+          $('#'+i+'a').attr('src','css/img/'+i+'a.png');
+          $('#'+i+'b').attr('src','css/img/'+i+'b.png');
+          $(this).attr('src','css/img/'+id+'i.png');
         }
         $('.tools').find('img').mousedown(function(){
-          if ($(this).attr('id') == '5b' && $('#5b').attr('src') == 'images/5b.png') $('#5b').attr('src', 'images/5bi.png');
-          if (clicked.length - 1 == '#5b') $('#5b').mousedown(function(){ $('5b').attr('src','images/5bi.png')});
+          if ($(this).attr('id') == '5b' && $('#5b').attr('src') == 'css/img/5b.png') $('#5b').attr('src', 'css/img/5bi.png');
+          if (clicked.length - 1 == '#5b') $('#5b').mousedown(function(){ $('5b').attr('src','css/img/5bi.png')});
         }); 
         $(document).mouseup(function () {
-            if ($("#2a").attr('src') == "images/2a.png") {
+            if ($("#2a").attr('src') == "css/img/2a.png") {
                 $('#myCanvas').draggable();
                 $('#myCanvas').draggable('disable');
             }  
@@ -2510,14 +2510,14 @@ $(document).ready(function(){
             context.drawImage(temp2, 0, 0, canvas.width, canvas.height);
         });
         eraserClearCanvas();
-        if ($('#4a').attr('src') == 'images/4ai.png') $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
+        if ($('#4a').attr('src') == 'css/img/4ai.png') $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
         function eraserClearCanvas(){
             var left = 3.1 * parseInt($('#vbContainer').css('left'));
             var top = 2.8 * parseInt($('#vbContainer').css('top'));
             var canvas = $("#myCanvas")
             var context = canvas.get(0).getContext("2d");
             context.clearRect(left, top, $('#canvasbox').width(), $('#canvasbox').height());
-            if ($('#5b').attr('src') == 'images/5bi.png') $('#5b').attr('src','images/5b.png');
+            if ($('#5b').attr('src') == 'css/img/5bi.png') $('#5b').attr('src','css/img/5b.png');
             var lastActive = clicked[clicked.length-3];
             $(lastActive).attr('src', $(lastActive).attr('dos')).trigger('mousedown');
             $('#myCanvas').css('cursor', lastCur[lastCur.length - 3]);
@@ -2610,8 +2610,8 @@ $(document).ready(function(){
         $('.goodiesCheck').hide();
         $(this).find('img').show();
     }).hover(//changes source to inverse check on hover
-        function(){$(this).find('img').attr('src', 'images/checkfsi.png')},
-        function(){$(this).find('img').attr('src', 'images/checkfs.png');
+        function(){$(this).find('img').attr('src', 'css/img/checkfsi.png')},
+        function(){$(this).find('img').attr('src', 'css/img/checkfs.png');
     });
 
 //dropdown menu section
@@ -2736,7 +2736,7 @@ $(document).ready(function(){
     }
 
     function inverse(){ 
-        $('#applebutton').attr('src', "images/applebuttoni.png")
+        $('#applebutton').attr('src', "css/img/applebuttoni.png")
         $('.list').hover(navmainitemshover).hover(listhover);
         $('#applebutton').hover(applehover);
     }
@@ -2777,7 +2777,7 @@ $(document).ready(function(){
         else $('.list').css({"background":"no-repeat right center","color":"black"})
               .hover(hover2)
               .hover(drophover2);
-        $('#applebutton').attr('src', "images/applebuttonh.png")
+        $('#applebutton').attr('src', "css/img/applebuttonh.png")
                      .hover(applehover2)
                      .hover(drophover2);
         $('#file').mousedown(dropdownfile);
@@ -2789,39 +2789,39 @@ $(document).ready(function(){
         $('.blackmenuside').hide();
     }
     function applehover2(){
-        $('#applebutton').attr('src', "images/applebuttonh.png")
+        $('#applebutton').attr('src', "css/img/applebuttonh.png")
     }
 
 //for changing fill pattern
     function changeImage2(){ 
-        $('#innerimagetable').css("background-image", "url('images/pattern2.jpg')").css("background-position", "2px 2px");
-        $('#innerimagetable').attr('brushpattern', "images/pattern2.jpg");
+        $('#innerimagetable').css("background-image", "url('css/img/pattern2.jpg')").css("background-position", "2px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern2.jpg");
     }
     function changeImage3(){ 
-        $('#innerimagetable').css("background-image", "url('images/pattern3.jpg')").css("background-position", "0px 3px");
-        $('#innerimagetable').attr('brushpattern', "images/pattern3.jpg");
+        $('#innerimagetable').css("background-image", "url('css/img/pattern3.jpg')").css("background-position", "0px 3px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern3.jpg");
     }
     function changeImage7(){ 
-        $('#innerimagetable').css("background-image", "url('images/pattern7.jpg')").css("background-position", "2px 2px");
-        $('#innerimagetable').attr('brushpattern', "images/pattern7.jpg");
+        $('#innerimagetable').css("background-image", "url('css/img/pattern7.jpg')").css("background-position", "2px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern7.jpg");
     }
     function changeImage9(){ 
-        $('#innerimagetable').css("background-image", "url('images/pattern9.jpg')").css("background-position", "2px 2px");
-        $('#innerimagetable').attr('brushpattern', "images/pattern9.jpg");
+        $('#innerimagetable').css("background-image", "url('css/img/pattern9.jpg')").css("background-position", "2px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern9.jpg");
     }
     function changeImage10(){ 
-        $('#innerimagetable').css("background-image", "url('images/pattern10.jpg')").css("background-position", "6px 2px");
-        $('#innerimagetable').attr('brushpattern', "images/pattern10.jpg");
+        $('#innerimagetable').css("background-image", "url('css/img/pattern10.jpg')").css("background-position", "6px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern10.jpg");
     }
     function changeImage11(){ 
-        $('#innerimagetable').css("background-image", "url('images/pattern11.jpg')").css("background-position", "6px 2px");
-        $('#innerimagetable').attr('brushpattern', "images/pattern11.jpg");
+        $('#innerimagetable').css("background-image", "url('css/img/pattern11.jpg')").css("background-position", "6px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern11.jpg");
     }
 
     function changeImage(){
         id = $(this).attr('id');
-        $('#innerimagetable').css("background-position", "2px 3px").css("background-image", "url('css/img/" +id+ ".jpg')");
-        $('#innerimagetable').attr('brushpattern', "css/img/"+id+".jpg");
+        $('#innerimagetable').css("background-position", "2px 3px").css("background-image", "url('css/img//" +id+ ".jpg')");
+        $('#innerimagetable').attr('brushpattern', "css/img//"+id+".jpg");
     };
 
     for (i=1; i<=1; i++) {
@@ -2939,7 +2939,7 @@ $(document).ready(function(){
         $('.shape').removeClass('active');
         $(this).addClass('active');
         var toolID = $(this).attr('id')
-          if ($('#' + toolID).attr('src') == "images/" + toolID + "i.png")changeCur();
+          if ($('#' + toolID).attr('src') == "css/img//" + toolID + "i.png")changeCur();
     });
 //runs changeCur and addcheck when line thickness is changed
     $('.thickness').mousedown(function(){
@@ -3178,7 +3178,7 @@ $(document).ready(function(){
     
     var zip = new JSZip();
     zip.file("Hello.txt", "Hello World\n");
-    var img = zip.folder("images");
+    var img = zip.folder("css/img/");
     img.file("smile.gif", imgData, {base64: true});
     var content = zip.generate();
     location.href="data:application/zip;base64,"+content;
@@ -3286,7 +3286,7 @@ $(document).ready(function(){
 
         var id = $(this).attr('id');
         var fillpattern = new Image();
-        fillpattern.src = "images/"+id+".jpg";
+        fillpattern.src = "css/img//"+id+".jpg";
         var pattern = patCtx.createPattern(fillpattern, 'repeat');
         patCtx.fillStyle = pattern;
         patCtx.beginPath();
