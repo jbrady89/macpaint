@@ -85,81 +85,81 @@ body{}
 	width: 21px;
 }
 
-.btn1 {background-image:url('button1.jpg');
+.btn1 {background-image:url('img/button1.jpg');
 }
-.btn2 {background-image:url('button2.jpg');
+.btn2 {background-image:url('img/button2.jpg');
 }
-.btn3 {background-image:url('button3.jpg');
+.btn3 {background-image:url('img/button3.jpg');
 }
-.btn4 {background-image:url('button4.jpg');
+.btn4 {background-image:url('img/button4.jpg');
 }
-.btn5 {background-image:url('button5.jpg');
+.btn5 {background-image:url('img/button5.jpg');
 }
-.btn6 {background-image:url('button6.jpg');
+.btn6 {background-image:url('img/button6.jpg');
 }
-.btn7 {background-image:url('button7.jpg');
+.btn7 {background-image:url('img/button7.jpg');
 }
-.btn8 {background-image:url('button8.jpg');
+.btn8 {background-image:url('img/button8.jpg');
 }
-.btn9 {background-image:url('button9.jpg');
+.btn9 {background-image:url('img/button9.jpg');
 }
-.btn10 {background-image:url('button10.jpg');
+.btn10 {background-image:url('img/button10.jpg');
 }
-.btn11 {background-image:url('button11.jpg');
+.btn11 {background-image:url('img/button11.jpg');
 }
-.btn12 {background-image:url('button12.jpg');
+.btn12 {background-image:url('img/button12.jpg');
 }
-.btn13 {background-image:url('button13.jpg');
+.btn13 {background-image:url('img/button13.jpg');
 }
-.btn14 {background-image:url('14.jpg');
+.btn14 {background-image:url('img/14.jpg');
 }
-.btn15 {background-image:url('15.jpg');
+.btn15 {background-image:url('img/15.jpg');
 }
-.btn16 {background-image:url('16.jpg');
+.btn16 {background-image:url('img/16.jpg');
 }
-.btn17 {background-image:url('17.jpg');
+.btn17 {background-image:url('img/17.jpg');
 }
-.btn18 {background-image:url('18.jpg');
+.btn18 {background-image:url('img/18.jpg');
 }
-.btn19 {background-image:url('19.jpg');
+.btn19 {background-image:url('img/19.jpg');
 }
-.btn20 {background-image:url('20.jpg');
+.btn20 {background-image:url('img/20.jpg');
 }
-.btn21 {background-image:url('21.jpg');
+.btn21 {background-image:url('img/21.jpg');
 }
-.btn22 {background-image:url('22.jpg');
+.btn22 {background-image:url('img/22.jpg');
 }
-.btn23 {background-image:url('23.jpg');
+.btn23 {background-image:url('img/23.jpg');
 }
-.btn24 {background-image:url('24.jpg');
+.btn24 {background-image:url('img/24.jpg');
 }
-.btn25 {background-image:url('25.jpg');
+.btn25 {background-image:url('img/25.jpg');
 }
-.btn26 {background-image:url('26.jpg');
+.btn26 {background-image:url('img/26.jpg');
 }
-.btn27 {background-image:url('27.jpg');
+.btn27 {background-image:url('img/27.jpg');
 }
-.btn28 {background-image:url('28.jpg');
+.btn28 {background-image:url('img/28.jpg');
 }
-.btn29 {background-image:url('29.jpg');
+.btn29 {background-image:url('img/29.jpg');
 }
-.btn30 {background-image:url('30.jpg');
+.btn30 {background-image:url('img/30.jpg');
 }
-.btn31 {background-image:url('31.jpg');
+.btn31 {background-image:url('img/31.jpg');
 }
-.btn32 {background-image:url('32.jpg');
+.btn32 {background-image:url('img/32.jpg');
 }
-.btn33 {background-image:url('33.jpg');
+.btn33 {background-image:url('img/33.jpg');
 }
-.btn34 {background-image:url('34.jpg');
+.btn34 {background-image:url('img/34.jpg');
 }
-.btn35 {background-image:url('35.jpg');
+.btn35 {background-image:url('img/35.jpg');
 }
-.btn36 {background-image:url('36.jpg');
+.btn36 {background-image:url('img/36.jpg');
 }
-.btn37 {background-image:url('37.jpg');
+.btn37 {background-image:url('img/37.jpg');
 }
-.btn38 {background-image:url('38.jpg');
+.btn38 {background-image:url('img/38.jpg');
 }
 /*brush patterns table*/
 .rightbrushtable {
@@ -182,192 +182,192 @@ body{}
 }
 /*sets the background of each brush pattern table cell*/
 #pattern1 {
-	background-image:url('images/pattern1.jpg');
+	background-image:url('img/pattern1.jpg');
 	height: 16px;
 	width: 19px;
 }
 #pattern2 {
-	background-image:url('images/pattern2.jpg');
+	background-image:url('img/pattern2.jpg');
 	height: 16px;
 	width: 19px;
 }
 #pattern3 {
-	background-image:url('images/pattern3.jpg');
+	background-image:url('img/pattern3.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern4 {
-	background-image:url('images/pattern4.jpg');
+	background-image:url('img/pattern4.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern5 {
-	background-image:url('images/pattern5.jpg');
+	background-image:url('img/pattern5.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern6 {
-	background-image:url('images/pattern6.jpg');
+	background-image:url('img/pattern6.jpg');
 	width: 19px;
 	height: 16px;}
 
 #pattern7 {
-	background-image:url('images/pattern7.jpg');
+	background-image:url('img/pattern7.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern8 {
-	background-image:url('images/pattern8.jpg');
+	background-image:url('img/pattern8.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern9 {
-	background-image:url('images/pattern9.jpg');
+	background-image:url('img/pattern9.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern10 {
-	background-image:url('images/pattern10.jpg');
+	background-image:url('img/pattern10.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern11 {
-	background-image:url('images/pattern11.jpg');
+	background-image:url('img/pattern11.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern12 {
-	background-image:url('images/pattern12.jpg');
+	background-image:url('img/pattern12.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern13 {
-	background-image:url('images/pattern13.jpg');
+	background-image:url('img/pattern13.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern14 {
-	background-image:url('images/pattern14.jpg');
+	background-image:url('img/pattern14.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern15 {
-	background-image:url('images/pattern15.jpg');
+	background-image:url('img/pattern15.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern16 {
-	background-image:url('images/pattern16.jpg');
+	background-image:url('img/pattern16.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern17 {
-	background-image:url('images/pattern17.jpg');
+	background-image:url('img/pattern17.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern18 {
-	background-image:url('images/pattern18.jpg');
+	background-image:url('img/pattern18.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern19 {
-	background-image:url('images/pattern19.jpg');
+	background-image:url('img/pattern19.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern20 {
-	background-image:url('images/pattern20.jpg');
+	background-image:url('img/pattern20.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern21 {
-	background-image:url('images/pattern21.jpg');
+	background-image:url('img/pattern21.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern22 {
-	background-image:url('images/pattern22.jpg');
+	background-image:url('img/pattern22.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern23 {
-	background-image:url('images/pattern23.jpg');
+	background-image:url('img/pattern23.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern24 {
-	background-image:url('images/pattern24.jpg');
+	background-image:url('img/pattern24.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern25 {
-	background-image:url('images/pattern25.jpg');
+	background-image:url('img/pattern25.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern26 {
-	background-image:url('images/pattern26.jpg');
+	background-image:url('img/pattern26.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern27 {
-	background-image:url('images/pattern27.jpg');
+	background-image:url('img/pattern27.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern28 {
-	background-image:url('images/pattern28.jpg');
+	background-image:url('img/pattern28.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern29 {
-	background-image:url('images/pattern29.jpg');
+	background-image:url('img/pattern29.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern30 {
-	background-image:url('images/pattern30.jpg');
+	background-image:url('img/pattern30.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern31 {
-	background-image:url('images/pattern31.jpg');
+	background-image:url('img/pattern31.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern32 {
-	background-image:url('images/pattern32.jpg');
+	background-image:url('img/pattern32.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern33 {
-	background-image:url('images/pattern33.jpg');
+	background-image:url('img/pattern33.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern34 {
-	background-image:url('images/pattern34.jpg');
+	background-image:url('img/pattern34.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern35 {
-	background-image:url('images/pattern35.jpg');
+	background-image:url('img/pattern35.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern36 {
-	background-image:url('images/pattern36.jpg');
+	background-image:url('img/pattern36.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern37 {
-	background-image:url('images/pattern37.jpg');
+	background-image:url('img/pattern37.jpg');
 	width: 19px;
 	height: 16px;
 }
 #pattern38 {
-	background-image:url('images/pattern38.jpg');
+	background-image:url('img/pattern38.jpg');
 	width: 19px;
 	height: 16px;
 }
