@@ -84,7 +84,7 @@ $(document).ready(function(){
         var selection = document.getElementById('selected');
         var theImage = document.getElementById('newselectioncanvas');
         var dottedSelection = selection.getContext('2d');
-        var imageSelection = newselectioncanvas.getContext('2d');
+        var imageSelection = theImage.getContext('2d');
         var march = false;
         var antsData;
         var selectionData;
