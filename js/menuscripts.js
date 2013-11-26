@@ -379,9 +379,10 @@ $(document).ready(function(){
     $('#saveClose').hide();//hides initial popup
     $('.saveDivs, #filenametext').show().css('z-index','10002');//shows new popup
     $('#savedocumentdiv, #savedocument').show().addClass('formshowing').css('z-index','10001');//shows form
-    $('#typed').focus().css('cursor','default').css('font-family','Chicago');//click inside text box to start the blinking cursor
+    $('#typed').focus().css('cursor','default').css('font-family','Chicago'); //click inside text box to start the blinking cursor
     //http://stackoverflow.com/questions/2132172/disable-text-highlighting-on-double-click-in-jquery
     //used this to disable highlighting of text when dblclicking inside the save-file text box
+    
     /*$.extend($.fn.disableTextSelect = function() {
         return this.each(function(){
             if($.browser.mozilla){//Firefox

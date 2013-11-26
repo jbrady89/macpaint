@@ -1543,7 +1543,9 @@ $(document).ready(function(){
         lastCur.push($('#myCanvas').css('cursor'));
         var gee = context.getImageData(0, 0, canvas.width, canvas.height);
         var somedata = gee.data;
-        ctx2.globalCompositeOperation = 'xor';
+
+        // implementing XOR cursor..
+        /*ctx2.globalCompositeOperation = 'xor';
         if (somedata[12010] == 255) ctx2.fillStyle = "#3b2ea6";
         ctx2.fillRect(0, 10,  1, 6 );
         ctx2.fillRect(1, 12,  1 , 3 );
@@ -1575,7 +1577,7 @@ $(document).ready(function(){
                 $('#cursorcanvas').css('left', mouseX + 'px');
                 $('#cursorcanvas').css('top', mouseY + 'px');
             });
-        });
+        });*/
         lineThickness = 1;
         if (($('#4b').attr('src')) == ("css/img/4bi.png")) {
             for (i=0; i<5; i++) { 
@@ -1685,10 +1687,13 @@ $(document).ready(function(){
             fillpattern.src = $('#innerimagetable').attr('brushpattern');
             var pattern = context.createPattern(fillpattern, 'repeat');
             painting = false;
-            context.lineJoin = 'round'
+            //context.lineJoin = 'round'
             ctx.fillStyle = pattern;
             ctx.beginPath();
             ctx.moveTo(jellyStart[0], jellyStart[1]);
+
+            // look at drawing code from chat app for a way to speed this up
+            // add a new line each time in mousemove so it doesn't have to redraw the whole thing on mouseup
             for(i=0;i<jellyShape.length;i+=2){
                 ctx.lineTo(jellyShape[i],jellyShape[i + 1]);
             }
@@ -1742,11 +1747,11 @@ $(document).ready(function(){
                 }
                 for (var x = x1; x < x2; x++) {
                     if (steep) {
-                        ctx.fillRect(y, x, lineThickness , lineThickness );
+                        //ctx.fillRect(y, x, lineThickness , lineThickness );
                         jellyShape.push(y,x);
                     } 
                     else {
-                        ctx.fillRect(x, y, lineThickness , lineThickness );
+                        //ctx.fillRect(x, y, lineThickness , lineThickness );
                         jellyShape.push(x,y);
                     }
                     error += de;
