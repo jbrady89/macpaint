@@ -1747,11 +1747,11 @@ $(document).ready(function(){
                 }
                 for (var x = x1; x < x2; x++) {
                     if (steep) {
-                        //ctx.fillRect(y, x, lineThickness , lineThickness );
+                        ctx.fillRect(y, x, lineThickness , lineThickness );
                         jellyShape.push(y,x);
                     } 
                     else {
-                        //ctx.fillRect(x, y, lineThickness , lineThickness );
+                        ctx.fillRect(x, y, lineThickness , lineThickness );
                         jellyShape.push(x,y);
                     }
                     error += de;
