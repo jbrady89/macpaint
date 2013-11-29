@@ -1407,17 +1407,21 @@ $(document).ready(function(){
     }
     function paintbrush (){
         $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
-        //lastCur.push($('#myCanvas').css('cursor'));
+        lastCur.push($('#myCanvas').css('cursor'));
         /*$(document).mousemove(function(){//prevent drawing when mouse moves off canvas
             if ($(this).attr('id') != 'myCanvas') return false;
         });*/
         lineThickness = 1;
+                        var fillpattern = new Image();
+                var choice = $('#innerimagetable').attr('brushpattern');
+                fillpattern.src = choice;
+                var pattern = ctx.createPattern(fillpattern, 'repeat');
         canvas.onmousedown = function(e) {
             painting = true;
             if (painting = true){
-                $(document).css({"cursor":"url(css/imgpaintbrush.png), url(paintbrushb.cur), default"});
+               // $(document).css({"cursor":"url(css/imgpaintbrush.png), url(paintbrushb.cur), default"});
             }
-            else $(document).css('cursor','default');
+            //else $(document).css('cursor','default');
             ctx.fillStyle = "pattern";
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
@@ -1541,8 +1545,8 @@ $(document).ready(function(){
     }
     function pencil () {
         lastCur.push($('#myCanvas').css('cursor'));
-        var gee = context.getImageData(0, 0, canvas.width, canvas.height);
-        var somedata = gee.data;
+        //var gee = context.getImageData(0, 0, canvas.width, canvas.height);
+        //var somedata = gee.data;
         ctx.fillStyle = 'black';
         // implementing XOR cursor..
         /*ctx2.globalCompositeOperation = 'xor';
@@ -1589,10 +1593,7 @@ $(document).ready(function(){
         }
         canvas.onmousedown = function(e) {
             painting = true;
-            var imagedata = context.getImageData(e.pageX, e.pageY, 1, 1);
-            var data = imagedata.data;
-            if (data[0] == 255) ctx.fillStyle = "white";
-            if (data[0] == 0) ctx.fillStyle  = 'black';
+
             lastX = e.pageX - this.offsetLeft - 88;
             lastY = e.pageY - this.offsetTop - 55;
         };
@@ -1603,6 +1604,11 @@ $(document).ready(function(){
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
                 mouseY = e.pageY - this.offsetTop - 55;
+                            var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
+            var data = imagedata.data;
+            console.log(data)
+            if (data[3] == 255) ctx.fillStyle = "white";
+            if (data[3] == 0) ctx.fillStyle  = "black";
                 // find all points between        
                 var x1 = mouseX,
                     x2 = lastX,
