@@ -3159,8 +3159,8 @@ $(document).ready(function(){
     }
 
 //trying to save file and encode/decode string
-    context.fillStyle = 'white';
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    //context.fillStyle = 'white';
+    //context.fillRect(0, 0, canvas.width, canvas.height);
     $('#imageLink').mouseup(function(){
     //context.save();
     var goo = context.getImageData(0, 0, canvas.width, canvas.height);
