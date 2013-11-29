@@ -1543,7 +1543,7 @@ $(document).ready(function(){
         lastCur.push($('#myCanvas').css('cursor'));
         var gee = context.getImageData(0, 0, canvas.width, canvas.height);
         var somedata = gee.data;
-
+        ctx.fillStyle = 'black';
         // implementing XOR cursor..
         /*ctx2.globalCompositeOperation = 'xor';
         if (somedata[12010] == 255) ctx2.fillStyle = "#3b2ea6";
@@ -1591,8 +1591,8 @@ $(document).ready(function(){
             painting = true;
             var imagedata = context.getImageData(e.pageX, e.pageY, 1, 1);
             var data = imagedata.data;
-            if (data[0] == 255) ctx.fillStyle = "#000000";
-            if (data[0] == 0) ctx.fillStyle  = 'white';
+            if (data[0] == 255) ctx.fillStyle = "white";
+            if (data[0] == 0) ctx.fillStyle  = 'black';
             lastX = e.pageX - this.offsetLeft - 88;
             lastY = e.pageY - this.offsetTop - 55;
         };
