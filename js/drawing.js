@@ -79,7 +79,11 @@ $(document).ready(function(){
         $('.tools').find('td').not('#5b').mouseup(function(){
             lastCur.push($('#myCanvas').css('cursor'));
         });
- 
+
+/***************************/
+/* Functions for the tools */
+/***************************/
+
     function select(){
         var selection = document.getElementById('selected');
         var theImage = document.getElementById('newselectioncanvas');
@@ -456,11 +460,6 @@ $(document).ready(function(){
                 var choice = $('#innerimagetable').attr('brushpattern');
                 fillpattern.src = choice;
                 var pattern = ctx.createPattern(fillpattern, 'repeat');
-                ctx.fillCircle = function(x, y, radius) {
-                    ctx.beginPath();
-                    ctx.moveTo(x, y);
-                    ctx.arc(x+1, y+1, radius, 0, Math.PI * 2, false);
-                };
 
                 for (var x = x1; x < x2; x++) {
                    
@@ -1405,6 +1404,46 @@ $(document).ready(function(){
             }
         }
     }
+
+    ctx.fillCircle = function(x, y, radius){
+        ctx.beginPath();
+        //var a = e.pageX - 88;
+        //var b = e.pageY - 55;
+        var cW = $('#canvasbox').width();
+        var cH = $('#canvasbox').height();
+        var spreadY = cH - y;
+        // | two vertical lines
+        if ($('#middletop').css('display') == 'block'){
+            //var x = x - 91;
+            var spreadX = cW - x;
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            ctx.arc(spreadX + 180, y+1, radius, 0, Math.PI * 2, false);
+            ctx.moveTo(x + 88, y);
+            ctx.arc(spreadX + 180,spreadY + 198, radius, 0, Math.PI * 2, false);
+            ctx.moveTo(x, y);
+            ctx.arc(x,spreadY + 198, radius, 0, Math.PI * 2, false);
+            ctx.closePath();
+        }
+        // - two horizontal lines
+        if ($('#leftmiddle').css('display') == 'block'){
+            //var y = y - 56;
+            var spreadY = cH - y;
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            ctx.arc(x + 88, spreadY + 113, radius, 0, Math.PI * 2, false);
+        }
+        // \ diagonal
+        if ($('#lefttop').css('display') == 'block'){
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            ctx.moveTo(y+80, x);
+            ctx.arc(y + 80, x  - 81, radius, 0, Math.PI * 2, false);
+            ctx.moveTo(x - 81,y + 180);
+            ctx.arc(spreadY-90, spreadX - 180, radius, 0, Math.PI * 2, false);
+        }
+        else ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fill();
+    };
+
     function paintbrush (){
         $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
         lastCur.push($('#myCanvas').css('cursor'));
@@ -1412,17 +1451,19 @@ $(document).ready(function(){
             if ($(this).attr('id') != 'myCanvas') return false;
         });*/
         lineThickness = 1;
-                        var fillpattern = new Image();
-                var choice = $('#innerimagetable').attr('brushpattern');
-                fillpattern.src = choice;
-                var pattern = ctx.createPattern(fillpattern, 'repeat');
+        
+
         canvas.onmousedown = function(e) {
             painting = true;
+            var fillpattern = new Image();
+            var choice = $('#innerimagetable').attr('brushpattern');
+            fillpattern.src = choice;
+            var pattern = ctx.createPattern(fillpattern, 'repeat');
             if (painting = true){
                // $(document).css({"cursor":"url(css/imgpaintbrush.png), url(paintbrushb.cur), default"});
             }
             //else $(document).css('cursor','default');
-            ctx.fillStyle = "pattern";
+            ctx.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
         };
@@ -1477,54 +1518,13 @@ $(document).ready(function(){
                 }
 
                 lineThickness = 1;
-                var fillpattern = new Image();
-                var choice = $('#innerimagetable').attr('brushpattern');
-                fillpattern.src = choice;
-                var pattern = ctx.createPattern(fillpattern, 'repeat');
-                ctx.fillCircle = function(x, y, radius){
-                    ctx.beginPath();
-                    //var a = e.pageX - 88;
-                    //var b = e.pageY - 55;
-                    var cW = $('#canvasbox').width();
-                    var cH = $('#canvasbox').height();
-                    var spreadY = cH - y;
-                    // | two vertical lines
-                    if ($('#middletop').css('display') == 'block'){
-                        //var x = x - 91;
-                        var spreadX = cW - x;
-                        ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-                        ctx.arc(spreadX + 180, y+1, radius, 0, Math.PI * 2, false);
-                        ctx.moveTo(x + 88, y);
-                        ctx.arc(spreadX + 180,spreadY + 198, radius, 0, Math.PI * 2, false);
-                        ctx.moveTo(x, y);
-                        ctx.arc(x,spreadY + 198, radius, 0, Math.PI * 2, false);
-                        ctx.closePath();
-                    }
-                    // - two horizontal lines
-                    if ($('#leftmiddle').css('display') == 'block'){
-                        //var y = y - 56;
-                        var spreadY = cH - y;
-                        ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-                        ctx.arc(x + 88, spreadY + 113, radius, 0, Math.PI * 2, false);
-                    }
-                    // \ diagonal
-                    if ($('#lefttop').css('display') == 'block'){
-                        ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-                        ctx.moveTo(y+80, x);
-                        ctx.arc(y + 80, x  - 81, radius, 0, Math.PI * 2, false);
-                        ctx.moveTo(x - 81,y + 180);
-                        ctx.arc(spreadY-90, spreadX - 180, radius, 0, Math.PI * 2, false);
-                    }
-                    else ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-                    ctx.closePath();
-                    ctx.fill();
-                };
+               
 
                 for (var x = x1; x < x2; x++) {
                     
                     var radius = 2; // or whatever
                     
-                    ctx.fillStyle = pattern;
+                   // ctx.fillStyle = pattern;
                     if (steep) {
                         ctx.fillCircle(y, x, radius);
                     } 
@@ -2384,6 +2384,43 @@ $(document).ready(function(){
             startPositionarray = [];
         };
     }
+
+    // clears canvas when eraser is dbl clicked
+    $('#eraser').dblclick(function(){
+        var temp2 = document.getElementById('temp2');
+        var temp2Ctx = temp2.getContext('2d');
+        $('#undo').mouseup(function(){
+            context.drawImage(temp2, 0, 0, canvas.width, canvas.height);
+        });
+        eraserClearCanvas();
+        if ($('#4a').attr('src') == 'css/img/4ai.png') $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
+        function eraserClearCanvas(){
+            var left = 3.1 * parseInt($('#vbContainer').css('left'));
+            var top = 2.8 * parseInt($('#vbContainer').css('top'));
+            var canvas = $("#myCanvas")
+            var context = canvas.get(0).getContext("2d");
+            context.clearRect(left, top, $('#canvasbox').width(), $('#canvasbox').height());
+            if ($('#5b').attr('src') == 'css/img/5bi.png') $('#5b').attr('src','css/img/5b.png');
+            var lastActive = clicked[clicked.length-3];
+            $(lastActive).attr('src', $(lastActive).attr('dos')).trigger('mousedown');
+            console.log(lastCur);
+            $('#myCanvas').css('cursor', lastCur[lastCur.length - 1]);
+            if ($(this).attr('id') == '4a'){
+                lastCur = [];
+                $('#4a').trigger('mousedown');
+            }
+            changeCur();
+            clicked = [lastActive];
+
+            lastCur = [];
+        }
+    });
+
+    /****************************/
+    /*****End tool functions*****/
+    /****************************/
+
+
     //puzzle code belwo
 
   /*for (i=1;i<17;i++) {
@@ -2391,7 +2428,7 @@ $(document).ready(function(){
 
    }
 
-  } */
+  } 
 
     $("#puzzle").mouseup(puzzleo) 
     function puzzleo(){
@@ -2424,9 +2461,11 @@ $(document).ready(function(){
             puzzleo;
           });
         }
-    };
+    };*/
 
     $('#alarmdiv, #alarmdrop').hide();
+
+
 //preset checkmarks when page loads
     $('#plain, #fscheck12, #fontcheck2, #stylecheck6, #stylecheck0').show();
 //inverses checkmark images in font/fontsize/style dropdowns
@@ -2447,7 +2486,11 @@ $(document).ready(function(){
         function(){$(this).find("img:not(.symbol)").attr('src',"css/img/checkfsi.png")},
         function(){$(this).find("img:not(.symbol)").attr('src',"css/img/checkfs.png");
     });
-//display pop-up when paintbrush is dblclicked
+
+    /*****************/
+    /* Brushes Popup */
+    /*****************/
+
     $('#brush').dblclick(function(){
         $('#overlay').show();
         brushPopup();
@@ -2489,6 +2532,12 @@ $(document).ready(function(){
             });
         });
     }
+
+    /*********************/
+    /* End Brushes Popup */
+    /*********************/
+
+
     
     var currentButton = "#4a";
     var clicked = ["#4a"];
@@ -2512,34 +2561,6 @@ $(document).ready(function(){
                 $('#myCanvas').draggable('disable');
             }  
         });
-    });
-//clears canvas when eraser is dbl clicked
-    $('#eraser').dblclick(function(){
-        var temp2 = document.getElementById('temp2');
-        var temp2Ctx = temp2.getContext('2d');
-        $('#undo').mouseup(function(){
-            context.drawImage(temp2, 0, 0, canvas.width, canvas.height);
-        });
-        eraserClearCanvas();
-        if ($('#4a').attr('src') == 'css/img/4ai.png') $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
-        function eraserClearCanvas(){
-            var left = 3.1 * parseInt($('#vbContainer').css('left'));
-            var top = 2.8 * parseInt($('#vbContainer').css('top'));
-            var canvas = $("#myCanvas")
-            var context = canvas.get(0).getContext("2d");
-            context.clearRect(left, top, $('#canvasbox').width(), $('#canvasbox').height());
-            if ($('#5b').attr('src') == 'css/img/5bi.png') $('#5b').attr('src','css/img/5b.png');
-            var lastActive = clicked[clicked.length-3];
-            $(lastActive).attr('src', $(lastActive).attr('dos')).trigger('mousedown');
-            $('#myCanvas').css('cursor', lastCur[lastCur.length - 3]);
-            if ($(this).attr('id') == '4a'){
-                lastCur = [];
-                $('#4a').trigger('mousedown');
-            }
-            changeCur();
-            clicked = [lastActive];
-            lastCur = [];
-        }
     });
 
     //var currentButton = "#4a";
