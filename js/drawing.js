@@ -2591,10 +2591,22 @@ $(document).ready(function(){
     }
 
     var myfontsize = [9,10,12,14,18,24,36,48,72];
-    for(i=0;i<9;i++){
-        myfun = function(fsval){return function(){fscheckadd(fsval);}}(myfontsize[i]);
+    for(i=0; i < 9; i++){
+
+        //http://www.mennovanslooten.nl/blog/post/62
+        // make a global
+        myfun = function(fsval){
+            //console.log(fsval);
+            return function(){
+                fscheckadd(fsval);
+            }
+        }(myfontsize[i]);
+
+        //console.log(myfun);
         $('#fontsize'+i).mouseup(myfun);
+        console.log($('#fontsizedrop li').data('events'));
     }
+
 //font menu checkmarks
     function fontcheckadd(font) {
         $('#fontcheck0,#fontcheck1, #fontcheck2, #fontcheck3, #fontcheck4, #fontcheck5, #fontcheck6').css("display","none").removeClass('checkedfont');
