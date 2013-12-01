@@ -1606,7 +1606,8 @@ $(document).ready(function(){
                 mouseY = e.pageY - this.offsetTop - 55;
                             var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
             var data = imagedata.data;
-            console.log(data)
+            //console.log(data)
+
             if (data[3] == 255) ctx.fillStyle = "white";
             if (data[3] == 0) ctx.fillStyle  = "black";
                 // find all points between        
@@ -2537,7 +2538,9 @@ $(document).ready(function(){
     /* End Brushes Popup */
     /*********************/
 
-
+    /******************/
+    /* Tool Selection */
+    /******************/
     
     var currentButton = "#4a";
     var clicked = ["#4a"];
@@ -2584,6 +2587,142 @@ $(document).ready(function(){
     $('body').addClass('notTyping');
     if ($('body').hasClass('notTyping')) $(document).mousedown(function(event){event.preventDefault()});
 
+    //tool buttons
+    var currentButton = "#4a";
+
+    function setCurrent(){// set currentButton to the new id and hilite it. If there is already a current button, unhilite it.
+        if(this!=currentButton) { // if they are already the same, then don't bother
+            if(currentButton) {switchImg(currentButton);} // if current button is already set, then unset it
+            currentButton=this;
+            switchImg(currentButton);
+        }
+    }
+
+    function switchImg(element){ // switch the object attribute values for 'src' and 'dos'
+        $(element).attr({
+          'src': $(element).attr('dos'),
+          'dos': $(element).attr('src') 
+        });
+    }
+
+    switchImg(currentButton); //set the first button to be ready to go
+
+    for(i=1; i<=10;i++){//set up all of the buttons
+        $("#"+i+"a").bind("mousedown",setCurrent);
+        $("#"+i+"b").bind("mousedown",setCurrent);
+    }
+
+    //remove class active from all tools if a non-shape tool is clicked
+    $('.tools').find('img:not(.shape)').mouseup(function(){
+        $('.tools').find('img').removeClass('active');
+    });
+//runs changeCur when a shape tool button is active
+    $('.shape').mousedown(function(){
+        $('.shape').removeClass('active');
+        $(this).addClass('active');
+        var toolID = $(this).attr('id')
+          if ($('#' + toolID).attr('src') == "css/img//" + toolID + "i.png")changeCur();
+    });
+
+    /*************/
+    /* End Tools */
+    /*************/
+
+    /***********************/
+    /* Begin Dropdown Menu */
+    /***********************/
+
+    //menu flashing
+    $('.nav-sub li').mouseup(function() {
+        var id = $(this).closest('ul').parent().attr('id');
+        $('#'+id+'flashdiv').show();
+        $('#'+id+'flashdiv').hover(function() {
+            $('#'+id+'drop').show();
+            $('#' + id).css({'background':'black','color':'white'});
+            $('#' + id + 'blackmenuside').show();
+        });
+        var count = 0;
+        var inversed;
+        var _this = this;
+        var whiteToBlack = setInterval(function(){
+            count += 1;
+            if ($(_this).css('background-color') == 'rgb(0, 0, 0)') inversed = false;
+            else inversed = true;
+            if (inversed == true) $(_this).css({'background':'black','color':'white'});
+            else $(_this).css({'background':'white','color':'black'});
+            if (count == 8) {
+                clearInterval(whiteToBlack);
+                $('#'+id+'flashdiv').hide();
+                setTimeout(function(){
+                    $('.nav-sub').hide();
+                }, 60)
+                $('#appledrop').one('hover', function () {
+                    $('#appledrop').hide();
+                });
+            }
+        }, 60);
+    });
+//undo functions
+    $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
+    var y = false;
+    var drawn;
+    tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
+    $('#myCanvas').mousedown(function(){
+        console.log(drawn);
+        var x = false; 
+        var temp = document.getElementById('temp');
+        var temp2 = document.getElementById('temp2');
+        var temp2Ctx = temp2.getContext('2d');
+        var tempCtx = temp.getContext('2d');
+        if (drawn = true) tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp canvas with each mousedown
+        $('#myCanvas').mousemove(function(){
+            var y = true;//flag becomes true after drawing
+            var drawn = true;
+            $('#myCanvas').mouseup(function(){
+                if (y){
+                    temp2Ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp2 canvas if flag true
+                    x = false;
+                }
+            });
+        });          
+        $('#myCanvas').mouseup(function(){
+            if (!y) y = true;
+        
+        });    
+        $('#undo').mouseup(function(y){
+            if (y){
+                if (!x){
+                    context.drawImage(temp,0,0,canvas.width, canvas.height);//image drawn from temp to main canvas after undo
+                    x = true;//flag becomes true after drawing undone;
+                }
+                else if (x = true) {
+                    context.drawImage(temp2, 0,0);//images drawn from temp2 to main canvas after redo
+                    x = false;//becomes false when drawing redone
+                    clear = true;
+                    y = false;
+                }
+            }
+            if (clear && ($('#selectionContainer').css('display') == 'none')){//undo the clearing of the selection
+                $('#selectionContainer').css({'left': points[0] , 'top': points[1]});//positions selection canvas back to pre-dragged location
+                var selection = document.getElementById('selected');
+                var theImage = document.getElementById('newselectioncanvas');
+                var ctx = selection.getContext('2d');
+                var imageSelection = theImage.getContext('2d');
+                var top = parseInt($('#selectionContainer').css('top'));
+                var left = parseInt($('#selectionContainer').css('left'));
+                temp2Ctx.fillStyle = 'white';
+                temp2Ctx.fillRect(mousedown.x - 1, mousedown.y - 1, w + 2, h + 2);
+                $('#selectionContainer').show();
+                context.drawImage(temp2, 0,0, canvas.width, canvas.height);
+                //var topo = parseInt($('#newselectioncanvas').css('top'));
+                //var lefto = parseInt($('#newselectioncanvas').css('left'));
+                //context.fillRect(top, left, selection.width, selection.height);//clears area underneath selection canvas
+                clear = false;
+            }
+        });
+    });
+
+
 //fontsize menu checkmarks
     function fscheckadd(fsize) {
         $('#fscheck9,#fscheck10, #fscheck12, #fscheck14, #fscheck18, #fscheck24, #fscheck36, #fscheck48, #fscheck72').css("display","none");
@@ -2592,19 +2731,13 @@ $(document).ready(function(){
 
     var myfontsize = [9,10,12,14,18,24,36,48,72];
     for(i=0; i < 9; i++){
-
         //http://www.mennovanslooten.nl/blog/post/62
-        // make a global
         myfun = function(fsval){
-            //console.log(fsval);
             return function(){
                 fscheckadd(fsval);
             }
         }(myfontsize[i]);
-
-        //console.log(myfun);
         $('#fontsize'+i).mouseup(myfun);
-        console.log($('#fontsizedrop li').data('events'));
     }
 
 //font menu checkmarks
@@ -2836,251 +2969,8 @@ $(document).ready(function(){
         $('#applebutton').attr('src', "css/img/applebuttonh.png")
     }
 
-//for changing fill pattern
-    function changeImage2(){ 
-        $('#innerimagetable').css("background-image", "url('css/img/pattern2.jpg')").css("background-position", "2px 2px");
-        $('#innerimagetable').attr('brushpattern', "css/img/pattern2.jpg");
-    }
-    function changeImage3(){ 
-        $('#innerimagetable').css("background-image", "url('css/img/pattern3.jpg')").css("background-position", "0px 3px");
-        $('#innerimagetable').attr('brushpattern', "css/img/pattern3.jpg");
-    }
-    function changeImage7(){ 
-        $('#innerimagetable').css("background-image", "url('css/img/pattern7.jpg')").css("background-position", "2px 2px");
-        $('#innerimagetable').attr('brushpattern', "css/img/pattern7.jpg");
-    }
-    function changeImage9(){ 
-        $('#innerimagetable').css("background-image", "url('css/img/pattern9.jpg')").css("background-position", "2px 2px");
-        $('#innerimagetable').attr('brushpattern', "css/img/pattern9.jpg");
-    }
-    function changeImage10(){ 
-        $('#innerimagetable').css("background-image", "url('css/img/pattern10.jpg')").css("background-position", "6px 2px");
-        $('#innerimagetable').attr('brushpattern', "css/img/pattern10.jpg");
-    }
-    function changeImage11(){ 
-        $('#innerimagetable').css("background-image", "url('css/img/pattern11.jpg')").css("background-position", "6px 2px");
-        $('#innerimagetable').attr('brushpattern', "css/img/pattern11.jpg");
-    }
+    //stuff related to functions within dropdown menu
 
-    function changeImage(){
-        id = $(this).attr('id');
-        $('#innerimagetable').css("background-position", "2px 3px").css("background-image", "url('css/img//" +id+ ".jpg')");
-        $('#innerimagetable').attr('brushpattern', "css/img//"+id+".jpg");
-    };
-
-    for (i=1; i<=1; i++) {
-        $('#pattern' + i).mousedown(changeImage);
-    }  
-
-    for (i=3; i<=6; i++) {
-        $('#pattern' + i).mousedown(changeImage);
-    }  
-    for (i=8; i<=8; i++) {
-        $('#pattern' + i).mousedown(changeImage);
-    }  
-
-    for (i=12; i<=38; i++) {
-        $('#pattern' + i).mousedown(changeImage);
-    }  
-    $("#pattern2").mousedown(changeImage2);
-    $("#pattern3").mousedown(changeImage3);
-    $("#pattern7").mousedown(changeImage7);
-    $("#pattern9").mousedown(changeImage9);
-    $("#pattern10").mousedown(changeImage10);
-    $("#pattern11").mousedown(changeImage11);
-
-//tool buttons
-    var currentButton = "#4a";
-
-    function setCurrent(){// set currentButton to the new id and hilite it. If there is already a current button, unhilite it.
-        if(this!=currentButton) { // if they are already the same, then don't bother
-            if(currentButton) {switchImg(currentButton);} // if current button is already set, then unset it
-            currentButton=this;
-            switchImg(currentButton);
-        }
-    }
-
-    function switchImg(element){ // switch the object attribute values for 'src' and 'dos'
-        $(element).attr({
-          'src': $(element).attr('dos'),
-          'dos': $(element).attr('src') 
-        });
-    }
-
-    switchImg(currentButton); //set the first button to be ready to go
-
-    for(i=1; i<=10;i++){//set up all of the buttons
-        $("#"+i+"a").bind("mousedown",setCurrent);
-        $("#"+i+"b").bind("mousedown",setCurrent);
-    }
-
-//for adding checkmarks next to selected line thickness
-    function addcheck0(){
-        $('#linethicknesscheck').css("top", "273px") 
-        $('#checkbox0').addClass('checked');
-          for(i=1;i<5;i++){
-            $('#checkbox' + i).removeClass('checked');
-          };
-    }
-    function addcheck1(){
-        $('#linethicknesscheck').css("top", "283px") 
-        $('#checkbox1').addClass('checked');
-        $('#checkbox0').removeClass('checked');
-          for(i=2;i<5;i++){
-           $('#checkbox'+i).removeClass('checked');
-          };
-    }
-    function addcheck2() {
-        $('#linethicknesscheck').css("top", "294px") 
-        $('#checkbox2').addClass('checked');
-        $('#checkbox0, #checkbox1, #checkbox3, #checkbox4').removeClass('checked');
-    }
-    function addcheck3() {
-        $('#linethicknesscheck').css("top", "306px") 
-        $('#checkbox3').addClass('checked');
-        $('#checkbox4').removeClass('checked');
-        for(i=0;i<3;i++){
-            $('#checkbox'+i).removeClass('checked');
-        };
-    }
-  
-    function addcheck4() {
-        $('#linethicknesscheck').css("top", "320px");
-        $('#checkbox4').addClass('checked');
-        for(i=0;i<4;i++){
-            $('#checkbox'+i).removeClass('checked');
-        };
-    }
-
-//adds 'checked' to checkbox0 when page loads
-    $('#checkbox0').addClass('checked');
-//sets paintbrush cursor when page loads
-    $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
-//changes cursor for tools 6a through 10a when line thickness is changed
-    function changeCur(){
-        var tool = $('.tools').find('img');
-        if ($(tool).hasClass('active')){//check to see if button is active
-            if ($('#checkbox0').hasClass('checked') || $('#checkbox1').hasClass('checked')){
-                $('#myCanvas').css({"cursor":"url(css/img/line2cross.png), default"});
-            }      
-            else if ($('#checkbox2').hasClass('checked')){
-                $('#myCanvas').css({"cursor":"url(css/img/line3cross.png), default"});
-            }
-            else if ($('#checkbox3').hasClass('checked')){
-                $('#myCanvas').css({"cursor":"url(css/img/line4cross.png), default"});
-            }
-            else if ($('#checkbox4').hasClass('checked')){
-                $('#myCanvas').css({"cursor":"url(css/img/line5cross.png), default"});
-            }
-        }
-    }
-//remove class active from all tools if a non-shape tool is clicked
-    $('.tools').find('img:not(.shape)').mouseup(function(){
-        $('.tools').find('img').removeClass('active');
-    });
-//runs changeCur when a shape tool button is active
-    $('.shape').mousedown(function(){
-        $('.shape').removeClass('active');
-        $(this).addClass('active');
-        var toolID = $(this).attr('id')
-          if ($('#' + toolID).attr('src') == "css/img//" + toolID + "i.png")changeCur();
-    });
-//runs changeCur and addcheck when line thickness is changed
-    $('.thickness').mousedown(function(){
-        var id = $(this).attr('id');
-        if (id == "checkbox0" || id == "line0") addcheck0();
-        else if (id == "checkbox1" || id == "line1") addcheck1();
-        else if (id == "checkbox2" || id == "line2") addcheck2();
-        else if (id == "checkbox3" || id == "line3") addcheck3();
-        else if (id == "checkbox4" || id == "line4") addcheck4();
-        changeCur();
-        changeWidth2();
-    });
-//alarm functions
-    function startTime(){
-        var today=new Date();
-        var h = today.getHours();
-        var y= Math.abs(h-12);
-        var m=today.getMinutes();
-        var s=today.getSeconds();
-        // add a zero in front of numbers<10
-        m=checkTime(m);
-        s=checkTime(s);
-         if (h - 12 < 0){
-            document.getElementById('txt').innerHTML=y+":"+m+":"+s+" AM";
-        }
-        else {
-            document.getElementById('txt').innerHTML=y+":"+m+":"+s+" PM"; 
-        }
-        t=setTimeout(function(){startTime()},500);
-    }
-    function checkTime(i){
-        if (i<10) {
-          i="0" + i;
-        }
-        return i;
-    }
-      
-      
-    var hour = 12
-    var minutes = 0
-    var seconds = 0
-    function writeTime(){
-        if(minutes > 9 && minutes < 60){
-            document.getElementById('txt4').innerHTML=hour+":"+minutes+":0"+seconds;
-        }
-        if(minutes >= 0 && minutes < 10){
-            document.getElementById('txt4').innerHTML=hour+":0"+minutes+":0"+seconds;
-        }
-    }
-    function defaultAlarm(){
-        document.getElementById('txt4').innerHTML=hour+":0"+minutes+":0"+seconds;
-    }
-    defaultAlarm();
-//decrement hours
-    $('#4b').mousedown(function(){
-        if(hour < 13 && hour > 0){
-            hour = hour - 1;
-            writeTime();
-        }
-        if(hour < 1){//resets hour back to 12
-            hour = 12;
-            writeTime();
-        }
-    });
-//decrement minutes
-    $('#3b').mousedown(function(){
-        if(minutes < 60 && minutes >= 0){
-            minutes = minutes - 1;
-            writeTime();
-        }
-        if(minutes < 1){
-            minutes = 59;
-        }
-        writeTime();
-    });
-//increment hours
-    $('#5b').mousedown(function(){
-        if(hour < 13 && hour > 0){
-            hour = hour + 1;
-            writeTime();
-        }
-        if (hour > 12){
-            hour = 1;
-        }
-        writeTime();
-    });
-      //increment hours
-    $('#6b').mousedown(function(){
-       if (minutes < 60 && minutes >= 0){
-            minutes = minutes + 1;
-            writeTime();
-        }
-        if (minutes > 59){
-            minutes = 0;
-        }
-        writeTime();
-    });
     //save file pop-up after clicking 'yes'
     $('#yesSave').mousedown(function(){
         $(this).css({'background':'black','color':'white'});//inverse background/text when button pressed
@@ -3092,6 +2982,8 @@ $(document).ready(function(){
           $('#yesSave').unbind('hover');//prevents hover event inside of button if mouseup outside of it
         });
     });
+
+    // convert image to base64 string and open in new tab
     $('#imageLink').mouseup(function(){
         var dataUrl = canvas.toDataURL();
         $('#imageLink').attr('href', dataUrl);
@@ -3197,41 +3089,7 @@ $(document).ready(function(){
         //$('.list').find('li').css({'background':'black','color':'white'});
     }
 
-//trying to save file and encode/decode string
-    //context.fillStyle = 'white';
-    //context.fillRect(0, 0, canvas.width, canvas.height);
-    $('#imageLink').mouseup(function(){
-    //context.save();
-    var goo = context.getImageData(0, 0, canvas.width, canvas.height);
-    var data = goo.data;
-    var base64 = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0', '1', '2', '3', '4', '5', '6', '7','8','9','+','/','?','?','?','?','?','?','?','?','?','?']
-    var encode = '';
-    var count = 0;
-    var enc = 0;
-    for(i=0;i<data.length;i+=4){
-        enc <<= 1;
-        if(data[i]>.5)
-            enc |= 1;
-        count ++;
-        if (count == 8) {
-            encode = encode + String.fromCharCode(enc);
-            count = 0;
-            enc = 0;
-        }
-    }
-    
-    var zip = new JSZip();
-    zip.file("Hello.txt", "Hello World\n");
-    var img = zip.folder("css/img/");
-    img.file("smile.gif", imgData, {base64: true});
-    var content = zip.generate();
-    location.href="data:application/zip;base64,"+content;
-
-    
-    //console.log(zipencode);
-    });
-
-//menu flashing
+    //menu flashing
     $('.nav-sub li').mouseup(function() {
         var id = $(this).closest('ul').parent().attr('id');
         $('#'+id+'flashdiv').show();
@@ -4000,4 +3858,283 @@ $(document).ready(function(){
         $('#Mirrors').hide();
         $('#lefttop, #leftbottom, #leftmiddle, #middletop').hide();
     });
+
+    /****************/
+    /* End Dropdown */
+    /****************/
+
+    /***********************/
+    /* Select fill pattern */
+    /***********************/
+
+//for changing fill pattern
+    function changeImage2(){ 
+        $('#innerimagetable').css("background-image", "url('css/img/pattern2.jpg')").css("background-position", "2px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern2.jpg");
+    }
+    function changeImage3(){ 
+        $('#innerimagetable').css("background-image", "url('css/img/pattern3.jpg')").css("background-position", "0px 3px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern3.jpg");
+    }
+    function changeImage7(){ 
+        $('#innerimagetable').css("background-image", "url('css/img/pattern7.jpg')").css("background-position", "2px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern7.jpg");
+    }
+    function changeImage9(){ 
+        $('#innerimagetable').css("background-image", "url('css/img/pattern9.jpg')").css("background-position", "2px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern9.jpg");
+    }
+    function changeImage10(){ 
+        $('#innerimagetable').css("background-image", "url('css/img/pattern10.jpg')").css("background-position", "6px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern10.jpg");
+    }
+    function changeImage11(){ 
+        $('#innerimagetable').css("background-image", "url('css/img/pattern11.jpg')").css("background-position", "6px 2px");
+        $('#innerimagetable').attr('brushpattern', "css/img/pattern11.jpg");
+    }
+
+    function changeImage(){
+        id = $(this).attr('id');
+        $('#innerimagetable').css("background-position", "2px 3px").css("background-image", "url('css/img//" +id+ ".jpg')");
+        $('#innerimagetable').attr('brushpattern', "css/img//"+id+".jpg");
+    };
+
+    for (i=1; i<=1; i++) {
+        $('#pattern' + i).mousedown(changeImage);
+    }  
+
+    for (i=3; i<=6; i++) {
+        $('#pattern' + i).mousedown(changeImage);
+    }  
+    for (i=8; i<=8; i++) {
+        $('#pattern' + i).mousedown(changeImage);
+    }  
+
+    for (i=12; i<=38; i++) {
+        $('#pattern' + i).mousedown(changeImage);
+    }  
+    $("#pattern2").mousedown(changeImage2);
+    $("#pattern3").mousedown(changeImage3);
+    $("#pattern7").mousedown(changeImage7);
+    $("#pattern9").mousedown(changeImage9);
+    $("#pattern10").mousedown(changeImage10);
+    $("#pattern11").mousedown(changeImage11);
+
+    /***************************/
+    /* End select fill pattern */
+    /***************************/
+
+    /*****************************/
+    /* Line Thickness Checkmarks */
+    /*****************************/
+
+//for adding checkmarks next to selected line thickness
+    function addcheck0(){
+        $('#linethicknesscheck').css("top", "273px") 
+        $('#checkbox0').addClass('checked');
+          for(i=1;i<5;i++){
+            $('#checkbox' + i).removeClass('checked');
+          };
+    }
+    function addcheck1(){
+        $('#linethicknesscheck').css("top", "283px") 
+        $('#checkbox1').addClass('checked');
+        $('#checkbox0').removeClass('checked');
+          for(i=2;i<5;i++){
+           $('#checkbox'+i).removeClass('checked');
+          };
+    }
+    function addcheck2() {
+        $('#linethicknesscheck').css("top", "294px") 
+        $('#checkbox2').addClass('checked');
+        $('#checkbox0, #checkbox1, #checkbox3, #checkbox4').removeClass('checked');
+    }
+    function addcheck3() {
+        $('#linethicknesscheck').css("top", "306px") 
+        $('#checkbox3').addClass('checked');
+        $('#checkbox4').removeClass('checked');
+        for(i=0;i<3;i++){
+            $('#checkbox'+i).removeClass('checked');
+        };
+    }
+  
+    function addcheck4() {
+        $('#linethicknesscheck').css("top", "320px");
+        $('#checkbox4').addClass('checked');
+        for(i=0;i<4;i++){
+            $('#checkbox'+i).removeClass('checked');
+        };
+    }
+
+//adds 'checked' to checkbox0 when page loads
+    $('#checkbox0').addClass('checked');
+//sets paintbrush cursor when page loads
+    $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
+//changes cursor for tools 6a through 10a when line thickness is changed
+    function changeCur(){
+        var tool = $('.tools').find('img');
+        if ($(tool).hasClass('active')){//check to see if button is active
+            if ($('#checkbox0').hasClass('checked') || $('#checkbox1').hasClass('checked')){
+                $('#myCanvas').css({"cursor":"url(css/img/line2cross.png), default"});
+            }      
+            else if ($('#checkbox2').hasClass('checked')){
+                $('#myCanvas').css({"cursor":"url(css/img/line3cross.png), default"});
+            }
+            else if ($('#checkbox3').hasClass('checked')){
+                $('#myCanvas').css({"cursor":"url(css/img/line4cross.png), default"});
+            }
+            else if ($('#checkbox4').hasClass('checked')){
+                $('#myCanvas').css({"cursor":"url(css/img/line5cross.png), default"});
+            }
+        }
+    }
+
+    //runs changeCur and addcheck when line thickness is changed
+    $('.thickness').mousedown(function(){
+        var id = $(this).attr('id');
+        if (id == "checkbox0" || id == "line0") addcheck0();
+        else if (id == "checkbox1" || id == "line1") addcheck1();
+        else if (id == "checkbox2" || id == "line2") addcheck2();
+        else if (id == "checkbox3" || id == "line3") addcheck3();
+        else if (id == "checkbox4" || id == "line4") addcheck4();
+        changeCur();
+        changeWidth2();
+    });
+
+    /*********************************/
+    /* End Line Thickness Checkmarks */
+    /*********************************/
+
+    /****************/
+    /* Alarm Widget */
+    /****************/
+
+//alarm functions
+    function startTime(){
+        var today=new Date();
+        var h = today.getHours();
+        var y= Math.abs(h-12);
+        var m=today.getMinutes();
+        var s=today.getSeconds();
+        // add a zero in front of numbers<10
+        m=checkTime(m);
+        s=checkTime(s);
+         if (h - 12 < 0){
+            document.getElementById('txt').innerHTML=y+":"+m+":"+s+" AM";
+        }
+        else {
+            document.getElementById('txt').innerHTML=y+":"+m+":"+s+" PM"; 
+        }
+        t=setTimeout(function(){startTime()},500);
+    }
+    function checkTime(i){
+        if (i<10) {
+          i="0" + i;
+        }
+        return i;
+    }
+      
+      
+    var hour = 12
+    var minutes = 0
+    var seconds = 0
+    function writeTime(){
+        if(minutes > 9 && minutes < 60){
+            document.getElementById('txt4').innerHTML=hour+":"+minutes+":0"+seconds;
+        }
+        if(minutes >= 0 && minutes < 10){
+            document.getElementById('txt4').innerHTML=hour+":0"+minutes+":0"+seconds;
+        }
+    }
+    function defaultAlarm(){
+        document.getElementById('txt4').innerHTML=hour+":0"+minutes+":0"+seconds;
+    }
+    defaultAlarm();
+//decrement hours
+    $('#4b').mousedown(function(){
+        if(hour < 13 && hour > 0){
+            hour = hour - 1;
+            writeTime();
+        }
+        if(hour < 1){//resets hour back to 12
+            hour = 12;
+            writeTime();
+        }
+    });
+//decrement minutes
+    $('#3b').mousedown(function(){
+        if(minutes < 60 && minutes >= 0){
+            minutes = minutes - 1;
+            writeTime();
+        }
+        if(minutes < 1){
+            minutes = 59;
+        }
+        writeTime();
+    });
+//increment hours
+    $('#5b').mousedown(function(){
+        if(hour < 13 && hour > 0){
+            hour = hour + 1;
+            writeTime();
+        }
+        if (hour > 12){
+            hour = 1;
+        }
+        writeTime();
+    });
+      //increment hours
+    $('#6b').mousedown(function(){
+       if (minutes < 60 && minutes >= 0){
+            minutes = minutes + 1;
+            writeTime();
+        }
+        if (minutes > 59){
+            minutes = 0;
+        }
+        writeTime();
+    });
+
+    /********************/
+    /* End Alarm Widget */
+    /********************/
+
+
+    /*****************************/
+    /* Begin Save File as Base64 */
+    /*****************************/
+    
+
+//trying to save file and encode/decode string
+    //context.fillStyle = 'white';
+    //context.fillRect(0, 0, canvas.width, canvas.height);
+    $('#imageLink').mouseup(function(){
+        //context.save();
+        /*var goo = context.getImageData(0, 0, canvas.width, canvas.height);
+        var data = goo.data;
+        var base64 = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0', '1', '2', '3', '4', '5', '6', '7','8','9','+','/','?','?','?','?','?','?','?','?','?','?']
+        var encode = '';
+        var count = 0;
+        var enc = 0;
+        for(i=0;i<data.length;i+=4){
+            enc <<= 1;
+            if(data[i]>.5)
+                enc |= 1;
+            count ++;
+            if (count == 8) {
+                encode = encode + String.fromCharCode(enc);
+                count = 0;
+                enc = 0;
+            }
+        }
+        
+        var zip = new JSZip();
+        zip.file("Hello.txt", "Hello World\n");
+        var img = zip.folder("css/img/");
+        img.file("smile.gif", imgData, {base64: true});
+        var content = zip.generate();
+        location.href="data:application/zip;base64,"+content;
+        //console.log(zipencode);*/
+    });
+
 });
