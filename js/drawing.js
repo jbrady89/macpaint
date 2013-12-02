@@ -3100,11 +3100,11 @@ $(document).ready(function(){
             else $(_this).css({'background':'white','color':'black'});
             if (count == 8) {
                 clearInterval(whiteToBlack);
-                $('#'+id+'flashdiv').hide().unbind('hover');
-                /*setTimeout(function(){
+                $('#'+id+'flashdiv').hide()//.unbind('hover'); // I don't understand why taking this unbind out breaks it..
+                setTimeout(function(){
                     $('.nav-sub').hide();
-                }, 60)*/
-                $('.nav-sub').hide();
+                }, 110)
+                //$('.nav-sub').hide();
                 $('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
                 });
