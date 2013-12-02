@@ -333,8 +333,8 @@ $(document).ready(function(){
   });
   $('#yesQuit').mouseup(function(){
     //showtableYes();
-    $('#yesQuit').css({'background':'white','color':'black'})
-    $('#quitClose').hide().css('z-index','');;
+    $('#yesQuit').css({'background':'white','color':'black'});
+    $('#quitClose').hide().css('z-index','');
   });
   function showtableYes(){
     $("#closecanvastable").show();
@@ -349,7 +349,7 @@ $(document).ready(function(){
   });
   $('#savefile, #saveAs').mouseup(function(){
     $('#overlay').show();
-    setTimeout(saveFile,500)
+    setTimeout(saveFile,500);
 
   });
   function saveFile(){

@@ -197,6 +197,7 @@ div {
 
 #temp {
   border: 1px solid black;
+  display: none;
 }
 
 #tempContainer2 {
@@ -209,6 +210,7 @@ div {
 
 #temp2 {
   border: 1px solid black;
+  display: none;
 }
 
 #newPatContainer{

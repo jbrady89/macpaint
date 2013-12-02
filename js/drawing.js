@@ -13,8 +13,8 @@ $(document).ready(function(){
         lastY = 0,
         mouseX,
         mouseY,
-        canvas2 = document.getElementById('cursorcanvas'),
-        ctx2 = canvas2.getContext('2d'),
+        // canvas2 = document.getElementById('cursorcanvas'),
+        // ctx2 = canvas2.getContext('2d'),
         temp = document.getElementById('temp'),
         temp2 = document.getElementById('temp2'),
         temp2Ctx = temp2.getContext('2d'),
@@ -44,28 +44,6 @@ $(document).ready(function(){
     $('#10a').mousedown(function(){polygon(false)});//change these to the above format ^^
     $('#10b').mousedown(function(){polygon(true)});
      
-    function changeWidth2(){
-        if(($('#checkbox0').hasClass('checked')) || ($('#line0').hasClass('checked'))){
-            lineThickness = 1;
-            context.lineWidth = 1;
-        }
-        if(($('#checkbox1').hasClass('checked')) || ($('#line1').hasClass('checked'))){
-            lineThickness = 1;
-            context.lineWidth = 1;
-        }  
-        if(($('#checkbox2').hasClass('checked')) || ($('#line2').hasClass('checked'))){
-            lineThickness = 3;
-            context.lineWidth = 3;
-        } 
-        if(($('#checkbox3').hasClass('checked')) || ($('#line3').hasClass('checked'))){
-            lineThickness = 5;
-            context.lineWidth = 5;
-        } 
-        if(($('#checkbox4').hasClass('checked')) || ($('#line4').hasClass('checked'))){
-            lineThickness = 8;
-            context.lineWidth = 8;
-        } 
-    }
 
     function bucket(){
         $('#myCanvas').mousedown(function() {
@@ -1925,6 +1903,8 @@ $(document).ready(function(){
     }
     
     function drawrect (dofill){
+        console.log('rect');
+        changeCur();
         if (($('#6b').attr('src') == "css/img/6bi.png") || ($('#6a').attr('src') == "css/img/6ai.png")) {
             for (i=0; i<5; i++) { 
                 $('.thickness').mousedown(function(){return drawrect2(dofill)});
@@ -2298,19 +2278,24 @@ $(document).ready(function(){
         };
     }
 
- function polygon (dofill){
-      if (($('#10a').attr('src')) == ("css/img/10ai.png")) {
+    function polygon (dofill){
+        if (($('#10a').attr('src')) == ("css/img/10ai.png")) {
             for (i=0; i<5; i++) { 
-                $('#checkbox'+i+'cell').mousedown(function(){return polygon2(dofill)});
+                $('#checkbox'+i+'cell').mousedown(function(){
+                    return polygon2(dofill);
+                });
             }
             for (i=0; i<5; i++) { 
-                $('#line'+i+'cell').mousedown(function(){return polygon2(dofill)});
+                $('#line'+i+'cell').mousedown(function(){
+                    return polygon2(dofill);
+                });
             }
         }
         polygon2(dofill);
     }
 
     function polygon2 (dofill){
+
         lastCur.push($('#myCanvas').css('cursor'));
         changeWidth2();
         var startPositionarray = [];
@@ -2324,6 +2309,7 @@ $(document).ready(function(){
             context.lineTo(loc.x, loc.y);
             context.stroke();
         }
+
         function updateRubberband(loc) {
             updateRubberbandRectangle(loc);
             drawRubberbandShape(loc);
@@ -2411,9 +2397,10 @@ $(document).ready(function(){
                 $('#4a').trigger('mousedown');
             }
             changeCur();
+            console.log(lastCur);
             clicked = [lastActive];
 
-            lastCur = [];
+            //lastCur = [];
         }
     });
 
@@ -2584,9 +2571,9 @@ $(document).ready(function(){
     };
 
 //prevent highlighting when dragging mouse in IE
-    $('body').addClass('notTyping');
+   /* $('body').addClass('notTyping');
     if ($('body').hasClass('notTyping')) $(document).mousedown(function(event){event.preventDefault()});
-
+    */
     //tool buttons
     var currentButton = "#4a";
 
@@ -2621,7 +2608,7 @@ $(document).ready(function(){
         $('.shape').removeClass('active');
         $(this).addClass('active');
         var toolID = $(this).attr('id')
-          if ($('#' + toolID).attr('src') == "css/img//" + toolID + "i.png")changeCur();
+          if ($('#' + toolID).attr('src') == "css/img/" + toolID + "i.png") changeCur();
     });
 
     /*************/
@@ -2633,7 +2620,7 @@ $(document).ready(function(){
     /***********************/
 
     //menu flashing
-    $('.nav-sub li').mouseup(function() {
+   /* $('.nav-sub li').mouseup(function() {
         var id = $(this).closest('ul').parent().attr('id');
         $('#'+id+'flashdiv').show();
         $('#'+id+'flashdiv').hover(function() {
@@ -2661,7 +2648,9 @@ $(document).ready(function(){
                 });
             }
         }, 60);
-    });
+    }); */
+
+/*
 //undo functions
     $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
     var y = false;
@@ -2789,7 +2778,7 @@ $(document).ready(function(){
     }).hover(//changes source to inverse check on hover
         function(){$(this).find('img').attr('src', 'css/img/checkfsi.png')},
         function(){$(this).find('img').attr('src', 'css/img/checkfs.png');
-    });
+    });*/
 
 //dropdown menu section
     $('ul.nav-sub').hide();//sub-menus hidden when page loads
@@ -3088,10 +3077,12 @@ $(document).ready(function(){
         $('.rowlines').hide();
         //$('.list').find('li').css({'background':'black','color':'white'});
     }
-
+//$('#fileflashdiv').show();
     //menu flashing
     $('.nav-sub li').mouseup(function() {
         var id = $(this).closest('ul').parent().attr('id');
+        console.log(id);
+
         $('#'+id+'flashdiv').show();
         $('#'+id+'flashdiv').hover(function() {
             $('#'+id+'drop').show();
@@ -3109,10 +3100,11 @@ $(document).ready(function(){
             else $(_this).css({'background':'white','color':'black'});
             if (count == 8) {
                 clearInterval(whiteToBlack);
-                $('#'+id+'flashdiv').hide();
-                setTimeout(function(){
+                $('#'+id+'flashdiv').hide().unbind('hover');
+                /*setTimeout(function(){
                     $('.nav-sub').hide();
-                }, 60)
+                }, 60)*/
+                $('.nav-sub').hide();
                 $('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
                 });
@@ -3858,7 +3850,7 @@ $(document).ready(function(){
         $('#Mirrors').hide();
         $('#lefttop, #leftbottom, #leftmiddle, #middletop').hide();
     });
-
+    
     /****************/
     /* End Dropdown */
     /****************/
@@ -3928,6 +3920,29 @@ $(document).ready(function(){
     /* Line Thickness Checkmarks */
     /*****************************/
 
+    function changeWidth2(){
+        if(($('#checkbox0').hasClass('checked')) || ($('#line0').hasClass('checked'))){
+            lineThickness = 1;
+            context.lineWidth = 1;
+        }
+        if(($('#checkbox1').hasClass('checked')) || ($('#line1').hasClass('checked'))){
+            lineThickness = 1;
+            context.lineWidth = 1;
+        }  
+        if(($('#checkbox2').hasClass('checked')) || ($('#line2').hasClass('checked'))){
+            lineThickness = 3;
+            context.lineWidth = 3;
+        } 
+        if(($('#checkbox3').hasClass('checked')) || ($('#line3').hasClass('checked'))){
+            lineThickness = 5;
+            context.lineWidth = 5;
+        } 
+        if(($('#checkbox4').hasClass('checked')) || ($('#line4').hasClass('checked'))){
+            lineThickness = 8;
+            context.lineWidth = 8;
+        } 
+    }
+
 //for adding checkmarks next to selected line thickness
     function addcheck0(){
         $('#linethicknesscheck').css("top", "273px") 
@@ -3972,6 +3987,12 @@ $(document).ready(function(){
     $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
 //changes cursor for tools 6a through 10a when line thickness is changed
     function changeCur(){
+        if ( lastCur.length > 4 ) {
+            lastCur = [];
+            lastCur.push($('#myCanvas').css('cursor'));
+        } else {
+             lastCur.push($('#myCanvas').css('cursor'));
+        }
         var tool = $('.tools').find('img');
         if ($(tool).hasClass('active')){//check to see if button is active
             if ($('#checkbox0').hasClass('checked') || $('#checkbox1').hasClass('checked')){
