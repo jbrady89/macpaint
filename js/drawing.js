@@ -464,7 +464,7 @@ $(document).ready(function(){
     }
 
     $('#spraydesign').mousedown(function(){
-        $('#myCanvas').css({"cursor":"url(groupofdots.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/groupofdots.png), default"});
         largeDotif = function(ctx, x, y, lineThickness) {
             lineThickness = 1;
             ctx.fillRect(y + 5, x, lineThickness , lineThickness );
@@ -496,7 +496,7 @@ $(document).ready(function(){
         }
     });
     $('#dot').mousedown(function(){
-        $('#myCanvas').css({"cursor":"url(largerdot.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/largerdot.png), default"});
         largeDotif = function(ctx, x, y, lineThickness) {
             lineThickness = 2
             ctx.fillRect(y - 1, x, lineThickness , lineThickness );
@@ -512,7 +512,7 @@ $(document).ready(function(){
         }
     });
     $('#dottedhorizontalline').mousedown(function(){
-        $('#myCanvas').css({"cursor":"url(largehorizontaldotted.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/largehorizontaldotted.png), default"});
         largeDotif = function(ctx, x, y, lineThickness) {
             lineThickness = 1;
             for (i=0;i<16;i+=3){
@@ -532,7 +532,7 @@ $(document).ready(function(){
         }
     });
     $('#dottedverticalline').mousedown(function(){
-        $('#myCanvas').css({"cursor":"url(largeverticaldotted.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/largeverticaldotted.png), default"});
         largeDotif = function(ctx, x, y, lineThickness) {
             lineThickness = 1;
             for (i=0;i<16;i+=3){
@@ -552,7 +552,7 @@ $(document).ready(function(){
         }
     });
     $('#smalldottedrighttiltline').mousedown(function(){
-        $('#myCanvas').css({"cursor":"url(smalldottedline.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/smalldottedline.png), default"});
         largeDotif = function(ctx, x, y, lineThickness) {
             lineThickness = 1;
             ctx.fillRect(y, x, lineThickness , lineThickness );  
@@ -573,7 +573,7 @@ $(document).ready(function(){
         lastBrushCur.push($('#myCanvas').css('cursor'))
     });
     $('#mediumdottedrighttiltline').mousedown(function(){
-        $('#myCanvas').css({"cursor":"url(mediumtiltdotted.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/mediumtiltdotted.png), default"});
         largeDotif = function(ctx, x, y, lineThickness) {
             ctx.fillRect(y, x + 4, lineThickness , lineThickness );
             ctx.fillRect(y + 2, x + 2, lineThickness , lineThickness );
@@ -597,7 +597,7 @@ $(document).ready(function(){
         var fillpattern = new Image();
         fillpattern.src = choice;
         var pattern = ctx.createPattern(fillpattern, 'repeat');
-        $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
+        ///$('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
         lastCur.push($('#myCanvas').css('cursor'));
         canvas.onmousedown = function(e) {
             painting = true;
@@ -1128,7 +1128,7 @@ $(document).ready(function(){
         squarebrushsmall();
         if (squarebrushsmall){
             $('#4a').mousedown(squarebrushsmall);
-            $('#myCanvas').css({"cursor":"url(smallsquarecursor.png), default"});
+            $('#myCanvas').css({"cursor":"url(brushshapes/smallsquarecursor.png), default"});
         }
     });
     $('#mediumsquare').mousedown(function(){
@@ -1137,7 +1137,7 @@ $(document).ready(function(){
         squarebrushsmall();
         if (squarebrushsmall){
             $('#4a').mousedown(squarebrushsmall);
-            $('#myCanvas').css({"cursor":"url(mediumsquarecursor.png), default"});
+            $('#myCanvas').css({"cursor":"url(brushshapes/mediumsquarecursor.png), default"});
         }
     });
     $('#largesquare').mousedown(function(){
@@ -1146,7 +1146,7 @@ $(document).ready(function(){
         squarebrushsmall();
         if (squarebrushsmall){
             $('#4a').mousedown(squarebrushsmall);
-            $('#myCanvas').css({"cursor":"url(largesquarecursor.png), default"});
+            $('#myCanvas').css({"cursor":"url(brushshapes/largesquarecursor.png), default"});
           }   
     });
     $('#xlsquare').mousedown(function(){
@@ -1155,12 +1155,12 @@ $(document).ready(function(){
         squarebrushsmall();
         if (squarebrushsmall){
             $('#4a').mousedown(squarebrushsmall);
-            $('#myCanvas').css({"cursor":"url(xlsquarecursor.png), default"});
+            $('#myCanvas').css({"cursor":"url(brushshapes/xlsquarecursor.png), default"});
         }
     });
     
     function squarebrushsmall () {
-        $('#myCanvas').css({"cursor":"url(smallsquarecursor.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/smallsquarecursor.png), default"});
         $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1])
         lastCur.push($('#myCanvas').css('cursor'));
         canvas.onmousedown = function(e) {
@@ -3071,7 +3071,7 @@ $(document).ready(function(){
                 $('#'+id+'flashdiv').hide()//.unbind('hover'); // I don't understand why taking this unbind out breaks it..
                 setTimeout(function(){
                     $('.nav-sub').hide();
-                }, 110)
+                }, 110);
                 //$('.nav-sub').hide();
                 $('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
