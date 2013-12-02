@@ -2619,38 +2619,6 @@ $(document).ready(function(){
     /* Begin Dropdown Menu */
     /***********************/
 
-    //menu flashing
-   /* $('.nav-sub li').mouseup(function() {
-        var id = $(this).closest('ul').parent().attr('id');
-        $('#'+id+'flashdiv').show();
-        $('#'+id+'flashdiv').hover(function() {
-            $('#'+id+'drop').show();
-            $('#' + id).css({'background':'black','color':'white'});
-            $('#' + id + 'blackmenuside').show();
-        });
-        var count = 0;
-        var inversed;
-        var _this = this;
-        var whiteToBlack = setInterval(function(){
-            count += 1;
-            if ($(_this).css('background-color') == 'rgb(0, 0, 0)') inversed = false;
-            else inversed = true;
-            if (inversed == true) $(_this).css({'background':'black','color':'white'});
-            else $(_this).css({'background':'white','color':'black'});
-            if (count == 8) {
-                clearInterval(whiteToBlack);
-                $('#'+id+'flashdiv').hide();
-                setTimeout(function(){
-                    $('.nav-sub').hide();
-                }, 60)
-                $('#appledrop').one('hover', function () {
-                    $('#appledrop').hide();
-                });
-            }
-        }, 60);
-    }); */
-
-/*
 //undo functions
     $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
     var y = false;
@@ -2778,7 +2746,7 @@ $(document).ready(function(){
     }).hover(//changes source to inverse check on hover
         function(){$(this).find('img').attr('src', 'css/img/checkfsi.png')},
         function(){$(this).find('img').attr('src', 'css/img/checkfs.png');
-    });*/
+    });
 
 //dropdown menu section
     $('ul.nav-sub').hide();//sub-menus hidden when page loads
@@ -3103,7 +3071,7 @@ $(document).ready(function(){
                 $('#'+id+'flashdiv').hide()//.unbind('hover'); // I don't understand why taking this unbind out breaks it..
                 setTimeout(function(){
                     $('.nav-sub').hide();
-                }, 110)
+                }, 105)
                 //$('.nav-sub').hide();
                 $('#appledrop').one('hover', function () {
                     $('#appledrop').hide();

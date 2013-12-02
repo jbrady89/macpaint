@@ -288,19 +288,6 @@ border-bottom: 1px dotted black;
 }
 /*styling for fontsize list items*/
 
-
-.textoutline {
-	text-shadow: -1px 0 white, 0 -1px white, 0 1px white,
-    1px 0 white !important;
-}
-
-
-#fontsizedrop li.outline:hover {
-	text-shadow: -1px 0 white, 0 -1px white, 0 1px white,
-    1px 0 white;
-}
-
-
 #fontsize0 {
 	color: white;
 	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
@@ -335,6 +322,22 @@ border-bottom: 1px dotted black;
 	color: white;
 	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
     1px 0 black;
+}
+
+.textoutline {
+	text-shadow: -1px 0 white, 0 -1px white, 0 1px white,
+    1px 0 white !important;
+}
+
+#fontsizedrop li.outline {
+	text-shadow: -1px 0 black, 0 -1px black, 0 1px black,
+    1px 0 black;
+}
+
+
+#fontsizedrop li.outline:hover {
+	text-shadow: -1px 0 white, 0 -1px white, 0 1px white,
+    1px 0 white;
 }
 /*shortcut symbol spacing*/
 #und0 {
