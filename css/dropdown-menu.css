@@ -387,11 +387,34 @@ border-bottom: 1px dotted black;
 	margin-left: 53px;
 }
 
+img {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.inverseIMG {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 /*apple image spacing*/
 #applebutton {
 	position: absolute;
 	left: -6px;
 	top: 0px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 /*spacing for black image that appears for nav-main*/
 #fileblackmenuside {

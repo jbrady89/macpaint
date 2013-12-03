@@ -2571,9 +2571,9 @@ $(document).ready(function(){
     };
 
 //prevent highlighting when dragging mouse in IE
-   /* $('body').addClass('notTyping');
-    if ($('body').hasClass('notTyping')) $(document).mousedown(function(event){event.preventDefault()});
-    */
+   
+    //$('#applebutton').mousedown(function(event){event.preventDefault()});
+    
     //tool buttons
     var currentButton = "#4a";
 
@@ -2869,10 +2869,11 @@ $(document).ready(function(){
         $('.blackmenuside').hide();
     }
 
-    function inverse(){ 
-        $('#applebutton').attr('src', "css/img/applebuttoni.png")
+    function inverse(e){ 
+        $('#applebutton').attr('src', "css/img/applebuttoni.png");
         $('.list').hover(navmainitemshover).hover(listhover);
         $('#applebutton').hover(applehover);
+        e.preventDefault();
     }
     $('#applebutton').bind("mousedown", inverse);
 

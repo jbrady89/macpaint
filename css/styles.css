@@ -1,7 +1,7 @@
 /*disables highlighting when dragging over body*/
 body
 {
-    -webkit-touch-callout: none;
+  -webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
@@ -20,7 +20,7 @@ div {
 	width:511px;
 	background-image:url('img/mpbackground.jpg');
 	background-repeat:repeat;
-    -webkit-touch-callout: none;
+  -webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
