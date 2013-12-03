@@ -1423,7 +1423,7 @@ $(document).ready(function(){
     };
 
     function paintbrush (){
-        $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
+        $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(cursors/paintbrushb.cur), default"});
         lastCur.push($('#myCanvas').css('cursor'));
         /*$(document).mousemove(function(){//prevent drawing when mouse moves off canvas
             if ($(this).attr('id') != 'myCanvas') return false;
@@ -3953,7 +3953,7 @@ $(document).ready(function(){
 //adds 'checked' to checkbox0 when page loads
     $('#checkbox0').addClass('checked');
 //sets paintbrush cursor when page loads
-    $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(paintbrushb.cur), default"});
+    $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(cursors/paintbrushb.cur), default"});
 //changes cursor for tools 6a through 10a when line thickness is changed
     function changeCur(){
         if ( lastCur.length > 4 ) {
