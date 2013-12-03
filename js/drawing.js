@@ -1995,10 +1995,8 @@ $(document).ready(function(){
             var fillpattern = new Image();
             fillpattern.src = $('#innerimagetable').attr('brushpattern');
             var pattern = context.createPattern(fillpattern, 'repeat');
-            if(canvas.getContext) {
-                var ctx = canvas.getContext('2d');
-                drawEllipse(ctx, mousedown.x, mousedown.y, loc.x - mousedown.x, loc.y - mousedown.y);
-            }
+            drawEllipse(context, mousedown.x, mousedown.y, loc.x - mousedown.x, loc.y - mousedown.y);
+            
             function drawEllipse(ctx, x, y, w, h) {
                 var kappa = .5522848;
                   ox = (w / 2) * kappa, // control point offset horizontal
@@ -2009,13 +2007,13 @@ $(document).ready(function(){
                   ym = y + h / 2;       // y-middle
                 context.fillStyle = pattern;
                 context.strokeStyle = "black";
-                ctx.beginPath();
-                ctx.moveTo(x, ym);
-                ctx.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
-                ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
-                ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
-                ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
-                ctx.closePath();
+                context.beginPath();
+                context.moveTo(x, ym);
+                context.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
+                context.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
+                context.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+                context.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
+                context.closePath();
                 if (dofill)context.fill();
                 ctx.stroke();
             }
@@ -3046,7 +3044,7 @@ $(document).ready(function(){
         $('.rowlines').hide();
         //$('.list').find('li').css({'background':'black','color':'white'});
     }
-//$('#fileflashdiv').show();
+
     //menu flashing
     $('.nav-sub li').mouseup(function() {
         var id = $(this).closest('ul').parent().attr('id');
@@ -3068,8 +3066,8 @@ $(document).ready(function(){
             if (inversed == true) $(_this).css({'background':'black','color':'white'});
             else $(_this).css({'background':'white','color':'black'});
             if (count == 8) {
-                clearInterval(whiteToBlack);
-                $('#'+id+'flashdiv').hide()//.unbind('hover'); // I don't understand why taking this unbind out breaks it..
+                // clearInterval(whiteToBlack);
+                $('#'+id+'flashdiv').hide().unbind('hover'); // I don't understand why taking this unbind out breaks it..
                 setTimeout(function(){
                     $('.nav-sub').hide();
                 }, 110);
@@ -3077,8 +3075,9 @@ $(document).ready(function(){
                 $('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
                 });
+                 clearInterval(whiteToBlack);
             }
-        }, 60);
+        }, 63);
     });
 //undo functions
     $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});

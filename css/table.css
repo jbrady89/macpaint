@@ -1125,14 +1125,7 @@ body{}
 	z-index:10000;
 }
 
-.inactive {
-	background: none !important;
-	color:gray !important;
-}
-.inactive:hover{
-	background: none !important;
-	color: gray !important;
-}
+
 #alarmCheckbox {
 	left: 280px;
 	top: 75px;

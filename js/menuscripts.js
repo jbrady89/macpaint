@@ -1,5 +1,7 @@
 /////////////////////////////////////////////"new" menu item
 $(document).ready(function(){
+
+
   $('#newcanvas').mouseup(function(){
     setTimeout(restore, 500);
     showtable();
@@ -12,7 +14,8 @@ $(document).ready(function(){
     $("#saveClose").hide();
     $(".rowlines").show();
     $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #undo, #pasteItem, #menu_sCut, #menu_intro, #showPage').removeClass('inactive');
+    //$("#filedrop li").css('background', 'white').css('color', 'black');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #undo, #pasteItem, #menu_sCut, #menu_intro, #showPage').removeClass('inactive').addClass('active');
   }
   function showtable(){
     $("#closecanvastable").show();
@@ -201,7 +204,7 @@ $(document).ready(function(){
 
 
 ////////////////////////////////////////////Quit menu item
-  $('#myCanvas').mousedown(function(){
+/*  $('#myCanvas').mousedown(function(){
     $('#contents').removeClass('visible1');
     $('#exitMP').mouseup(function(){
 
@@ -296,7 +299,7 @@ $(document).ready(function(){
   }
   /*function NoclearCanvas(){
       context.clearRect(0, 0, canvas.width(), canvas.height());
-  }*/
+  }
 
 ////////////////////////////////////////////clicking 'cancel' on 'quit'
   $('#cancelQuit').mousedown(function(){
@@ -339,7 +342,7 @@ $(document).ready(function(){
   function showtableYes(){
     $("#closecanvastable").show();
   }
-
+*/
 ////////////////////////////////////////////save file and export canvas image as base64 png
   $('#yesQuit, #yesSave, #yesClose').mouseup(function(){
     $('#cl0sefile').hide();
@@ -438,7 +441,7 @@ $(document).ready(function(){
         //}
     });
   }
-
+/*
 ////////////////////////////////////////////Clicking 'no' on 'quit' popup
   $('#noQuit').mousedown(function(){
     $('#noQuit').css({'background':'black','color':'white'});
@@ -453,7 +456,7 @@ $(document).ready(function(){
   $('#noQuit').mouseup(function(){
     $('#noQuit').unbind('hover');
   });
-
+*/
 ////////////////////////////////////////////Clicking Close after drawing
 
   $('#myCanvas').mousedown(function(){
@@ -485,7 +488,7 @@ $(document).ready(function(){
     $('#cl0sefile').hide();
     $('#contents').css('display','none').removeClass('visible').addClass('hidden');
     $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #editdrop li, #menu_intro, #showPage, #menu_sCut').addClass('inactive');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #editdrop li, #menu_intro, #showPage, #menu_sCut').removeClass().addClass('inactive');
   }
 
 //brings up menu after clicking top left canvas box
