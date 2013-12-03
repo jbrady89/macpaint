@@ -1,7 +1,7 @@
 /////////////////////////////////////////////"new" menu item
 $(document).ready(function(){
 
-  
+
   $('#newcanvas').mouseup(function(){
     setTimeout(restore, 500);
     showtable();
@@ -350,9 +350,10 @@ $(document).ready(function(){
     var goo = canvas.toDataURL("image/png");
   });
   $('#savefile, #saveAs').mouseup(function(){
-    $('#overlay').show();
-    setTimeout(saveFile,500);
-
+    if (! ($(this).hasClass('inactive'))) {
+      $('#overlay').show();
+      setTimeout(saveFile,500);
+    }
   });
   function saveFile(){
     $('#overlay').show();
@@ -571,46 +572,49 @@ $(document).ready(function(){
   });
 ////////////////////////////////////////////revert menu item
   $('#revert').mouseup(function(){
-    $('#revertdiv').show().css('z-index', '10001');
-    $('#overlay').show();
-    $('.rowlines, #closecanvastable').hide();
-    $('#yesRevert').mousedown(function(){
-      $(this).css({'background':'black','color':'white'});
-        $('#yesRevert').hover(
+    if (! ($(this).hasClass('inactive'))){
+      $('#revertdiv').show().css('z-index', '10001');
+      $('#overlay').show();
+      $('.rowlines, #closecanvastable').hide();
+      $('#yesRevert').mousedown(function(){
+        $(this).css({'background':'black','color':'white'});
+          $('#yesRevert').hover(
+            function(){$(this).css({'background':'black','color':'white'})}, 
+            function(){$(this).css({'background':'white','color':'black'});
+          });
+        $('#yesRevert').mouseup(function(){
+          console.log('yes')
+          $(this).css({'background':'white','color':'black'});
+          $('#revertdiv').hide();
+          $('.rowlines, #closecanvastable').show();
+          $('#yesRevert, #cancelRevert').unbind('hover');
+          clearCanvas(context);
+          $('#overlay').hide();
+        });
+          /*function clearCanvasRevert(){
+            context.clearRect(0, 0, canvas.width(), canvas.height());
+          }*/
+        $('#revertdiv').mouseup(function(){
+          $('#yesRevert, #cancelRevert').unbind('hover');
+        });
+      });
+      $('#cancelRevert').mousedown(function(){
+        $(this).css({'background':'black','color':'white'});
+        $('#cancelRevert').hover(
           function(){$(this).css({'background':'black','color':'white'})}, 
           function(){$(this).css({'background':'white','color':'black'});
         });
-      $('#yesRevert').mouseup(function(){
-        $(this).css({'background':'white','color':'black'});
-        $('#revertdiv').hide;
-        $('.rowlines, #closecanvastable').hide();
-        $('#yesRevert, #cancelRevert').unbind('hover');
-        clearCanvas(context);
-        $('#overlay').hide();
+        $('#cancelRevert').mouseup(function(){
+          $(this).css({'background':'white','color':'black'});
+          $('#revertdiv, #overlay').hide();
+          $('.rowlines, #closecanvastable').show();
+          $('#cancelRevert, #yesRevert').unbind('hover');
+        });  
+        $('#revertdiv').mouseup(function(){
+          $('#yesRevert, #cancelRevert').unbind('hover');
+        });      
       });
-        /*function clearCanvasRevert(){
-          context.clearRect(0, 0, canvas.width(), canvas.height());
-        }*/
-      $('#revertdiv').mouseup(function(){
-        $('#yesRevert, #cancelRevert').unbind('hover');
-      });
-    });
-    $('#cancelRevert').mousedown(function(){
-      $(this).css({'background':'black','color':'white'});
-      $('#cancelRevert').hover(
-        function(){$(this).css({'background':'black','color':'white'})}, 
-        function(){$(this).css({'background':'white','color':'black'});
-      });
-      $('#cancelRevert').mouseup(function(){
-        $(this).css({'background':'white','color':'black'});
-        $('#revertdiv, #overlay').hide();
-        $('.rowlines, #closecanvastable').show();
-        $('#cancelRevert, #yesRevert').unbind('hover');
-      });  
-      $('#revertdiv').mouseup(function(){
-        $('#yesRevert, #cancelRevert').unbind('hover');
-      });      
-    });
+    }
   });  
   //displays the overlay to capture clicks
   $('#introbutton, #sCutbutton, #okMirrors, #noneMirrors, #yesScaled, #cancelScaled').click(function(){
@@ -623,4 +627,5 @@ $(document).ready(function(){
     function(){$(this).addClass('whiteShadow')},
     function(){$(this).removeClass('whiteShadow')
   }).css({'width': $('#styledrop').width(), 'left': '-10px'});
+
 });

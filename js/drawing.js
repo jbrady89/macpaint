@@ -3047,6 +3047,7 @@ $(document).ready(function(){
 
     //menu flashing
     $('.nav-sub li').mouseup(function() {
+        if (!($(this).hasClass('inactive'))) {
         var id = $(this).closest('ul').parent().attr('id');
         console.log(id);
 
@@ -3078,6 +3079,7 @@ $(document).ready(function(){
                  clearInterval(whiteToBlack);
             }
         }, 63);
+    }
     });
 //undo functions
     $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
