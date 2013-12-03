@@ -1,4 +1,5 @@
 macpaint
 ========
 resurrecting macpaint with html/css/js <br />
-excuse the mess...
+
+<img src="http://i41.tinypic.com/ornrxk.png" >
