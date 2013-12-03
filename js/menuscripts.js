@@ -1,7 +1,9 @@
 /////////////////////////////////////////////"new" menu item
 $(document).ready(function(){
 
+  /*** Items in file dropdown ***/
 
+  // new 
   $('#newcanvas').mouseup(function(){
     setTimeout(restore, 500);
     showtable();
@@ -48,101 +50,8 @@ $(document).ready(function(){
   function hideContents(){
     $('#contents').hide().addClass('hidden').removeClass('visible');
   }*/
-////////////////////////////////////////////intro menu item
-  $('#intro').addClass('notShowing')
-  $('#menu_intro').mouseup(function(){
-    $('#overlay').show();
-    if($('#shortcut').hasClass('notShowing')){
-      setTimeout(restoreCanvasIntro,500);
-    }
-  });
-  function restoreCanvasIntro(){
-    $("#intro").show();
-    $('#intro').removeClass('notShowing').addClass('showing');
-  }
-  $('#introbutton').mousedown(function(){
-    $('#introbutton').css({'background':'black','color':'white'});
-  });
-  $('#introbutton').mouseup(function(){
-    hideIntro();
-    $('#introbutton').css({'background':'white','color':'black'});
-    $('#overlay').hide();
-  });
-  function hideIntro(){
-    $('#intro').hide().css({'background':'white','color':'black'});
-    $('#intro').removeClass('showing').addClass('notShowing');
-  }
 
-////////////////////////////////////////////shortcut menu item
-  $('#shortcut').addClass('notShowing');
-  $('#menu_sCut').mouseup(function(){
-    $('#overlay').show();
-    if($('#intro').hasClass('notShowing')){
-      setTimeout(restoreCanvasShortcut,500);
-    }
-  });
-
-  function restoreCanvasShortcut(){
-    $("#shortcut").show();
-    $("#shortcut").removeClass('notShowing').addClass('showing');
-  }
-
-  $('#sCutbutton').mousedown(function(){
-    $('#sCutbutton').css({'background':'black','color':'white'});
-  });
-
-  $('#sCutbutton').mouseup(function(){
-    hideShortcut();
-    $('#overlay').hide();
-    $('#sCutbutton').css({'background':'white','color':'black'});
-  });
-  function hideShortcut(){
-    $('#shortcut').hide().css({'background':'white','color':'black'});
-    $('#shortcut').removeClass('showing').addClass('notShowing');
-  }
-
-////////////////////////////////////////////save pop-up when top-left box is clicked after drawing
-  var drawn;
-  $('#myCanvas').mousedown(function(drawn){
-    canvas.onmousemove = function(){
-      drawn = true;
-    }
-    $('#closecanvastable').mouseup(function(){
-      $('#overlay').show();
-      if (drawn){
-        keepCanvas();
-        showsaveBox();
-        hidelines();
-        drawn = false;
-      }
-    });
-  });
-  //brings up save box
-  function showsaveBox(){
-    $('#saveClose').show();
-    $('#saveClose').css('z-index','10005');
-  }
-  //hides 'untitled' bar lines
-  function hidelines(){
-    $('.rowlines, #closecanvastable').hide();
-  }
-  //keeps canvas open after table8 mouseup
-  function keepCanvas(){
-    $('#contents').show().removeClass('hidden').addClass('visible');
-  }
-
-//hide contents div after no drawing
-  $('#closecanvastable').mouseup(function(){
-    hideContentsNoDraw();
-  });
-  function hideContentsNoDraw (){
-    $('#closecanvastable').removeClass('hidden');
-    $('#contents').hide().addClass('hidden').removeClass('visible');
-    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-  }
-
-////////////////////////////////////////////close canvas after 'no'
+  ////////////////////////////////////////////close canvas after 'no'
   var canvas = $("#myCanvas");
   var context = canvas.get(0).getContext("2d");
   $('#noSave').mousedown(function(){
@@ -160,49 +69,7 @@ $(document).ready(function(){
     $('#overlay').hide();
   });
 
-  ////////////////////////////////////////////controls "No" button hover
-
-  $('#noSave').mousedown(function(){
-    $('#noSave').hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-    $(document).mouseup(function(){
-      $('#noSave').unbind('hover');
-    });
-  });
-  $('#noSave').mouseup(function(){
-    $('#noSave').unbind('hover');
-  });
-
-
-////////////////////////////////////////////restore canvas lines after 'cancel'
-  $('#cancelSave').mousedown(function(){
-    $('#cancelSave').css({'background':'black','color':'white'});
-    $('#cancelSave').hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-  });
-  $(document).mouseup(function(){
-      $('#cancelSave').unbind('hover');//prevents hover event inside of button if mouseup outside of it
-  });
-  $('#cancelSave').mouseup(function(){
-    $("#closecanvastable").show().removeClass('hidden');
-    $('#cancelSave').css({'background':'white','color':'black'})
-    $('#saveClose').hide();
-    $('.rowlines').show();
-    $('#overlay').hide();
-    $('#newcanvas, #openfile').removeClass('active').addClass('inactive');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
-  });
-  /*function showSymboltable(){
-    $("#closecanvastable").show();
-  }*/
-
-
-
-////////////////////////////////////////////Quit menu item
+  ////////////////////////////////////////////Quit menu item
   $('#myCanvas').mousedown(function(){
     $('#contents').removeClass('visible1');
     $('#exitMP').mouseup(function(){
@@ -217,39 +84,8 @@ $(document).ready(function(){
       }
     });
   });
-////////////////////////////////////////////brings up save box
-    function hideContentsSave (){
-      $('.content').hide();
-      $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
-      $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-    }
-    function showquitBox(){
-      $('#quitClose').show().css('z-index','10005');
-      $('#overlay').show();
-    }
-  //hides 'untitled' bar lines
-    function hidelinesSave(){
-      $('.rowlines, #closecanvastable').hide();
-    }
-  //keeps canvas open after table8 mouseup
-    function keepCanvasSave(){
-    $('#contents').css('display','block').removeClass('hidden');
-    }
-    function keepOpenSave(){
-      $('.content').show();
-    }
 
-  $('#exitMP').mouseup(function(){
-      setTimeout(hideContentsQuit, 500);
-  });
-  
-  function hideContentsQuit (){
-    $('.content').hide();
-    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-  }
-
-////////////////////////////////////////////"Quit" pop-up No
+  ////////////////////////////////////////////"Quit" pop-up No
   var canvas = $("#myCanvas");
   var context = canvas.get(0).getContext("2d");
 
@@ -342,13 +178,6 @@ $(document).ready(function(){
     $("#closecanvastable").show();
   }
 
-////////////////////////////////////////////save file and export canvas image as base64 png
-  $('#yesQuit, #yesSave, #yesClose').mouseup(function(){
-    $('#cl0sefile').hide();
-    saveFile();
-    context.drawImage(canvas, 0, 0);
-    var goo = canvas.toDataURL("image/png");
-  });
   $('#savefile, #saveAs').mouseup(function(){
     if (! ($(this).hasClass('inactive'))) {
       $('#overlay').show();
@@ -491,29 +320,7 @@ $(document).ready(function(){
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #editdrop li, #menu_intro, #showPage, #menu_sCut').addClass('inactive');
   }
 
-//brings up menu after clicking top left canvas box
-  var canvas = $("#myCanvas");
-  var context = canvas.get(0).getContext("2d");
-  $('#closecanvastable').mousedown(function(){
-    $('#contents').show();
-  });
-  $('#noClose').mousedown(function(){
-    $('#noClose').css({'background':'black','color':'white'});
-  });
-  $('#noClose').mouseup(function(){
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-    $('#noClose').css({'background':'white','color':'black'});
-    clearCanvas(context);
-    $('#checkbox, #contents, #cl0sefile, #overlay').hide();
-    $('#contents').addClass('hidden').removeClass('visible');
-    $('.rowlines').show();
-    $('#newcanvas, #openfile').removeClass('inactive');
-  });
-  /*function SymbolclearCanvas(){
-      context.clearRect(0, 0, canvas.width(), canvas.height());
-  }*/
-
-////////////////////////////////////////////Cancel Closing
+  ////////////////////////////////////////////Cancel Closing
   $('#cancelClose').mousedown(function(){
     $('#cancelClose').css({'background':'black','color':'white'});
     $('#cancelClose').hover(
@@ -616,6 +423,212 @@ $(document).ready(function(){
       });
     }
   });  
+
+  $('#exitMP').mouseup(function(){
+      setTimeout(hideContentsQuit, 500);
+  });
+  
+  function hideContentsQuit (){
+    $('.content').hide();
+    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
+  }
+
+/***End File menu***/
+
+/***Goodies***/
+
+////////////////////////////////////////////intro menu item
+  $('#intro').addClass('notShowing')
+  $('#menu_intro').mouseup(function(){
+    $('#overlay').show();
+    if($('#shortcut').hasClass('notShowing')){
+      setTimeout(restoreCanvasIntro,500);
+    }
+  });
+  function restoreCanvasIntro(){
+    $("#intro").show();
+    $('#intro').removeClass('notShowing').addClass('showing');
+  }
+  $('#introbutton').mousedown(function(){
+    $('#introbutton').css({'background':'black','color':'white'});
+  });
+  $('#introbutton').mouseup(function(){
+    hideIntro();
+    $('#introbutton').css({'background':'white','color':'black'});
+    $('#overlay').hide();
+  });
+  function hideIntro(){
+    $('#intro').hide().css({'background':'white','color':'black'});
+    $('#intro').removeClass('showing').addClass('notShowing');
+  }
+
+////////////////////////////////////////////shortcut menu item
+  $('#shortcut').addClass('notShowing');
+  $('#menu_sCut').mouseup(function(){
+    $('#overlay').show();
+    if($('#intro').hasClass('notShowing')){
+      setTimeout(restoreCanvasShortcut,500);
+    }
+  });
+
+  function restoreCanvasShortcut(){
+    $("#shortcut").show();
+    $("#shortcut").removeClass('notShowing').addClass('showing');
+  }
+
+  $('#sCutbutton').mousedown(function(){
+    $('#sCutbutton').css({'background':'black','color':'white'});
+  });
+
+  $('#sCutbutton').mouseup(function(){
+    hideShortcut();
+    $('#overlay').hide();
+    $('#sCutbutton').css({'background':'white','color':'black'});
+  });
+  function hideShortcut(){
+    $('#shortcut').hide().css({'background':'white','color':'black'});
+    $('#shortcut').removeClass('showing').addClass('notShowing');
+  }
+
+/***End Goodies***/
+
+/***Close Box inside Filname bar***/
+////////////////////////////////////////////save pop-up when top-left box is clicked after drawing
+  var drawn;
+  $('#myCanvas').mousedown(function(drawn){
+    canvas.onmousemove = function(){
+      drawn = true;
+    }
+    $('#closecanvastable').mouseup(function(){
+      $('#overlay').show();
+      if (drawn){
+        keepCanvas();
+        showsaveBox();
+        hidelines();
+        drawn = false;
+      }
+    });
+  });
+  //brings up save box
+  function showsaveBox(){
+    $('#saveClose').show();
+    $('#saveClose').css('z-index','10005');
+  }
+  //hides 'untitled' bar lines
+  function hidelines(){
+    $('.rowlines, #closecanvastable').hide();
+  }
+  //keeps canvas open after table8 mouseup
+  function keepCanvas(){
+    $('#contents').show().removeClass('hidden').addClass('visible');
+  }
+
+//hide contents div after no drawing
+  $('#closecanvastable').mouseup(function(){
+    hideContentsNoDraw();
+  });
+  function hideContentsNoDraw (){
+    $('#closecanvastable').removeClass('hidden');
+    $('#contents').hide().addClass('hidden').removeClass('visible');
+    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
+  }
+
+  ////////////////////////////////////////////controls "No" button hover
+
+  $('#noSave').mousedown(function(){
+    $('#noSave').hover(
+      function(){$(this).css({'background':'black','color':'white'})}, 
+      function(){$(this).css({'background':'white','color':'black'});
+    });
+    $(document).mouseup(function(){
+      $('#noSave').unbind('hover');
+    });
+  });
+  $('#noSave').mouseup(function(){
+    $('#noSave').unbind('hover');
+  });
+
+
+////////////////////////////////////////////restore canvas lines after 'cancel'
+  $('#cancelSave').mousedown(function(){
+    $('#cancelSave').css({'background':'black','color':'white'});
+    $('#cancelSave').hover(
+      function(){$(this).css({'background':'black','color':'white'})}, 
+      function(){$(this).css({'background':'white','color':'black'});
+    });
+  });
+  $(document).mouseup(function(){
+      $('#cancelSave').unbind('hover');//prevents hover event inside of button if mouseup outside of it
+  });
+  $('#cancelSave').mouseup(function(){
+    $("#closecanvastable").show().removeClass('hidden');
+    $('#cancelSave').css({'background':'white','color':'black'})
+    $('#saveClose').hide();
+    $('.rowlines').show();
+    $('#overlay').hide();
+    $('#newcanvas, #openfile').removeClass('active').addClass('inactive');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
+  });
+  /*function showSymboltable(){
+    $("#closecanvastable").show();
+  }*/
+
+////////////////////////////////////////////brings up save box
+    function hideContentsSave (){
+      $('.content').hide();
+      $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
+      $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
+    }
+    function showquitBox(){
+      $('#quitClose').show().css('z-index','10005');
+      $('#overlay').show();
+    }
+  //hides 'untitled' bar lines
+    function hidelinesSave(){
+      $('.rowlines, #closecanvastable').hide();
+    }
+  //keeps canvas open after table8 mouseup
+    function keepCanvasSave(){
+    $('#contents').css('display','block').removeClass('hidden');
+    }
+    function keepOpenSave(){
+      $('.content').show();
+    }
+
+////////////////////////////////////////////save file and export canvas image as base64 png
+  $('#yesQuit, #yesSave, #yesClose').mouseup(function(){
+    $('#cl0sefile').hide();
+    saveFile();
+    context.drawImage(canvas, 0, 0);
+    var goo = canvas.toDataURL("image/png");
+  });
+  
+
+//brings up menu after clicking top left canvas box
+  var canvas = $("#myCanvas");
+  var context = canvas.get(0).getContext("2d");
+  $('#closecanvastable').mousedown(function(){
+    $('#contents').show();
+  });
+  $('#noClose').mousedown(function(){
+    $('#noClose').css({'background':'black','color':'white'});
+  });
+  $('#noClose').mouseup(function(){
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
+    $('#noClose').css({'background':'white','color':'black'});
+    clearCanvas(context);
+    $('#checkbox, #contents, #cl0sefile, #overlay').hide();
+    $('#contents').addClass('hidden').removeClass('visible');
+    $('.rowlines').show();
+    $('#newcanvas, #openfile').removeClass('inactive');
+  });
+  /*function SymbolclearCanvas(){
+      context.clearRect(0, 0, canvas.width(), canvas.height());
+  }*/
+
+
   //displays the overlay to capture clicks
   $('#introbutton, #sCutbutton, #okMirrors, #noneMirrors, #yesScaled, #cancelScaled').click(function(){
     $('#overlay').hide();
