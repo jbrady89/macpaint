@@ -71,19 +71,44 @@ $(document).ready(function(){
 
   ////////////////////////////////////////////Quit menu item
   $('#myCanvas').mousedown(function(){
+    console.log('true');
     $('#contents').removeClass('visible1');
     $('#exitMP').mouseup(function(){
 
       if(($('#contents').hasClass('visible1')) || ($('#contents').hasClass('hidden'))){
         setTimeout(hideContentsSave, 500);
       }
-      else { setTimeout(keepCanvasSave,500);
-             setTimeout(showquitBox,500);
-             setTimeout(hidelinesSave,500);
-             setTimeout(keepOpenSave,500);
+      else {
+        setTimeout(keepCanvasSave,500);
+        setTimeout(showquitBox,500);
+        setTimeout(hidelinesSave,500);
+        setTimeout(keepOpenSave,500);
       }
     });
   });
+
+
+////////////////////////////////////////////brings up save box
+    function hideContentsSave (){
+      $('.content').hide();
+      $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
+      $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
+    }
+    function showquitBox(){
+      $('#quitClose').show().css('z-index','10005');
+      $('#overlay').show();
+    }
+  //hides 'untitled' bar lines
+    function hidelinesSave(){
+      $('.rowlines, #closecanvastable').hide();
+    }
+  //keeps canvas open after table8 mouseup
+    function keepCanvasSave(){
+    $('#contents').css('display','block').removeClass('hidden');
+    }
+    function keepOpenSave(){
+      $('.content').show();
+    }
 
   ////////////////////////////////////////////"Quit" pop-up No
   var canvas = $("#myCanvas");
@@ -122,7 +147,7 @@ $(document).ready(function(){
       $('.rowlines').show();
       $('#overlay').hide();
       $('#quitClose').css('z-index', '');
-      $('#newcanvas, #openfile').removeClass('inactive').addclass('active');
+      $('#newcanvas, #openfile').removeClass('inactive').addClass('active');
     }
   });
   function clearCanvas(context){
@@ -131,6 +156,7 @@ $(document).ready(function(){
     context.rect(0, 0, canvas.width(), canvas.height());
     context.closePath();
     context.fill();
+    context.fillStyle = 'black';
   }
   /*function NoclearCanvas(){
       context.clearRect(0, 0, canvas.width(), canvas.height());
@@ -157,6 +183,8 @@ $(document).ready(function(){
   });
   function showtableCancel(){
     $("#closecanvastable").show();
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
+    $('#newcanvas, #openfile').removeClass('active').addClass('inactive');
   }
 ////////////////////////////////////////////clicking 'yes' on 'quit'
   $('#yesQuit').mousedown(function(){
@@ -574,28 +602,6 @@ $(document).ready(function(){
   /*function showSymboltable(){
     $("#closecanvastable").show();
   }*/
-
-////////////////////////////////////////////brings up save box
-    /*function hideContentsSave (){
-      $('.content').hide();
-      $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
-      $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-    }
-    function showquitBox(){
-      $('#quitClose').show().css('z-index','10005');
-      $('#overlay').show();
-    }
-  //hides 'untitled' bar lines
-    function hidelinesSave(){
-      $('.rowlines, #closecanvastable').hide();
-    }
-  //keeps canvas open after table8 mouseup
-    function keepCanvasSave(){
-    $('#contents').css('display','block').removeClass('hidden');
-    }
-    function keepOpenSave(){
-      $('.content').show();
-    }*/
 
 ////////////////////////////////////////////save file and export canvas image as base64 png
   $('#yesQuit, #yesSave, #yesClose').mouseup(function(){
