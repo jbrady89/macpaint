@@ -576,7 +576,7 @@ $(document).ready(function(){
   }*/
 
 ////////////////////////////////////////////brings up save box
-    function hideContentsSave (){
+    /*function hideContentsSave (){
       $('.content').hide();
       $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
       $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
@@ -595,7 +595,7 @@ $(document).ready(function(){
     }
     function keepOpenSave(){
       $('.content').show();
-    }
+    }*/
 
 ////////////////////////////////////////////save file and export canvas image as base64 png
   $('#yesQuit, #yesSave, #yesClose').mouseup(function(){

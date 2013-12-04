@@ -3056,6 +3056,9 @@ $(document).ready(function(){
             $('#'+id+'drop').show();
             $('#' + id).css({'background':'black','color':'white'});
             $('#' + id + 'blackmenuside').show();
+            if ( $(this).attr('id','appleflashdiv') ){
+                $('#applebutton').attr('src', 'css/img/applebuttoni.png');
+            }
         });
         var count = 0;
         var inversed;
@@ -3071,12 +3074,13 @@ $(document).ready(function(){
                 $('#'+id+'flashdiv').hide().unbind('hover'); // I don't understand why taking this unbind out breaks it..
                 setTimeout(function(){
                     $('.nav-sub').hide();
+                    $('#applebutton').attr('src','css/img/applebuttonh.png');
                 }, 110);
                 //$('.nav-sub').hide();
                 $('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
                 });
-                 clearInterval(whiteToBlack);
+                clearInterval(whiteToBlack);
             }
         }, 63);
     }
