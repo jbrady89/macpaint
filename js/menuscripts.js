@@ -1,4 +1,3 @@
-/////////////////////////////////////////////"new" menu item
 $(document).ready(function(){
 
   /*** Items in file dropdown ***/
