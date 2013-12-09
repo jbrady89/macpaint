@@ -9,7 +9,7 @@ $(document).ready(function(){
     var canvasLeft = parseInt($('.canvas').css('left')) / -3.1; //set viewbox position based on canvas position
     var canvasTop = parseInt($('.canvas').css('top')) / -2.8;
     $('#vbContainer').css('left', canvasLeft + 'px').css('top', canvasTop + 'px');
-    console.log($('#vbContainer').css('left'), $('#vbContainer').css('top'));
+    //console.log($('#vbContainer').css('left'), $('#vbContainer').css('top'));
   });
   $('#yesScaled, #cancelScaled').mousedown(function(){//enables hover after mousedown on button
     //$(this).css('z-index', 9000);
@@ -30,8 +30,8 @@ $(document).ready(function(){
     });
   });
    $('#yesScaled').mouseup(function(){
-      console.log($('#vbContainer').css('left'), $('#vbContainer').css('top'));
-      console.log($('.canvas').css('left'));
+      //console.log($('#vbContainer').css('left'), $('#vbContainer').css('top'));
+      //console.log($('.canvas').css('left'));
       $(this).css({'background':'white','color':'black'});
       var sourceX = -3.1 * parseInt($('#vbContainer').css('left'));//set canvas position based on viewbox position
       var sourceY = -2.8 * parseInt($('#vbContainer').css('top'));

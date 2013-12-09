@@ -72,8 +72,8 @@ $(document).ready(function(){
         var selectionData;
         context.strokeStyle = 'black';
         lastCur.push($('#myCanvas').css('cursor'));
-        console.log(lastCur);
-        console.log(lastBrushCur);
+        //console.log(lastCur);
+        //console.log(lastBrushCur);
         $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
         function drawRubberbandShape(loc) {
             CanvasRenderingContext2D.prototype.dashedLineTo = function (fromX, fromY, toX, toY, pattern) {
@@ -1584,7 +1584,7 @@ $(document).ready(function(){
                 mouseY = e.pageY - this.offsetTop - 55;
                             var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
             var data = imagedata.data;
-            //console.log(data)
+            ////console.log(data)
 
             if (data[3] == 255) ctx.fillStyle = "white";
             if (data[3] == 0) ctx.fillStyle  = "black";
@@ -1903,7 +1903,7 @@ $(document).ready(function(){
     }
     
     function drawrect (dofill){
-        console.log('rect');
+        //console.log('rect');
         changeCur();
         if (($('#6b').attr('src') == "css/img/6bi.png") || ($('#6a').attr('src') == "css/img/6ai.png")) {
             for (i=0; i<5; i++) { 
@@ -2337,8 +2337,8 @@ $(document).ready(function(){
             updateRubberband(loc);
             dragging = true;
             endPositionarray.push(loc.x,loc.y);
-            console.log(endPositionarray);
-            console.log(startPositionarray);
+            //console.log(endPositionarray);
+            //console.log(startPositionarray);
         };
         canvas.ondblclick = function (e) {
             var fillpattern = new Image();
@@ -2388,14 +2388,14 @@ $(document).ready(function(){
             if ($('#5b').attr('src') == 'css/img/5bi.png') $('#5b').attr('src','css/img/5b.png');
             var lastActive = clicked[clicked.length-3];
             $(lastActive).attr('src', $(lastActive).attr('dos')).trigger('mousedown');
-            console.log(lastCur);
+            //console.log(lastCur);
             $('#myCanvas').css('cursor', lastCur[lastCur.length - 1]);
             if ($(this).attr('id') == '4a'){
                 lastCur = [];
                 $('#4a').trigger('mousedown');
             }
             changeCur();
-            console.log(lastCur);
+            //console.log(lastCur);
             clicked = [lastActive];
 
             //lastCur = [];
@@ -2623,7 +2623,7 @@ $(document).ready(function(){
     var drawn;
     tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
     $('#myCanvas').mousedown(function(){
-        console.log(drawn);
+        //console.log(drawn);
         var x = false; 
         var temp = document.getElementById('temp');
         var temp2 = document.getElementById('temp2');
@@ -3049,7 +3049,7 @@ $(document).ready(function(){
     $('.nav-sub li').mouseup(function() {
         if (!($(this).hasClass('inactive'))) {
         var id = $(this).closest('ul').parent().attr('id');
-        console.log(id);
+        //console.log(id);
 
         $('#'+id+'flashdiv').show();
         $('#'+id+'flashdiv').hover(function() {
@@ -3060,7 +3060,7 @@ $(document).ready(function(){
                 $('#' + id).css({'background':'black','color':'white'});
             }
             $('#' + id + 'blackmenuside').show();
-            console.log(id);
+            //console.log(id);
         });
         var count = 0;
         var inversed;
@@ -3093,7 +3093,7 @@ $(document).ready(function(){
     var drawn;
     tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
     $('#myCanvas').mousedown(function(){
-        console.log(drawn);
+        //console.log(drawn);
         var x = false; 
         var temp = document.getElementById('temp');
         var temp2 = document.getElementById('temp2');

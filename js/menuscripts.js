@@ -70,7 +70,7 @@ $(document).ready(function(){
 
   ////////////////////////////////////////////Quit menu item
   $('#myCanvas').mousedown(function(){
-    console.log('true');
+    //console.log('true');
     $('#contents').removeClass('visible1');
     $('#exitMP').mouseup(function(){
 
@@ -256,7 +256,7 @@ $(document).ready(function(){
     //$('input').disableTextSelect();//No text selection on input elements(text box)
     $('#typed').keyup(function() {//grays/ungrays form save button depending on input length
       var nameString = $(this).val().length; 
-      console.log(nameString);
+      //console.log(nameString);
       if(nameString && !$('#saveEject').hasClass('inactive'))$('#saveIt').removeClass('inactive').addClass('saveActive');
       else {
         $('#saveIt').removeClass('saveActive').addClass('inactive');
@@ -417,7 +417,7 @@ $(document).ready(function(){
             function(){$(this).css({'background':'white','color':'black'});
           });
         $('#yesRevert').mouseup(function(){
-          console.log('yes')
+          //console.log('yes')
           $(this).css({'background':'white','color':'black'});
           $('#revertdiv').hide();
           $('.rowlines, #closecanvastable').show();
