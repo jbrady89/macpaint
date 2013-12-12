@@ -2384,12 +2384,13 @@ $(document).ready(function(){
             var top = 2.8 * parseInt($('#vbContainer').css('top'));
             var canvas = $("#myCanvas")
             var context = canvas.get(0).getContext("2d");
-            context.clearRect(left, top, $('#canvasbox').width(), $('#canvasbox').height());
+            context.clearRect(left, top, $('#canvasbox').width() + 5, $('#canvasbox').height() + 5);
             if ($('#5b').attr('src') == 'css/img/5bi.png') $('#5b').attr('src','css/img/5b.png');
             var lastActive = clicked[clicked.length-3];
-            $(lastActive).attr('src', $(lastActive).attr('dos')).trigger('mousedown');
             //console.log(lastCur);
+            console.log(lastCur[lastCur.length - 3]);
             $('#myCanvas').css('cursor', lastCur[lastCur.length - 1]);
+            $(lastActive).attr('src', $(lastActive).attr('dos')).trigger('mousedown');
             if ($(this).attr('id') == '4a'){
                 lastCur = [];
                 $('#4a').trigger('mousedown');

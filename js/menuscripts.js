@@ -14,6 +14,8 @@ $(document).ready(function(){
     $("#contents").show().addClass('visible1').removeClass('hidden');
     $("#saveClose").hide();
     $(".rowlines").show();
+    clearCanvas(context);
+    nameFile('untitled');
     $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #undo, #pasteItem, #menu_sCut, #menu_intro, #showPage').removeClass('inactive');
   }
@@ -21,6 +23,16 @@ $(document).ready(function(){
     $("#closecanvastable").show();
 
   }
+
+  function nameFile(filename){
+    $('#filename').html('<span>' + filename + '</span>');//replace 'untitled' with new file name
+    var nameInPixels = $('#filename').find('span').width();//find length of new name in pixels
+    var padSize = (414 - (nameInPixels + 6))/2;//calculate left and right padding
+    $('#filename').css('left', padSize + 'px')//centers the new filename based on padding
+      .css('width', (nameInPixels +6) + 'px')
+      .css({'backgroud':'white','color':'black'}).css('text-align','center');
+  }
+
   function hideContents(){
     $('#contents').hide().addClass('hidden').removeClass('visible');
   }
@@ -137,7 +149,7 @@ $(document).ready(function(){
   function clearCanvas(context){
     context.fillStyle = 'white';
     context.beginPath();
-    context.rect(0, 0, canvas.width(), canvas.height());
+    context.rect(0, 0, canvas.width, canvas.height);
     context.closePath();
     context.fill();
     context.fillStyle = 'black';
@@ -232,12 +244,13 @@ $(document).ready(function(){
             $('#savedocumentdiv').hide();//hide 2nd popup
             $('#overlay').hide();
             $('.rowlines, #closecanvastable').show();//hide window bar lines & small box
-            $('#filename').html('<span>'+fileName+'</span>');//replace 'untitled' with new file name
+            nameFile(fileName);
+            /*$('#filename').html('<span>'+fileName+'</span>');//replace 'untitled' with new file name
             var nameInPixels = $('#filename').find('span').width();//find length of new name in pixels
             var padSize = (414 - (nameInPixels + 6))/2;//calculate left and right padding
             $('#filename').css('left', padSize + 'px')//centers the new filename based on padding
               .css('width', (nameInPixels +6) + 'px')
-              .css({'backgroud':'white','color':'black'}).css('text-align','center');
+              .css({'backgroud':'white','color':'black'}).css('text-align','center');*/
             $(document).mousedown(function(event){//rebinds it
               event.preventDefault();
             });
