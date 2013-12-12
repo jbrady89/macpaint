@@ -35,21 +35,6 @@ $(document).ready(function(){
     });
   });
 
-  /*function restore(){
-    $("#contents").show().addClass('visible1').removeClass('hidden');
-    $("#saveClose").css('display','none');
-    $(".rowlines").css('display','block');
-    $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive');
-  }
-  function showtable(){
-    $("#closecanvastable").show();
-    
-  }
-  function hideContents(){
-    $('#contents').hide().addClass('hidden').removeClass('visible');
-  }*/
-
   ////////////////////////////////////////////close canvas after 'no'
   var canvas = $("#myCanvas");
   var context = canvas.get(0).getContext("2d");
@@ -162,16 +147,7 @@ $(document).ready(function(){
   }*/
 
 ////////////////////////////////////////////clicking 'cancel' on 'quit'
-  $('#cancelQuit').mousedown(function(){
-    $('#cancelQuit').css({'background':'black','color':'white'});
-    $('#cancelQuit').hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-  });
-  $(document).mouseup(function(){
-    $('#cancelQuit').unbind('hover');
-  });
+
   $('#cancelQuit').mouseup(function(){
     showtableCancel();
     $('#closecanvastable').removeClass('hidden');
@@ -185,17 +161,9 @@ $(document).ready(function(){
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
     $('#newcanvas, #openfile').removeClass('active').addClass('inactive');
   }
+
 ////////////////////////////////////////////clicking 'yes' on 'quit'
-  $('#yesQuit').mousedown(function(){
-    $('#yesQuit').css({'background':'black','color':'white'});
-    $('#yesQuit').hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-  });
-  $(document).mouseup(function(){
-    $('#yesQuit').unbind('hover');
-  });
+
   $('#yesQuit').mouseup(function(){
     //showtableYes();
     $('#yesQuit').css({'background':'white','color':'black'});
@@ -216,24 +184,16 @@ $(document).ready(function(){
     $('#saveIt, #saveDrive').addClass('inactive');//grays out button
     $(this).css({'background':'white','color':'black'});//sets colors of 1st save button back to original state
     $(document).unbind('mousedown');//disables preventDefault() in order to eneable typing
-      $('#saveCancel').mousedown(function(){
-        $('#saveCancel').css({'background':'black','color':'white'});//invert colors
-        $('#saveCancel').hover(//intialize hover
-          function(){$(this).css({'background':'black','color':'white'})},//inverse while mousein
-          function(){$(this).css({'background':'white','color':'black'});//original when mouseout
-        });
-        $(document).mouseup(function(){
-            $('#saveCancel').unbind('hover');//prevents hover event inside of button if mouseup outside of it
-        });
-        $('#saveCancel').mouseup(function(){
-          $('#overlay').hide();
-          $('#savedocumentdiv').hide();//hide 2nd popup
-          $('.rowlines, #closecanvastable').show();
-          $('#saveCancel').css({'background':'white','color':'black'});
-          $('#yesClose, #yesSave').css({'background':'white','color':'black'});
-          $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
-          $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
-        });
+    $('#saveCancel').mousedown(function(){
+      $('#saveCancel').mouseup(function(){
+        $('#overlay').hide();
+        $('#savedocumentdiv').hide();//hide 2nd popup
+        $('.rowlines, #closecanvastable').show();
+        $('#saveCancel').css({'background':'white','color':'black'});
+        $('#yesClose, #yesSave').css({'background':'white','color':'black'});
+        $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
+        $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
+      });
     });
     $('#saveClose').hide();//hides initial popup
     $('.saveDivs, #filenametext').show().css('z-index','10002');//shows new popup
@@ -264,14 +224,6 @@ $(document).ready(function(){
       }
       if($('#saveIt').hasClass('saveActive')){//if button isn't grayed out
         $('#saveYes').mousedown(function(){//when 2nd save button pressed..
-          $('#saveYes').css({'background':'black','color':'white'});//invert colors
-          $('#saveYes').hover(//intialize hover
-            function(){$(this).css({'background':'black','color':'white'})},//inverse while mousein
-            function(){$(this).css({'background':'white','color':'black'});//original when mouseout
-          });
-          $(document).mouseup(function(){
-            $('#saveYes').unbind('hover');//prevent hover from firing after mouseup outside of button
-          });
           $(this).mouseup(function(){//button released..
             $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
             $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
@@ -297,21 +249,6 @@ $(document).ready(function(){
         //}
     });
   }
-
-////////////////////////////////////////////Clicking 'no' on 'quit' popup
-  $('#noQuit').mousedown(function(){
-    $('#noQuit').css({'background':'black','color':'white'});
-    $('#noQuit').hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-    $(document).mouseup(function(){
-      $('#noQuit').unbind('hover');
-    });
-  });
-  $('#noQuit').mouseup(function(){
-    $('#noQuit').unbind('hover');
-  });
 
 ////////////////////////////////////////////Clicking Close after drawing
 
@@ -348,16 +285,7 @@ $(document).ready(function(){
   }
 
   ////////////////////////////////////////////Cancel Closing
-  $('#cancelClose').mousedown(function(){
-    $('#cancelClose').css({'background':'black','color':'white'});
-    $('#cancelClose').hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-  });
-  $(document).mouseup(function(){
-    $('#cancelClose').unbind('hover');
-  });
+
   $('#cancelClose').mouseup(function(){
     $("#closecanvastable").show();
     $('#cancelClose').css({'background':'white','color':'black'})
@@ -371,16 +299,7 @@ $(document).ready(function(){
   }*/
 
 ////////////////////////////////////////////No save before closing
-  $('#noClose, #yesClose').mousedown(function(){
-    $(this).css({'background':'black','color':'white'});
-    $(this).hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-    $(document).mouseup(function(){
-      $('#noClose, #yesClose').unbind('hover');
-    });
-  });
+
   $('#noClose, #yesClose').mouseup(function(){
     $(this).unbind('hover');
     $(this).css({'background':'white','color':'black'});
@@ -388,16 +307,6 @@ $(document).ready(function(){
   });
 ///clicking eject in save pop-up
 
-  $('#saveEject').mousedown(function(){
-    $(this).css({'background':'black','color':'white'});
-    $(this).hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-    $(document).mouseup(function(){
-      $('#saveEject').unbind('hover');
-    });
-  });
   $('#saveEject').mouseup(function(){
     $(this).unbind('hover');
     $(this).css({'background':'white','color':'black'}).addClass('inactive');
@@ -411,11 +320,6 @@ $(document).ready(function(){
       $('#overlay').show();
       $('.rowlines, #closecanvastable').hide();
       $('#yesRevert').mousedown(function(){
-        $(this).css({'background':'black','color':'white'});
-          $('#yesRevert').hover(
-            function(){$(this).css({'background':'black','color':'white'})}, 
-            function(){$(this).css({'background':'white','color':'black'});
-          });
         $('#yesRevert').mouseup(function(){
           //console.log('yes')
           $(this).css({'background':'white','color':'black'});
@@ -433,11 +337,6 @@ $(document).ready(function(){
         });
       });
       $('#cancelRevert').mousedown(function(){
-        $(this).css({'background':'black','color':'white'});
-        $('#cancelRevert').hover(
-          function(){$(this).css({'background':'black','color':'white'})}, 
-          function(){$(this).css({'background':'white','color':'black'});
-        });
         $('#cancelRevert').mouseup(function(){
           $(this).css({'background':'white','color':'black'});
           $('#revertdiv, #overlay').hide();
@@ -562,33 +461,20 @@ $(document).ready(function(){
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
   }
 
-  ////////////////////////////////////////////controls "No" button hover
 
-  $('#noSave').mousedown(function(){
-    $('#noSave').hover(
-      function(){$(this).css({'background':'black','color':'white'})}, 
-      function(){$(this).css({'background':'white','color':'black'});
-    });
-    $(document).mouseup(function(){
-      $('#noSave').unbind('hover');
-    });
-  });
-  $('#noSave').mouseup(function(){
-    $('#noSave').unbind('hover');
-  });
-
-
-////////////////////////////////////////////restore canvas lines after 'cancel'
-  $('#cancelSave').mousedown(function(){
-    $('#cancelSave').css({'background':'black','color':'white'});
-    $('#cancelSave').hover(
+// color inverse on mousedown/hover for pop-up window buttons
+  $('.choicespopup, .saveDivs').mousedown(function(){
+    $(this).css({'background':'black','color':'white'});
+    $(this).hover(
       function(){$(this).css({'background':'black','color':'white'})}, 
       function(){$(this).css({'background':'white','color':'black'});
     });
   });
   $(document).mouseup(function(){
-      $('#cancelSave').unbind('hover');//prevents hover event inside of button if mouseup outside of it
+      $('.choicespopup, .saveDivs').unbind('hover');//prevents hover event inside of button if mouseup outside of it
   });
+
+////////////////////////////////////////////restore canvas lines after 'cancel'
   $('#cancelSave').mouseup(function(){
     $("#closecanvastable").show().removeClass('hidden');
     $('#cancelSave').css({'background':'white','color':'black'})
