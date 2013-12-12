@@ -393,7 +393,7 @@ $(document).ready(function(){
         canvas.onmousemove = function(e) {
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
-                mouseY = e.pageY - this.offsetTop - 52;
+                mouseY = e.pageY - this.offsetTop - 55;
 
                 // find all points between        
                 var x1 = mouseX,
@@ -675,7 +675,7 @@ $(document).ready(function(){
     var largeDotif;
     var largeDotelse;
     $('#largedottedrighttiltline').mousedown(function(){
-        $('#myCanvas').css({"cursor":"url(largetiltdotted.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/largetiltdotted.png), default"});
         largeDotif = function(ctx, x, y, lineThickness) {
             ctx.fillRect(y, x + 10, lineThickness , lineThickness );
             ctx.fillRect(y + 2, x + 8, lineThickness , lineThickness );
@@ -698,7 +698,7 @@ $(document).ready(function(){
     });
 
     $('#xldottedrighttiltline').mousedown(function(){
-        $('#myCanvas').css({"cursor":"url(xldottedrighttiltline.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/xldottedrighttiltline.png), default"});
         largeDotif = function(ctx, x, y, lineThickness) {
             for (i=-2, j=16;i<15, j>-1;i+=2, j-=2){
                 ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
@@ -769,7 +769,7 @@ $(document).ready(function(){
                 ctx.fillRect(x + i, y, lineThickness , lineThickness );
             }
         }
-        $('#myCanvas').css({"cursor":"url(largehorizontalline.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/largehorizontalline.png), default"});
         $('#brushbox').css('display','block').css({'top':'56px','left':'184px'});
         spraydesign();
         if (spraydesign){
@@ -788,7 +788,7 @@ $(document).ready(function(){
                 ctx.fillRect(x + i, y, lineThickness , lineThickness );
             }
         }
-        $('#myCanvas').css({"cursor":"url(xlhorizontalline.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/xlhorizontalline.png), default"});
         $('#brushbox').css('display','block').css({'top':'24px','left':'184px'});
         spraydesign();
         if (spraydesign){
@@ -845,7 +845,7 @@ $(document).ready(function(){
                 ctx.fillRect(x , y + i, lineThickness , lineThickness );
             }
         }
-        $('#myCanvas').css({"cursor":"url(largeverticalline.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/largeverticalline.png), default"});
         $('#brushbox').css('display','block').css({'top':'56px','left':'152px'});
         spraydesign();
         if (spraydesign){
@@ -865,7 +865,7 @@ $(document).ready(function(){
                 ctx.fillRect(x , y + i, lineThickness , lineThickness );
             }
         }
-        $('#myCanvas').css({"cursor":"url(xlverticalline.png), default"});
+        $('#myCanvas').css({"cursor":"url(brushshapes/xlverticalline.png), default"});
         $('#brushbox').css('display','block').css({'top':'24px','left':'152px'});
         spraydesign();
         if (spraydesign){
@@ -1090,7 +1090,7 @@ $(document).ready(function(){
         paintbrushsmall();
         if ( paintbrushsmall){
             $('#4a').mousedown( paintbrushsmall);
-            $('#myCanvas').css({"cursor":"url(brushshapes/smallcirclecursor.png), default"});
+            $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(cursors/paintbrushb.cur), default"});
         }
     });
     $('#mediumcircle').mousedown(function(){
