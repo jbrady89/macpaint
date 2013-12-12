@@ -2615,68 +2615,7 @@ $(document).ready(function(){
 
     /***********************/
     /* Begin Dropdown Menu */
-    /***********************
-
-//undo functions
-    $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
-    var y = false;
-    var drawn;
-    tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
-    $('#myCanvas').mousedown(function(){
-        //console.log(drawn);
-        var x = false; 
-        var temp = document.getElementById('temp');
-        var temp2 = document.getElementById('temp2');
-        var temp2Ctx = temp2.getContext('2d');
-        var tempCtx = temp.getContext('2d');
-        if (drawn = true) tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp canvas with each mousedown
-        $('#myCanvas').mousemove(function(){
-            var y = true;//flag becomes true after drawing
-            var drawn = true;
-            $('#myCanvas').mouseup(function(){
-                if (y){
-                    temp2Ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp2 canvas if flag true
-                    x = false;
-                }
-            });
-        });          
-        $('#myCanvas').mouseup(function(){
-            if (!y) y = true;
-        
-        });    
-        $('#undo').mouseup(function(y){
-            if (y){
-                if (!x){
-                    context.drawImage(temp,0,0,canvas.width, canvas.height);//image drawn from temp to main canvas after undo
-                    x = true;//flag becomes true after drawing undone;
-                }
-                else if (x = true) {
-                    context.drawImage(temp2, 0,0);//images drawn from temp2 to main canvas after redo
-                    x = false;//becomes false when drawing redone
-                    clear = true;
-                    y = false;
-                }
-            }
-            if (clear && ($('#selectionContainer').css('display') == 'none')){//undo the clearing of the selection
-                $('#selectionContainer').css({'left': points[0] , 'top': points[1]});//positions selection canvas back to pre-dragged location
-                var selection = document.getElementById('selected');
-                var theImage = document.getElementById('newselectioncanvas');
-                var ctx = selection.getContext('2d');
-                var imageSelection = theImage.getContext('2d');
-                var top = parseInt($('#selectionContainer').css('top'));
-                var left = parseInt($('#selectionContainer').css('left'));
-                temp2Ctx.fillStyle = 'white';
-                temp2Ctx.fillRect(mousedown.x - 1, mousedown.y - 1, w + 2, h + 2);
-                $('#selectionContainer').show();
-                context.drawImage(temp2, 0,0, canvas.width, canvas.height);
-                //var topo = parseInt($('#newselectioncanvas').css('top'));
-                //var lefto = parseInt($('#newselectioncanvas').css('left'));
-                //context.fillRect(top, left, selection.width, selection.height);//clears area underneath selection canvas
-                clear = false;
-            }
-        });
-    });
-
+    /***********************/
 
 //fontsize menu checkmarks
     function fscheckadd(fsize) {
@@ -3081,12 +3020,12 @@ $(document).ready(function(){
                 //$('.nav-sub').hide();
                 /*$('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
-                });
+                });*/
                 clearInterval(whiteToBlack);
             }
         }, 63);
     }
-    });*/
+    });
 //undo functions
     $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
     var y = false;
@@ -3146,7 +3085,7 @@ $(document).ready(function(){
                 clear = false;
             }
         });
-    });/*
+    });
 
 
     $('.rightbrushtable td').mouseup(function(){
