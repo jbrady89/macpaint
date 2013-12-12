@@ -2615,7 +2615,7 @@ $(document).ready(function(){
 
     /***********************/
     /* Begin Dropdown Menu */
-    /***********************/
+    /***********************
 
 //undo functions
     $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
@@ -3081,12 +3081,12 @@ $(document).ready(function(){
                 //$('.nav-sub').hide();
                 /*$('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
-                });*/
+                });
                 clearInterval(whiteToBlack);
             }
         }, 63);
     }
-    });
+    });*/
 //undo functions
     $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
     var y = false;
@@ -3099,19 +3099,20 @@ $(document).ready(function(){
         var temp2 = document.getElementById('temp2');
         var temp2Ctx = temp2.getContext('2d');
         var tempCtx = temp.getContext('2d');
+        var y;
+        var drawn;
         if (drawn = true) tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp canvas with each mousedown
         $('#myCanvas').mousemove(function(){
             var y = true;//flag becomes true after drawing
             var drawn = true;
-            $('#myCanvas').mouseup(function(){
-                if (y){
-                    temp2Ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp2 canvas if flag true
-                    x = false;
-                }
-            });
         });          
         $('#myCanvas').mouseup(function(){
-            if (!y) y = true;
+
+            if (y){
+                temp2Ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp2 canvas if flag true
+                x = false;
+            }
+            else if (!y) y = true;
         
         });    
         $('#undo').mouseup(function(y){
@@ -3145,7 +3146,7 @@ $(document).ready(function(){
                 clear = false;
             }
         });
-    });
+    });/*
 
 
     $('.rightbrushtable td').mouseup(function(){
