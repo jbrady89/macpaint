@@ -1048,9 +1048,12 @@ body{}
 }
 #typed{	
 	position: absolute;
+	border: 1px solid gray;
 	top: 39px;
 	left: 19px;
-	width: 170px;
+	width: 172px;
+	height: 18px;
+	outline: none;
 }
 ::selection {
   background: black;
