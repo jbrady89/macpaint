@@ -1396,9 +1396,9 @@ $(document).ready(function(){
         //var ctx=c.getContext("2d");
         //var fillpattern = new Image();
 
-         newImg = new Image();
-            newImg.id = 'fill';
-            newImg.src = $('#innerimagetable').attr('brushpattern');
+        newImg = new Image();
+        newImg.id = 'fill';
+        newImg.src = $('#innerimagetable').attr('brushpattern');
             //pattern = ctx.createPattern( newImg, 'repeat');
         //console.log(newImg);
         //console.log(pattern);
@@ -3351,47 +3351,37 @@ $(document).ready(function(){
     var drawn;
     tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
     $('#myCanvas').mousedown(function(){
-        // console.log(drawn);
+        console.log(drawn);
         var x = false; 
-        var secondary = document.getElementById('temp');
-        var third = document.getElementById('temp2');
-        var temp2Ctx = third.getContext('2d');
-        var tempCtx = secondary.getContext('2d');
+        var temp = document.getElementById('temp');
+        var temp2 = document.getElementById('temp2');
+        var temp2Ctx = temp2.getContext('2d');
+        var tempCtx = temp.getContext('2d');
         if (drawn = true) tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp canvas with each mousedown
-        $('#myCanvas').mousemove(function(e){
-
-            y = true;//flag becomes true after drawing
-            drawn = true;
- 
-        });    
-         $('#myCanvas').mouseup(function(e){
-                console.log(e.target.id);
+        $('#myCanvas').mousemove(function(){
+                y = true;//flag becomes true after drawing
+                drawn = true;
+        });          
+        $('#myCanvas').mouseup(function(){
                 if (y){
                     temp2Ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp2 canvas if flag true
                     x = false;
                 }
-            });      
-
-        $('#myCanvas').mouseup(function(){
             if (!y) y = true;
         
         });    
-        $('#undo').mouseup(function(){
-            console.log(y);
+        $('#undo').mouseup(function(y){
             if (y){
-                console.log(y);
                 if (!x){
-                    console.log('!x');
-                    console.log(secondary);
                     console.log(context);
-                    context.drawImage(secondary,0,0,canvas.width, canvas.height);//image drawn from temp to main canvas after undo
+                    console.log(temp);
+                    context.drawImage(temp,0,0,canvas.width, canvas.height);//image drawn from temp to main canvas after undo
                     x = true;//flag becomes true after drawing undone;
                 }
                 else if (x = true) {
-                    console.log('x');
-                    console.log(third);
-                    console.log(context);
-                    context.drawImage(third, 0,0);//images drawn from temp2 to main canvas after redo
+                     console.log(context);
+                    console.log(temp2);
+                    context.drawImage(temp2, 0,0);//images drawn from temp2 to main canvas after redo
                     x = false;//becomes false when drawing redone
                     clear = true;
                     y = false;
@@ -3406,7 +3396,7 @@ $(document).ready(function(){
                 var top = parseInt($('#selectionContainer').css('top'));
                 var left = parseInt($('#selectionContainer').css('left'));
                 temp2Ctx.fillStyle = 'white';
-                //temp2Ctx.fillRect(mousedown.x - 1, mousedown.y - 1, w + 2, h + 2);
+                temp2Ctx.fillRect(mousedown.x - 1, mousedown.y - 1, w + 2, h + 2);
                 $('#selectionContainer').show();
                 context.drawImage(temp2, 0,0, canvas.width, canvas.height);
                 //var topo = parseInt($('#newselectioncanvas').css('top'));
