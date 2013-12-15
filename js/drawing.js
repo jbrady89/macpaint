@@ -2383,9 +2383,9 @@ $(document).ready(function(){
     $('#eraser').dblclick(function(){
         var temp2 = document.getElementById('temp2');
         var temp2Ctx = temp2.getContext('2d');
-        $('#undo').mouseup(function(){
-            context.drawImage(temp2, 0, 0, canvas.width, canvas.height);
-        });
+        //$('#undo').mouseup(function(){
+        //    context.drawImage(temp2, 0, 0, canvas.width, canvas.height);
+        //});
         eraserClearCanvas();
         if ($('#4a').attr('src') == 'css/img/4ai.png') $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
         function eraserClearCanvas(){
@@ -2394,7 +2394,11 @@ $(document).ready(function(){
             var canvas = $("#myCanvas")
             var context = canvas.get(0).getContext("2d");
             context.fillStyle = 'white';
+            tempCtx.fillStyle = 'white';
+            temp2Ctx.fillStyle = 'white';
             context.fillRect(left, top, $('#canvasbox').width() + 5, $('#canvasbox').height() + 5);
+            tempCtx.fillRect(left, top, $('#canvasbox').width() + 5, $('#canvasbox').height() + 5);
+            temp2Ctx.fillRect(left, top, $('#canvasbox').width() + 5, $('#canvasbox').height() + 5);
             if ($('#5b').attr('src') == 'css/img/5bi.png') $('#5b').attr('src','css/img/5b.png');
             var lastActive = clicked[clicked.length-3];
             //console.log(lastCur);
@@ -3370,21 +3374,19 @@ $(document).ready(function(){
             if (!y) y = true;
         
         });    
-        $('#undo').mouseup(function(y){
+        $('#undo').mouseup(function(){
+            console.log(y);
             if (y){
                 if (!x){
-                    console.log(context);
-                    console.log(temp);
+                   
                     context.drawImage(temp,0,0,canvas.width, canvas.height);//image drawn from temp to main canvas after undo
                     x = true;//flag becomes true after drawing undone;
                 }
                 else if (x = true) {
-                     console.log(context);
-                    console.log(temp2);
+              
                     context.drawImage(temp2, 0,0);//images drawn from temp2 to main canvas after redo
                     x = false;//becomes false when drawing redone
                     clear = true;
-                    y = false;
                 }
             }
             if (clear && ($('#selectionContainer').css('display') == 'none')){//undo the clearing of the selection
