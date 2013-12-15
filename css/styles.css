@@ -197,12 +197,12 @@ div {
 
 #temp {
   border: 1px solid black;
-  display: none;
+  display: block;
 }
 
 #tempContainer2 {
   position: absolute;
-  display: none;
+  display: block;
   top: 0px;
   left: 1200px;
   border: 1px solid black;
@@ -210,7 +210,7 @@ div {
 
 #temp2 {
   border: 1px solid black;
-  display: none;
+  display: block;
 }
 
 #newPatContainer{
