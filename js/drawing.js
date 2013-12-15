@@ -1383,44 +1383,6 @@ $(document).ready(function(){
         }
     }
 
-    ctx.fillCircle = function(x, y, radius){
-        ctx.beginPath();
-        //var a = e.pageX - 88;
-        //var b = e.pageY - 55;
-        var cW = $('#canvasbox').width();
-        var cH = $('#canvasbox').height();
-        var spreadY = cH - y;
-        // | two vertical lines
-        if ($('#middletop').css('display') == 'block'){
-            //var x = x - 91;
-            var spreadX = cW - x;
-            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-            ctx.arc(spreadX + 180, y+1, radius, 0, Math.PI * 2, false);
-            ctx.moveTo(x + 88, y);
-            ctx.arc(spreadX + 180,spreadY + 198, radius, 0, Math.PI * 2, false);
-            ctx.moveTo(x, y);
-            ctx.arc(x,spreadY + 198, radius, 0, Math.PI * 2, false);
-            ctx.closePath();
-        }
-        // - two horizontal lines
-        if ($('#leftmiddle').css('display') == 'block'){
-            //var y = y - 56;
-            var spreadY = cH - y;
-            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-            ctx.arc(x + 88, spreadY + 113, radius, 0, Math.PI * 2, false);
-        }
-        // \ diagonal
-        if ($('#lefttop').css('display') == 'block'){
-            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-            ctx.moveTo(y+80, x);
-            ctx.arc(y + 80, x  - 81, radius, 0, Math.PI * 2, false);
-            ctx.moveTo(x - 81,y + 180);
-            ctx.arc(spreadY-90, spreadX - 180, radius, 0, Math.PI * 2, false);
-        }
-        else ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-        ctx.closePath();
-        ctx.fill();
-    };
 
     function paintbrush (){
         $('#myCanvas').css({"cursor":"url(css/img/paintbrush.png), url(cursors/paintbrushb.cur), default"});
@@ -1434,7 +1396,10 @@ $(document).ready(function(){
         //var ctx=c.getContext("2d");
         //var fillpattern = new Image();
 
-        
+         newImg = new Image();
+            newImg.id = 'fill';
+            newImg.src = $('#innerimagetable').attr('brushpattern');
+            //pattern = ctx.createPattern( newImg, 'repeat');
         //console.log(newImg);
         //console.log(pattern);
         canvas.onmousedown = function(e) {
@@ -1443,12 +1408,9 @@ $(document).ready(function(){
                // $(document).css({"cursor":"url(css/imgpaintbrush.png), url(paintbrushb.cur), default"});
             }
             //else $(document).css('cursor','default');
-            newImg = new Image();
-            newImg.id = 'fill';
-            newImg.src = $('#innerimagetable').attr('brushpattern');
-            delay = setTimeout(function(){
-                pattern = ctx.createPattern( newImg, 'repeat');
-            }, 1000);
+            //delay = setTimeout(function(){
+            pattern = ctx.createPattern( newImg, 'repeat');
+            //}, 1);
             console.log(pattern);
             ctx.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
@@ -1505,6 +1467,45 @@ $(document).ready(function(){
                 }
 
                 lineThickness = 1;
+
+                ctx.fillCircle = function(x, y, radius){
+        ctx.beginPath();
+        //var a = e.pageX - 88;
+        //var b = e.pageY - 55;
+        var cW = $('#canvasbox').width();
+        var cH = $('#canvasbox').height();
+        var spreadY = cH - y;
+        // | two vertical lines
+        if ($('#middletop').css('display') == 'block'){
+            //var x = x - 91;
+            var spreadX = cW - x;
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            ctx.arc(spreadX + 180, y+1, radius, 0, Math.PI * 2, false);
+            ctx.moveTo(x + 88, y);
+            ctx.arc(spreadX + 180,spreadY + 198, radius, 0, Math.PI * 2, false);
+            ctx.moveTo(x, y);
+            ctx.arc(x,spreadY + 198, radius, 0, Math.PI * 2, false);
+            ctx.closePath();
+        }
+        // - two horizontal lines
+        if ($('#leftmiddle').css('display') == 'block'){
+            //var y = y - 56;
+            var spreadY = cH - y;
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            ctx.arc(x + 88, spreadY + 113, radius, 0, Math.PI * 2, false);
+        }
+        // \ diagonal
+        if ($('#lefttop').css('display') == 'block'){
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            ctx.moveTo(y+80, x);
+            ctx.arc(y + 80, x  - 81, radius, 0, Math.PI * 2, false);
+            ctx.moveTo(x - 81,y + 180);
+            ctx.arc(spreadY-90, spreadX - 180, radius, 0, Math.PI * 2, false);
+        }
+        else ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fill();
+    };
 
                 for (var x = x1; x < x2; x++) {
                     
@@ -3425,8 +3426,8 @@ $(document).ready(function(){
         var pat2Ctx = newpat2.getContext('2d');
 
         var id = $(this).attr('id');
-        var fillpattern = new Image();
-        fillpattern.src = "css/img//"+id+".jpg";
+        //var fillpattern = new Image();
+        newImg.src = "css/img/"+id+".jpg";
         //var pattern = patCtx.createPattern(fillpattern, 'repeat');
         //patCtx.fillStyle = pattern;
         patCtx.beginPath();
