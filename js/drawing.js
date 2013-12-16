@@ -1956,12 +1956,16 @@ $(document).ready(function(){
             updateRubberbandRectangle(loc);
             drawRubberbandShape(loc);
         }
-
+        newImg = new Image();
+        newImg.id = 'fill';
+        newImg.src = $('#innerimagetable').attr('brushpattern');
     // Canvas event handlers..............................................
         canvas.onmousedown = function (e) {
             var loc = windowToCanvas(e.clientX, e.clientY);
             e.preventDefault(); // Prevent cursor change
             saveDrawingSurface();
+            pattern = ctx.createPattern(newImg, 'repeat');
+            ctx.fillStyle = pattern;
             mousedown.x = loc.x;
             mousedown.y = loc.y;
             dragging = true;
@@ -3426,7 +3430,7 @@ $(document).ready(function(){
         patCtx.rect(0, 0, newpat.width, newpat.height);
         patCtx.closePath();
         patCtx.fill();    
-        fillpattern.src = newpat.toDataURL();
+        //fillpattern.src = newpat.toDataURL();
         //var p2 = pat2Ctx.createPattern(fillpattern, 'repeat');
         //pat2Ctx.fillStyle = p2;
         pat2Ctx.beginPath();
