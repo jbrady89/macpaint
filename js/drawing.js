@@ -1406,7 +1406,7 @@ $(document).ready(function(){
             painting = true;
             if (painting = true){
                // $(document).css({"cursor":"url(css/imgpaintbrush.png), url(paintbrushb.cur), default"});
-            }
+            
             //else $(document).css('cursor','default');
             //delay = setTimeout(function(){
             pattern = ctx.createPattern( newImg, 'repeat');
@@ -1415,6 +1415,7 @@ $(document).ready(function(){
             ctx.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
+            }
         };
         canvas.onmouseup = function(e){
             painting = false;
