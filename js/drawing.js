@@ -3304,7 +3304,7 @@ $(document).ready(function(){
     }
 
     //menu flashing
-    /*$('.nav-sub li').mouseup(function() {
+    $('.nav-sub li').mouseup(function() {
         if (!($(this).hasClass('inactive'))) {
         var id = $(this).closest('ul').parent().attr('id');
         //console.log(id);
@@ -3339,12 +3339,12 @@ $(document).ready(function(){
                 //$('.nav-sub').hide();
                 /*$('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
-                });
+                });*/
                 clearInterval(whiteToBlack);
             }
         }, 63);
     }
-    });*/
+    });
 
     
     context.fillStyle = 'white';
