@@ -1842,6 +1842,7 @@ $(document).ready(function(){
     }
     // Save and restore drawing surface...................................
     function saveDrawingSurface() {
+        console.log('hi');
         drawingSurfaceImageData = context.getImageData(0, 0,canvas.width,canvas.height);
     }
     function restoreDrawingSurface() {
@@ -1960,14 +1961,14 @@ $(document).ready(function(){
         newImg.id = 'fill';
         newImg.src = $('#innerimagetable').attr('brushpattern');
     // Canvas event handlers..............................................
-        canvas.onmousedown = function (e) {
+ canvas.onmousedown = function (e) {
             var loc = windowToCanvas(e.clientX, e.clientY);
             e.preventDefault(); // Prevent cursor change
             saveDrawingSurface();
-            pattern = ctx.createPattern(newImg, 'repeat');
-            ctx.fillStyle = pattern;
             mousedown.x = loc.x;
             mousedown.y = loc.y;
+            pattern = context.createPattern( newImg, 'repeat');
+            if (dofill) context.fillStyle = pattern;
             dragging = true;
         };
         canvas.onmousemove = function (e) {
@@ -2948,9 +2949,7 @@ $(document).ready(function(){
 
     function changeWidth2(){
         if(($('#checkbox0').hasClass('checked')) || ($('#line0').hasClass('checked'))){
-            lineThickness = 1;
-            context.lineWidth = 1;
-        }
+            context.lineWidth = 1;        }
         if(($('#checkbox1').hasClass('checked')) || ($('#line1').hasClass('checked'))){
             lineThickness = 1;
             context.lineWidth = 1;
