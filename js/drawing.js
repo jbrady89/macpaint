@@ -1406,7 +1406,7 @@ $(document).ready(function(){
             painting = true;
             if (painting = true){
                // $(document).css({"cursor":"url(css/imgpaintbrush.png), url(paintbrushb.cur), default"});
-            }
+            
             //else $(document).css('cursor','default');
             //delay = setTimeout(function(){
             pattern = ctx.createPattern( newImg, 'repeat');
@@ -1415,6 +1415,7 @@ $(document).ready(function(){
             ctx.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
+            }
         };
         canvas.onmouseup = function(e){
             painting = false;
@@ -3303,7 +3304,7 @@ $(document).ready(function(){
     }
 
     //menu flashing
-    /*$('.nav-sub li').mouseup(function() {
+    $('.nav-sub li').mouseup(function() {
         if (!($(this).hasClass('inactive'))) {
         var id = $(this).closest('ul').parent().attr('id');
         //console.log(id);
@@ -3338,12 +3339,12 @@ $(document).ready(function(){
                 //$('.nav-sub').hide();
                 /*$('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
-                });
+                });*/
                 clearInterval(whiteToBlack);
             }
         }, 63);
     }
-    });*/
+    });
 
     
     context.fillStyle = 'white';

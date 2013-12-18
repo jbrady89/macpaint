@@ -14,7 +14,10 @@ $(document).ready(function(){
     $("#contents").show().addClass('visible1').removeClass('hidden');
     $("#saveClose").hide();
     $(".rowlines").show();
-    clearCanvas(context);
+    var canvas = $("#myCanvas")
+    var context = canvas.get(0).getContext("2d");
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvas.width(), canvas.height());
     nameFile('untitled');
     $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #undo, #pasteItem, #menu_sCut, #menu_intro, #showPage').removeClass('inactive');
