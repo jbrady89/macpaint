@@ -1837,17 +1837,17 @@ $(document).ready(function(){
         }
     }
     function windowToCanvas(x, y) {
-            var bbox = canvas.getBoundingClientRect();
-            return { x: x - bbox.left * (canvas.width / bbox.width),
-                     y: y - bbox.top * (canvas.height / bbox.height) };
+        var bbox = canvas.getBoundingClientRect();
+        return { x: x - bbox.left * (canvas.width / bbox.width),
+                 y: y - bbox.top * (canvas.height / bbox.height) };
     }
     // Save and restore drawing surface...................................
     function saveDrawingSurface() {
         console.log('hi');
-        drawingSurfaceImageData = context.getImageData(0, 0,canvas.width,canvas.height);
+        drawingSurfaceImageData = ctx.getImageData(0, 0,canvas.width,canvas.height);
     }
     function restoreDrawingSurface() {
-        context.putImageData(drawingSurfaceImageData, 0, 0);
+        ctx.putImageData(drawingSurfaceImageData, 0, 0);
     }
     function updateRubberbandRectangle(loc) {
         context.strokeStyle = "black";
@@ -1929,11 +1929,11 @@ $(document).ready(function(){
     function drawrect2 (dofill){
         lastCur.push($('#myCanvas').css('cursor'));
         changeWidth2();
+        newImg = new Image();
+        newImg.id = 'fill';
+        newImg.src = $('#innerimagetable').attr('brushpattern');
         // Rubber bands.......................................................
         function drawRubberbandShape(loc) {
-            var fillpattern = new Image();
-            fillpattern.src = $('#innerimagetable').attr('brushpattern');
-            var pattern = context.createPattern(fillpattern, 'repeat');
             /*var texture = new Image();
             texture.src = 'texture1.png'
             if (texture.src == 'texture1.png') texture.src = 'texture2.png';
@@ -1958,9 +1958,6 @@ $(document).ready(function(){
             updateRubberbandRectangle(loc);
             drawRubberbandShape(loc);
         }
-        newImg = new Image();
-        newImg.id = 'fill';
-        newImg.src = $('#innerimagetable').attr('brushpattern');
     // Canvas event handlers..............................................
  canvas.onmousedown = function (e) {
             var loc = windowToCanvas(e.clientX, e.clientY);
@@ -1968,8 +1965,8 @@ $(document).ready(function(){
             saveDrawingSurface();
             mousedown.x = loc.x;
             mousedown.y = loc.y;
-            pattern = context.createPattern( newImg, 'repeat');
-            if (dofill) context.fillStyle = pattern;
+            pattern = ctx.createPattern( newImg, 'repeat');
+            if (dofill) ctx.fillStyle = pattern;
             dragging = true;
         };
         canvas.onmousemove = function (e) {
@@ -3368,7 +3365,7 @@ $(document).ready(function(){
         if (drawn = true) tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);//current image of canvas drawn to temp canvas with each mousedown
         $('#myCanvas').mousemove(function(){
                 y = true;//flag becomes true after drawing
-                drawn = true;
+                window.drawn = true;
         });          
         $('#myCanvas').mouseup(function(){
                 if (y){

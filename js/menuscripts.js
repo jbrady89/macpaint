@@ -270,10 +270,13 @@ $(document).ready(function(){
 
   $('#myCanvas').mousedown(function(){
     $('#closefile').mouseup(function(){
+      console.log(window.drawn);
       $('#overlay').show();
-      setTimeout(keepCanvasClose,500);
-      setTimeout(showquitBoxClose,500);
-      setTimeout(hidelinesClose,500);
+      if (window.drawn === true){
+        setTimeout(keepCanvasClose,500);
+        setTimeout(showquitBoxClose,500);
+        setTimeout(hidelinesClose,500);
+      }
     });
   });
 //brings up save box
@@ -286,18 +289,21 @@ $(document).ready(function(){
   }
 //keeps canvas open after table8 mouseup
   function keepCanvasClose(){
-    $('#contents').show().removeClass('hidden').addClass('visible');
+    //$('#contents').show().removeClass('hidden').addClass('visible');
   }
 
 ////////////////////////////////////////////Clicking Close prior to any drawing
   $('#closefile').mouseup(function(){
-    setTimeout(hideContentsNoDraw,500);
+    if (window.drawn === false){
+      console.log('true');
+      setTimeout(test, 500);
+    }
   });
-  function hideContentsNoDraw (){
-    $('#cl0sefile').hide();
+  function test() {
     $('#contents').css('display','none').removeClass('visible').addClass('hidden');
     $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #editdrop li, #menu_intro, #showPage, #menu_sCut').addClass('inactive');
+    $('#cl0sefile, #overlay').hide();
   }
 
   ////////////////////////////////////////////Cancel Closing
@@ -530,6 +536,7 @@ $(document).ready(function(){
     $('#contents').addClass('hidden').removeClass('visible');
     $('.rowlines').show();
     $('#newcanvas, #openfile').removeClass('inactive');
+    window.drawn = false;
   });
   /*function SymbolclearCanvas(){
       context.clearRect(0, 0, canvas.width(), canvas.height());
