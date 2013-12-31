@@ -1,3 +1,5 @@
+window.drawn = false;
+
 $(document).ready(function(){
     //http://jsfiddle.net/mBzVR/4/
     var canvas = document.getElementById('myCanvas');
@@ -1411,7 +1413,7 @@ $(document).ready(function(){
             //delay = setTimeout(function(){
             pattern = ctx.createPattern( newImg, 'repeat');
             //}, 1);
-            console.log(pattern);
+            //console.log(pattern);
             ctx.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
@@ -3321,6 +3323,7 @@ $(document).ready(function(){
         var _this = this;
         var whiteToBlack = setInterval(function(){
             count += 1;
+            console.log(inversed);
             if ($(_this).css('background-color') == 'rgb(0, 0, 0)') inversed = false;
             else inversed = true;
             if (inversed == true) $(_this).css({'background':'black','color':'white'});
@@ -3340,6 +3343,10 @@ $(document).ready(function(){
             }
         }, 63);
     }
+    });
+
+    $(document).on('hover', function(){
+        console.log(this.id);
     });
 
     

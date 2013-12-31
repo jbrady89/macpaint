@@ -33,7 +33,7 @@ $(document).ready(function(){
     var padSize = (414 - (nameInPixels + 6))/2;//calculate left and right padding
     $('#filename').css('left', padSize + 'px')//centers the new filename based on padding
       .css('width', (nameInPixels +6) + 'px')
-      .css({'backgroud':'white','color':'black'}).css('text-align','center');
+      .css({'background':'white','color':'black'}).css('text-align','center');
   }
 
   function hideContents(){
@@ -268,17 +268,7 @@ $(document).ready(function(){
 
 ////////////////////////////////////////////Clicking Close after drawing
 
-  $('#myCanvas').mousedown(function(){
-    $('#closefile').mouseup(function(){
-      console.log(window.drawn);
-      $('#overlay').show();
-      if (window.drawn === true){
-        setTimeout(keepCanvasClose,500);
-        setTimeout(showquitBoxClose,500);
-        setTimeout(hidelinesClose,500);
-      }
-    });
-  });
+
 //brings up save box
   function showquitBoxClose(){
     $('#cl0sefile').show().css('z-index', '10001');
@@ -289,28 +279,36 @@ $(document).ready(function(){
   }
 //keeps canvas open after table8 mouseup
   function keepCanvasClose(){
-    //$('#contents').show().removeClass('hidden').addClass('visible');
+    $('#contents').show().removeClass('hidden').addClass('visible');
   }
 
 ////////////////////////////////////////////Clicking Close prior to any drawing
   $('#closefile').mouseup(function(){
     if (window.drawn === false){
-      console.log('true');
+      //console.log('true');
       setTimeout(test, 500);
+      $('#overlay').hide();
+    } else {
+        $('#overlay').show();
+        setTimeout(keepCanvasClose,500);
+        setTimeout(showquitBoxClose,500);
+        setTimeout(hidelinesClose,500);
     }
   });
   function test() {
+    //$('#overlay').hide();
     $('#contents').css('display','none').removeClass('visible').addClass('hidden');
     $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #editdrop li, #menu_intro, #showPage, #menu_sCut').addClass('inactive');
-    $('#cl0sefile, #overlay').hide();
+    $('#file').css({'background':'white','color':'black'});
+    $('#fileblackmenuside').hide();
   }
 
   ////////////////////////////////////////////Cancel Closing
 
   $('#cancelClose').mouseup(function(){
     $("#closecanvastable").show();
-    $('#cancelClose').css({'background':'white','color':'black'})
+    $('#cancelClose').css({'background':'white','color':'black'});
     $('#cl0sefile, #overlay').hide();
     $('.rowlines').show();
     $('#newcanvas, #openfile').removeClass('active').addClass('inactive');
