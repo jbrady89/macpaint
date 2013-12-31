@@ -1595,7 +1595,7 @@ $(document).ready(function(){
                             var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
             var data = imagedata.data;
             ////console.log(data)
-            console.log(data[3]);
+            //console.log(data[3]);
             if (data[3] == 255) ctx.fillStyle = "black";
             if (data[3] == 0) ctx.fillStyle  = "white";
                 // find all points between        
@@ -1843,7 +1843,6 @@ $(document).ready(function(){
     }
     // Save and restore drawing surface...................................
     function saveDrawingSurface() {
-        console.log('hi');
         drawingSurfaceImageData = ctx.getImageData(0, 0,canvas.width,canvas.height);
     }
     function restoreDrawingSurface() {
@@ -2405,7 +2404,7 @@ $(document).ready(function(){
             if ($('#5b').attr('src') == 'css/img/5bi.png') $('#5b').attr('src','css/img/5b.png');
             var lastActive = clicked[clicked.length-3];
             //console.log(lastCur);
-            console.log(lastCur[lastCur.length - 3]);
+            //console.log(lastCur[lastCur.length - 3]);
             $('#myCanvas').css('cursor', lastCur[lastCur.length - 1]);
             $(lastActive).attr('src', $(lastActive).attr('dos')).trigger('mousedown');
             if ($(this).attr('id') == '4a'){
@@ -3356,7 +3355,7 @@ $(document).ready(function(){
     var drawn;
     tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
     $('#myCanvas').mousedown(function(){
-        console.log(drawn);
+        //console.log(drawn);
         var x = false; 
         var temp = document.getElementById('temp');
         var temp2 = document.getElementById('temp2');
@@ -3376,7 +3375,7 @@ $(document).ready(function(){
         
         });    
         $('#undo').mouseup(function(){
-            console.log(y);
+            //console.log(y);
             if (y){
                 if (!x){
                    
