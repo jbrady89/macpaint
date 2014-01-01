@@ -2,31 +2,11 @@ $(document).ready(function(){
 
   /*** Items in file dropdown ***/
 
-  // new 
-  $('#newcanvas').mouseup(function(){
-    setTimeout(restore, 500);
-    showtable();
-    $('#closecanvastable').mouseup(function(){
-      hideContents();
-    });
-  });
-  function restore(){
-    $("#contents").show().addClass('visible1').removeClass('hidden');
-    $("#saveClose").hide();
-    $(".rowlines").show();
-    var canvas = $("#myCanvas")
-    var context = canvas.get(0).getContext("2d");
-    context.fillStyle = 'white';
-    context.fillRect(0, 0, canvas.width(), canvas.height());
-    nameFile('untitled');
-    $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #undo, #pasteItem, #menu_sCut, #menu_intro, #showPage').removeClass('inactive');
-  }
-  function showtable(){
-    $("#closecanvastable").show();
+  // New
+  var canvas = $("#myCanvas");
+  var context = canvas.get(0).getContext("2d");
 
-  }
-
+  // functions
   function nameFile(filename){
     $('#filename').html('<span>' + filename + '</span>');//replace 'untitled' with new file name
     var nameInPixels = $('#filename').find('span').width();//find length of new name in pixels
@@ -36,78 +16,106 @@ $(document).ready(function(){
       .css({'background':'white','color':'black'}).css('text-align','center');
   }
 
+  function restore(){
+    $("#contents").show().addClass('visible1').removeClass('hidden');
+    $("#saveClose").hide();
+    $(".rowlines").show();
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvas.width(), canvas.height());
+    nameFile('untitled');
+    $("#newcanvas, #openfile").removeClass('active').addClass('inactive');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin, #undo, #pasteItem, #menu_sCut, #menu_intro, #showPage').removeClass('inactive');
+  }
+  function showtable(){
+    $("#closecanvastable").show();
+  }
+
   function hideContents(){
     $('#contents').hide().addClass('hidden').removeClass('visible');
   }
+
+  // interactions
+  $('#newcanvas').mouseup(function(){
+    setTimeout(restore, 500);
+    showtable();
+    /*$('#closecanvastable').mouseup(function(){
+      hideContents();
+    });*/
+  });
+  
   $('#myCanvas').mousedown(function(){
     $('#newcanvas').mouseup(function(){
       setTimeout(restore, 500);
       showtable();
-      $('#closecanvastable').mouseup(function(){
+      /*$('#closecanvastable').mouseup(function(){
         hideContents();
         $('#overlay').hide();
-      });
+      });*/
     });
   });
 
-  ////////////////////////////////////////////close canvas after 'no'
-  var canvas = $("#myCanvas");
-  var context = canvas.get(0).getContext("2d");
-  $('#noSave').mousedown(function(){
-    $('#noSave').css({'background':'black','color':'white'});
-  });
-  $('#noSave').mouseup(function(){
-    $('#closecanvastable').removeClass('hidden');
+  // End new button
+
+  // Quit button
+
+  // functions
+  function showtableYes(){
+    $("#closecanvastable").show();
+  }
+
+  function hideContentsQuit (){
+    $('.content').hide();
+    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-    $('#noSave').css({'background':'white','color':'black'});
-    clearCanvas(context);
-    $('#checkbox, #contents, #saveClose').css('display','none');
-    $('#contents').addClass('hidden').removeClass('visible');
-    $('.rowlines').show();
-    $('#newcanvas, #openfile').removeClass('inactive').addClass('active');
-    $('#overlay').hide();
-  });
+  }
 
-  ////////////////////////////////////////////Quit menu item
-  $('#myCanvas').mousedown(function(){
-    //console.log('true');
-    $('#contents').removeClass('visible1');
-    $('#exitMP').mouseup(function(){
+  ////////////////////////////////////////////brings up save box
+  function hideContentsSave (){
+    //$('.content').hide();
+    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
+  }
+  function showquitBox(){
+    $('#quitClose').show().css('z-index','10005');
+    $('#overlay').show();
+  }
+//hides 'untitled' bar lines
+  function hidelinesSave(){
+    $('.rowlines, #closecanvastable').hide();
+  }
+//keeps canvas open after table8 mouseup
+  function keepCanvasSave(){
+    //$('#contents').css('display','block').removeClass('hidden');
+  }
+  function keepOpenSave(){
+    //$('.content').show();
+  }
 
-      if(($('#contents').hasClass('visible1')) || ($('#contents').hasClass('hidden'))){
-        setTimeout(hideContentsSave, 500);
-      }
-      else {
+  function showtableCancel(){
+    $("#closecanvastable").show();
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
+    $('#newcanvas, #openfile').removeClass('active').addClass('inactive');
+  }
+
+  // interactions
+ 
+  $('#contents').removeClass('visible1');
+
+  $('#exitMP').mouseup(function(){
+
+      setTimeout(hideContentsSave, 500);
+
+      if (window.drawn === true){
+        console.log('drawn true');
         setTimeout(keepCanvasSave,500);
         setTimeout(showquitBox,500);
         setTimeout(hidelinesSave,500);
         setTimeout(keepOpenSave,500);
+      } else {
+        console.log('drawn false');
+        setTimeout(hideContentsQuit, 500);
       }
-    });
   });
-
-
-////////////////////////////////////////////brings up save box
-    function hideContentsSave (){
-      $('.content').hide();
-      $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
-      $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-    }
-    function showquitBox(){
-      $('#quitClose').show().css('z-index','10005');
-      $('#overlay').show();
-    }
-  //hides 'untitled' bar lines
-    function hidelinesSave(){
-      $('.rowlines, #closecanvastable').hide();
-    }
-  //keeps canvas open after table8 mouseup
-    function keepCanvasSave(){
-    $('#contents').css('display','block').removeClass('hidden');
-    }
-    function keepOpenSave(){
-      $('.content').show();
-    }
 
   ////////////////////////////////////////////"Quit" pop-up No
   var canvas = $("#myCanvas");
@@ -124,7 +132,6 @@ $(document).ready(function(){
       $('#overlay').show();
       $('#discPopup').show().css('z-index','10005').click(function(){
         $(this).hide().css('z-index','');
-        $('#overlay').hide();
         $('#saveEject').removeClass('inactive');
       });
       $('#contents, .content').show();
@@ -144,10 +151,12 @@ $(document).ready(function(){
       $('#checkbox, #contents, #quitClose, .content').hide();
       $('#contents').removeClass('visible').addClass('hidden');
       $('.rowlines').show();
-      $('#overlay').hide();
       $('#quitClose').css('z-index', '');
       $('#newcanvas, #openfile').removeClass('inactive').addClass('active');
     }
+    $('#overlay').hide();
+    window.drawn = false;
+
   });
   function clearCanvas(context){
     context.fillStyle = 'white';
@@ -171,11 +180,6 @@ $(document).ready(function(){
     $('.rowlines').show();
     $('#overlay').hide();
   });
-  function showtableCancel(){
-    $("#closecanvastable").show();
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
-    $('#newcanvas, #openfile').removeClass('active').addClass('inactive');
-  }
 
 ////////////////////////////////////////////clicking 'yes' on 'quit'
 
@@ -184,9 +188,8 @@ $(document).ready(function(){
     $('#yesQuit').css({'background':'white','color':'black'});
     $('#quitClose').hide().css('z-index','');
   });
-  function showtableYes(){
-    $("#closecanvastable").show();
-  }
+
+  // end Quit item
 
   $('#savefile, #saveAs').mouseup(function(){
     if (! ($(this).hasClass('inactive'))) {
@@ -268,6 +271,60 @@ $(document).ready(function(){
 
 ////////////////////////////////////////////Clicking Close after drawing
 
+  // close canvas button pop-up
+
+  $('#noSave').mousedown(function(){
+    $('#noSave').css({'background':'black','color':'white'});
+  });
+  $('#noSave').mouseup(function(){
+    $('#closecanvastable').removeClass('hidden');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
+    $('#noSave').css({'background':'white','color':'black'});
+    clearCanvas(context);
+    $('#checkbox, #contents, #saveClose').css('display','none');
+    $('#contents').addClass('hidden').removeClass('visible');
+    $('.rowlines').show();
+    $('#newcanvas, #openfile').removeClass('inactive').addClass('active');
+    $('#overlay').hide();
+    window.drawn = false;
+  });
+
+  /***Close Box inside Filname bar***/
+////////////////////////////////////////////save pop-up when top-left box is clicked after drawing
+  $('#closecanvastable').mouseup(function(){
+    if (window.drawn === true){
+      console.log('true');
+      $('#overlay').show();
+      keepCanvas();
+      showsaveBox();
+      hidelines();
+    } else {
+      //hide contents div after no drawing
+      hideContentsNoDraw();
+    }
+  });
+  //brings up save box
+  function showsaveBox(){
+    $('#saveClose').show();
+    $('#saveClose').css('z-index','10005');
+  }
+  //hides 'untitled' bar lines
+  function hidelines(){
+    $('.rowlines, #closecanvastable').hide();
+  }
+  //keeps canvas open after table8 mouseup
+  function keepCanvas(){
+    //
+    $('#contents').show().removeClass('hidden').addClass('visible');
+  }
+
+  function hideContentsNoDraw (){
+    $('#closecanvastable').removeClass('hidden');
+    $('#contents').hide().addClass('hidden').removeClass('visible');
+    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
+    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
+  }
+
 
 //brings up save box
   function showquitBoxClose(){
@@ -313,6 +370,7 @@ $(document).ready(function(){
     $('.rowlines').show();
     $('#newcanvas, #openfile').removeClass('active').addClass('inactive');
     $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').removeClass('inactive').addClass('active');
+    $('#overlay').hide();
   });
   /*function Cancelshowtable(){
     $("#closecanvastable").show();
@@ -369,16 +427,6 @@ $(document).ready(function(){
       });
     }
   });  
-
-  $('#exitMP').mouseup(function(){
-      setTimeout(hideContentsQuit, 500);
-  });
-  
-  function hideContentsQuit (){
-    $('.content').hide();
-    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-  }
 
 /***End File menu***/
 
@@ -439,47 +487,6 @@ $(document).ready(function(){
 
 /***End Goodies***/
 
-/***Close Box inside Filname bar***/
-////////////////////////////////////////////save pop-up when top-left box is clicked after drawing
-  var drawn;
-  $('#myCanvas').mousedown(function(drawn){
-    canvas.onmousemove = function(){
-      drawn = true;
-    }
-    $('#closecanvastable').mouseup(function(){
-      $('#overlay').show();
-      if (drawn){
-        keepCanvas();
-        showsaveBox();
-        hidelines();
-        drawn = false;
-      }
-    });
-  });
-  //brings up save box
-  function showsaveBox(){
-    $('#saveClose').show();
-    $('#saveClose').css('z-index','10005');
-  }
-  //hides 'untitled' bar lines
-  function hidelines(){
-    $('.rowlines, #closecanvastable').hide();
-  }
-  //keeps canvas open after table8 mouseup
-  function keepCanvas(){
-    $('#contents').show().removeClass('hidden').addClass('visible');
-  }
-
-//hide contents div after no drawing
-  $('#closecanvastable').mouseup(function(){
-    hideContentsNoDraw();
-  });
-  function hideContentsNoDraw (){
-    $('#closecanvastable').removeClass('hidden');
-    $('#contents').hide().addClass('hidden').removeClass('visible');
-    $("#newcanvas, #openfile").removeClass('inactive').addClass('active');
-    $('#closefile, #saveAs, #savefile, #revert, #printdraft, #printfin').addClass('inactive');
-  }
 
 
 // color inverse on mousedown/hover for pop-up window buttons

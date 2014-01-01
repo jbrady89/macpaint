@@ -3323,7 +3323,7 @@ $(document).ready(function(){
         var _this = this;
         var whiteToBlack = setInterval(function(){
             count += 1;
-            console.log(inversed);
+            //console.log(inversed);
             if ($(_this).css('background-color') == 'rgb(0, 0, 0)') inversed = false;
             else inversed = true;
             if (inversed == true) $(_this).css({'background':'black','color':'white'});
@@ -3345,8 +3345,9 @@ $(document).ready(function(){
     }
     });
 
-    $(document).on('hover', function(){
+    $(document).on('mouseup', function(){
         console.log(this.id);
+        console.log(window.drawn)
     });
 
     
