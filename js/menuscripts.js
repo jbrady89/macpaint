@@ -79,11 +79,11 @@ $(document).ready(function(){
     $('#quitClose').show().css('z-index','10005');
     $('#overlay').show();
   }
-//hides 'untitled' bar lines
+  //hides 'untitled' bar lines
   function hidelinesSave(){
     $('.rowlines, #closecanvastable').hide();
   }
-//keeps canvas open after table8 mouseup
+  //keeps canvas open after table8 mouseup
   function keepCanvasSave(){
     //$('#contents').css('display','block').removeClass('hidden');
   }
@@ -191,12 +191,9 @@ $(document).ready(function(){
 
   // end Quit item
 
-  $('#savefile, #saveAs').mouseup(function(){
-    if (! ($(this).hasClass('inactive'))) {
-      $('#overlay').show();
-      setTimeout(saveFile,500);
-    }
-  });
+  // Save & Save As menu items
+
+  // functions
   function saveFile(){
     $('#overlay').show();
     $('#saveIt, #saveDrive').addClass('inactive');//grays out button
@@ -232,6 +229,9 @@ $(document).ready(function(){
         });
     });*/
     //$('input').disableTextSelect();//No text selection on input elements(text box)
+
+    // interactions
+
     $('#typed').keyup(function() {//grays/ungrays form save button depending on input length
       var nameString = $(this).val().length; 
       //console.log(nameString);
@@ -269,9 +269,14 @@ $(document).ready(function(){
     });
   }
 
-////////////////////////////////////////////Clicking Close after drawing
+  $('#savefile, #saveAs').mouseup(function(){
+    if (! ($(this).hasClass('inactive'))) {
+      $('#overlay').show();
+      setTimeout(saveFile,500);
+    }
+  });
 
-  // close canvas button pop-up
+  // 'No' button inside save pop-up window
 
   $('#noSave').mousedown(function(){
     $('#noSave').css({'background':'black','color':'white'});
@@ -289,8 +294,11 @@ $(document).ready(function(){
     window.drawn = false;
   });
 
-  /***Close Box inside Filname bar***/
-////////////////////////////////////////////save pop-up when top-left box is clicked after drawing
+////////////////////////////////////////////Clicking Close after drawing
+
+
+  // Close Box inside Filname bar
+
   $('#closecanvastable').mouseup(function(){
     if (window.drawn === true){
       console.log('true');
@@ -339,7 +347,10 @@ $(document).ready(function(){
     $('#contents').show().removeClass('hidden').addClass('visible');
   }
 
-////////////////////////////////////////////Clicking Close prior to any drawing
+  // End "Close canvas button"
+
+  // "Close" 
+
   $('#closefile').mouseup(function(){
     if (window.drawn === false){
       //console.log('true');
@@ -391,7 +402,11 @@ $(document).ready(function(){
     $('#saveIt').removeClass('active').addClass('inactive');
     $('#saveYes').unbind();
   });
-////////////////////////////////////////////revert menu item
+
+  // End "Close"
+
+  // "Revert"
+
   $('#revert').mouseup(function(){
     if (! ($(this).hasClass('inactive'))){
       $('#revertdiv').show().css('z-index', '10001');
@@ -427,6 +442,8 @@ $(document).ready(function(){
       });
     }
   });  
+
+  // End "revert"
 
 /***End File menu***/
 
