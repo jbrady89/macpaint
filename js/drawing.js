@@ -26,7 +26,15 @@ $(document).ready(function(){
         drop = false;
 
     paintbrush(); //paintbrush active when page loads
-    $('#brushbox').css('display','block').css({'top':'120px','left':'56px'});//brushbox preset
+
+    //brushbox preset
+    $('#brushbox').css({
+        'display':'block',
+        'top':'120px',
+        'left':'56px'
+    });
+
+    // tool buttons
     $('#1b').mousedown(select);
     $('#3a').mousedown(bucket);
     $('#3b').mousedown(spray);
@@ -43,10 +51,13 @@ $(document).ready(function(){
     $('#7b').mousedown(function(){drawroundedrect(true)});
     $('#9a').mousedown(function(){drawjellybean(false)});
     $('#9b').mousedown(function(){drawjellybean(true)});
-    $('#10a').mousedown(function(){polygon(false)});//change these to the above format ^^
+    $('#10a').mousedown(function(){polygon(false)});
     $('#10b').mousedown(function(){polygon(true)});
-     
 
+    $('.tools').find('td').not('#5b').mouseup(function(){
+        lastCur.push($('#myCanvas').css('cursor'));
+    });
+     
     function bucket(){
         $('#myCanvas').mousedown(function() {
             $('#myCanvas').mousedown(function() {
@@ -56,9 +67,96 @@ $(document).ready(function(){
             });
         });
     }
-        $('.tools').find('td').not('#5b').mouseup(function(){
-            lastCur.push($('#myCanvas').css('cursor'));
+
+    /******************/
+    /* Tool Selection */
+    /******************/
+    
+    var currentButton = "#4a";
+    var clicked = ["#4a"];
+    $('.tools').find('img').mousedown(function(){
+        setCurrent();
+        switchImg(currentButton);
+        clicked.push('#' + $(this).attr('id'));
+        for(i=0;i<11;i++){
+          var id = $(this).attr('id');
+          $('#'+i+'a').attr('src','css/img/'+i+'a.png');
+          $('#'+i+'b').attr('src','css/img/'+i+'b.png');
+          $(this).attr('src','css/img/'+id+'i.png');
+        }
+        $('.tools').find('img').mousedown(function(){
+          if ($(this).attr('id') == '5b' && $('#5b').attr('src') == 'css/img/5b.png') $('#5b').attr('src', 'css/img/5bi.png');
+          if (clicked.length - 1 == '#5b') $('#5b').mousedown(function(){ $('5b').attr('src','css/img/5bi.png')});
+        }); 
+        $(document).mouseup(function () {
+            if ($("#2a").attr('src') == "css/img/2a.png") {
+                $('#myCanvas').draggable();
+                $('#myCanvas').draggable('disable');
+            }  
         });
+    });
+
+    //var currentButton = "#4a";
+
+    function setCurrent(){// set currentButton to the new id and hilite it. If there is already a current button, unhilite it.
+        if(this!=currentButton) { // if they are already the same, then don't bother
+          if(currentButton) {switchImg(currentButton);} // if current button is already set, then unset it
+          currentButton=this;
+          switchImg(currentButton);
+        }
+    }
+
+    function switchImg(element) { // switch the object attribute values for 'src' and 'dos'
+        $(element).attr({
+            'src': $(element).attr('dos'), 
+            'dos': $(element).attr('src') 
+        });
+    };
+
+//prevent highlighting when dragging mouse in IE
+   
+    //$('#applebutton').mousedown(function(event){event.preventDefault()});
+    
+    //tool buttons
+    var currentButton = "#4a";
+
+    function setCurrent(){// set currentButton to the new id and hilite it. If there is already a current button, unhilite it.
+        if(this!=currentButton) { // if they are already the same, then don't bother
+            if(currentButton) {switchImg(currentButton);} // if current button is already set, then unset it
+            currentButton=this;
+            switchImg(currentButton);
+        }
+    }
+
+    function switchImg(element){ // switch the object attribute values for 'src' and 'dos'
+        $(element).attr({
+          'src': $(element).attr('dos'),
+          'dos': $(element).attr('src') 
+        });
+    }
+
+    switchImg(currentButton); //set the first button to be ready to go
+
+    for(i=1; i<=10;i++){//set up all of the buttons
+        $("#"+i+"a").bind("mousedown",setCurrent);
+        $("#"+i+"b").bind("mousedown",setCurrent);
+    }
+
+    //remove class active from all tools if a non-shape tool is clicked
+    $('.tools').find('img:not(.shape)').mouseup(function(){
+        $('.tools').find('img').removeClass('active');
+    });
+//runs changeCur when a shape tool button is active
+    $('.shape').mousedown(function(){
+        $('.shape').removeClass('active');
+        $(this).addClass('active');
+        var toolID = $(this).attr('id')
+          if ($('#' + toolID).attr('src') == "css/img/" + toolID + "i.png") changeCur();
+    });
+
+    /*************/
+    /* End Tools */
+    /*************/
 
 /***************************/
 /* Functions for the tools */
@@ -1243,144 +1341,106 @@ $(document).ready(function(){
     }
     
     function spray (){
-        var choice = $('#innerimagetable').attr('brushpattern');
+
         lineThickness = 1;
-        var fillpattern = new Image();
-        fillpattern.src = choice;
-        var pattern = ctx.createPattern(fillpattern, 'repeat');
         lastCur.push($('#myCanvas').css('cursor'));
+        newImg = new Image();
+        newImg.id = 'fill';
+        newImg.src = $('#innerimagetable').attr('brushpattern');
         canvas.onmousedown = function(e) {
             painting = true;
+            pattern = ctx.createPattern( newImg, 'repeat');
             ctx.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
-            canvas.onmouseup = function(e){
-                painting = false;
-            }       
-            canvas.onmousemove = function(e) {
-                var fillpattern = new Image();
-                var choice = $('#innerimagetable').attr('brushpattern');
-                fillpattern.src = choice;
-                var pattern = ctx.createPattern(fillpattern, 'repeat');
-                if (painting) {
-                    mouseX = e.pageX - this.offsetLeft - 88;
-                    mouseY = e.pageY - this.offsetTop - 55;
+        }
+        canvas.onmouseup = function(e){
+            painting = false;
+        }       
+        canvas.onmousemove = function(e) {
+            var fillpattern = new Image();
+            var choice = $('#innerimagetable').attr('brushpattern');
+            fillpattern.src = choice;
+            var pattern = ctx.createPattern(fillpattern, 'repeat');
+            if (painting) {
+                mouseX = e.pageX - this.offsetLeft - 88;
+                mouseY = e.pageY - this.offsetTop - 55;
 
-                    // find all points between        
-                    var x1 = mouseX,
-                        x2 = lastX,
-                        y1 = mouseY,
-                        y2 = lastY;
+                // find all points between        
+                var x1 = mouseX,
+                    x2 = lastX,
+                    y1 = mouseY,
+                    y2 = lastY;
 
 
-                    var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
-                    if (steep){
-                        var x = x1;
-                        x1 = y1;
-                        y1 = x;
+                var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
+                if (steep){
+                    var x = x1;
+                    x1 = y1;
+                    y1 = x;
 
-                        var y = y2;
-                        y2 = x2;
-                        x2 = y;
-                    }
-                    if (x1 > x2) {
-                        var x = x1;
-                        x1 = x2;
-                        x2 = x;
-
-                        var y = y1;
-                        y1 = y2;
-                        y2 = y;
-                    }
-
-                    var dx = x2 - x1,
-                        dy = Math.abs(y2 - y1),
-                        error = 0,
-                        de = dy / dx,
-                        yStep = -1,
-                        y = y1;
-
-                    if (y1 < y2) {
-                        yStep = 1;
-                    }
-
-                    lineThickness = 1;
-
-                    ctx.fillStyle = pattern;
-                    for (var x = x1; x < x2; x++) {
-                        if (steep) {
-                            if((mouseY = lastY + 3) || (mouseY = lastY + 6) || (mouseY = lastY + 9) || (mouseY = lastY + 12) || (mouseY = lastY + 15) || (mouseY = lastY + 18) || (mouseY = lastY + 21) || (mouseY = lastY + 24) || (mouseY = lastY + 27) || (mouseY = lastY + 30) || (mouseY = lastY + 33) || (mouseY = lastY + 36)) {
-                            ctx.fillRect(y - 2 , x +4, lineThickness , lineThickness);
-                            ctx.fillRect(y - 2 , x +8, lineThickness , lineThickness);
-                            ctx.fillRect(y - 1 , x +11, lineThickness , lineThickness);
-                            ctx.fillRect(y , x +1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 1 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 1 , x + 8, lineThickness , lineThickness);
-                            ctx.fillRect(y + 2 , x + 10, lineThickness , lineThickness);
-                            ctx.fillRect(y + 2 , x + 13, lineThickness , lineThickness);
-                            ctx.fillRect(y + 3 , x + 2, lineThickness , lineThickness);
-                            ctx.fillRect(y + 3 , x + 7, lineThickness , lineThickness);
-                            ctx.fillRect(y + 4 , x + 4, lineThickness , lineThickness);
-                            ctx.fillRect(y + 4 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x - 1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x + 6, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x + 11, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6 , x + 1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6 , x + 14, lineThickness , lineThickness);
-                            ctx.fillRect(y + 7 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 7 , x + 7, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 3, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 11, lineThickness , lineThickness);
-                            ctx.fillRect(y + 9 , x, lineThickness , lineThickness);
-                            ctx.fillRect(y + 10 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 10 , x + 8, lineThickness , lineThickness);
-                            ctx.fillRect(y + 11 , x + 12, lineThickness , lineThickness);
-                            ctx.fillRect(y + 12 , x + 3, lineThickness , lineThickness);
-                            ctx.fillRect(y + 12 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 13 , x + 6, lineThickness , lineThickness);
-                            }
-                            else {
-                            ctx.fillRect(y - 2 , x +4, lineThickness , lineThickness);
-                            ctx.fillRect(y - 2 , x +8, lineThickness , lineThickness);
-                            ctx.fillRect(y - 1 , x +11, lineThickness , lineThickness);
-                            ctx.fillRect(y , x +1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 1 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 1 , x + 8, lineThickness , lineThickness);
-                            ctx.fillRect(y + 2 , x + 10, lineThickness , lineThickness);
-                            ctx.fillRect(y + 2 , x + 13, lineThickness , lineThickness);
-                            ctx.fillRect(y + 3 , x + 2, lineThickness , lineThickness);
-                            ctx.fillRect(y + 3 , x + 7, lineThickness , lineThickness);
-                            ctx.fillRect(y + 4 , x + 4, lineThickness , lineThickness);
-                            ctx.fillRect(y + 4 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x - 1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x + 6, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x + 11, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6 , x + 1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6 , x + 14, lineThickness , lineThickness);
-                            ctx.fillRect(y + 7 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 7 , x + 7, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 3, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 11, lineThickness , lineThickness);
-                            ctx.fillRect(y + 9 , x, lineThickness , lineThickness);
-                            ctx.fillRect(y + 10 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 10 , x + 8, lineThickness , lineThickness);
-                            ctx.fillRect(y + 11 , x + 12, lineThickness , lineThickness);
-                            ctx.fillRect(y + 12 , x + 3, lineThickness , lineThickness);
-                            ctx.fillRect(y + 12 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 13 , x + 6, lineThickness , lineThickness);
-                            }
-                        } 
-                        error += de;
-                        if (error >= 0.5) {
-                            y += yStep;
-                            error -= 1.0;
-                        }
-                    }
-                    lastX = mouseX;
-                    lastY = mouseY;
+                    var y = y2;
+                    y2 = x2;
+                    x2 = y;
                 }
+                if (x1 > x2) {
+                    var x = x1;
+                    x1 = x2;
+                    x2 = x;
+
+                    var y = y1;
+                    y1 = y2;
+                    y2 = y;
+                }
+
+                var dx = x2 - x1,
+                    dy = Math.abs(y2 - y1),
+                    error = 0,
+                    de = dy / dx,
+                    yStep = -1,
+                    y = y1;
+
+                if (y1 < y2) {
+                    yStep = 1;
+                }
+
+                lineThickness = 1;
+
+                ctx.fillStyle = pattern;
+                for (var x = x1; x < x2; x++) {
+                    if (steep) {
+                        if (steep) {
+                            ctx.fillRect(y - 7 , x +2, lineThickness , lineThickness);
+                            ctx.fillRect(y - 7, x - 2, lineThickness , lineThickness);
+                            ctx.fillRect(y - 6, x + 5, lineThickness , lineThickness);
+                            ctx.fillRect(y + 8, x + 4, lineThickness , lineThickness);
+                            ctx.fillRect(y, x + 6, lineThickness , lineThickness);
+                            ctx.fillRect(y + 6, x + 8, lineThickness , lineThickness );
+                            ctx.fillRect(y + 12, x + 8, lineThickness , lineThickness );
+                            ctx.fillRect(y + 3, x + 12, lineThickness , lineThickness );
+                            ctx.fillRect(y + 10, x + 12, lineThickness , lineThickness );
+                        } 
+                        else {
+                            ctx.fillRect(x + 2, y - 7, lineThickness , lineThickness );
+                            ctx.fillRect(x - 2, y - 7, lineThickness , lineThickness );
+                            ctx.fillRect(x + 5, y - 6, lineThickness , lineThickness );
+                            ctx.fillRect(x + 4, y + 8, lineThickness , lineThickness );
+                            ctx.fillRect(x + 6, y, lineThickness , lineThickness );
+                            ctx.fillRect(x + 8, y + 6, lineThickness , lineThickness );
+                            ctx.fillRect(y + 8, x + 12, lineThickness , lineThickness );
+                            ctx.fillRect(y + 12, x + 3, lineThickness , lineThickness );
+                            ctx.fillRect(y + 12, x + 10, lineThickness , lineThickness );
+
+                        }
+                    } 
+                    error += de;
+                    if (error >= 0.5) {
+                        y += yStep;
+                        error -= 1.0;
+                    }
+                }
+                lastX = mouseX;
+                lastY = mouseY;
             }
         }
     }
@@ -1535,43 +1595,6 @@ $(document).ready(function(){
     }
     function pencil () {
         lastCur.push($('#myCanvas').css('cursor'));
-        //var gee = context.getImageData(0, 0, canvas.width, canvas.height);
-        //var somedata = gee.data;
-        //ctx.fillStyle = 'black';
-        // implementing XOR cursor..
-        /*ctx2.globalCompositeOperation = 'xor';
-        if (somedata[12010] == 255) ctx2.fillStyle = "#3b2ea6";
-        ctx2.fillRect(0, 10,  1, 6 );
-        ctx2.fillRect(1, 12,  1 , 3 );
-        ctx2.fillRect( 1, 8,  1 , 2 );
-        ctx2.fillRect(2, 6,  1 , 2 );
-        ctx2.fillRect(2, 12,  1, 2 ); 
-        ctx2.fillRect(3, 4,  1, 2 ); 
-        ctx2.fillRect(3, 12,  1, 1 ); 
-        ctx2.fillRect(4, 2,  1, 2 ); 
-        ctx2.fillRect(4, 11,  1, 1 ); 
-        ctx2.fillRect(5, 0,  1, 2 ); 
-        ctx2.fillRect(5, 3,  1, 1 ); 
-        ctx2.fillRect(5, 9,  1, 2 );
-        ctx2.fillRect(6, 0,  1, 1 ); 
-        ctx2.fillRect(6, 4,  1, 1 ); 
-        ctx2.fillRect(6, 7,  1, 2 ); 
-        ctx2.fillRect(7, 0,  1, 1 ); 
-        ctx2.fillRect(7, 4,  1, 3 );
-        ctx2.fillRect(8, 0,  1, 1 );
-        ctx2.fillRect(8, 3,  1, 2 );
-        ctx2.fillRect(9, 1,  1, 2 );
-
-
-        $('#myCanvas').hover(function(){
-            $(this).css('cursor', 'none');
-            $(this).mousemove(function(e){
-                mouseX = e.pageX - this.offsetLeft - 91;
-                mouseY = e.pageY - this.offsetTop - 117;
-                $('#cursorcanvas').css('left', mouseX + 'px');
-                $('#cursorcanvas').css('top', mouseY + 'px');
-            });
-        });*/
         lineThickness = 1;
         if (($('#4b').attr('src')) == ("css/img/4bi.png")) {
             for (i=0; i<5; i++) { 
@@ -1594,12 +1617,10 @@ $(document).ready(function(){
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
                 mouseY = e.pageY - this.offsetTop - 55;
-                            var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
-            var data = imagedata.data;
-            ////console.log(data)
-            //console.log(data[3]);
-            if (data[3] == 255) ctx.fillStyle = "black";
-            if (data[3] == 0) ctx.fillStyle  = "white";
+                var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
+                var data = imagedata.data;
+                if (data[3] == 255) ctx.fillStyle = "black";
+                if (data[3] == 0) ctx.fillStyle  = "white";
                 // find all points between        
                 var x1 = mouseX,
                     x2 = lastX,
@@ -2541,96 +2562,6 @@ $(document).ready(function(){
     /*********************/
     /* End Brushes Popup */
     /*********************/
-
-    /******************/
-    /* Tool Selection */
-    /******************/
-    
-    var currentButton = "#4a";
-    var clicked = ["#4a"];
-    $('.tools').find('img').mousedown(function(){
-        setCurrent();
-        switchImg(currentButton);
-        clicked.push('#' + $(this).attr('id'));
-        for(i=0;i<11;i++){
-          var id = $(this).attr('id');
-          $('#'+i+'a').attr('src','css/img/'+i+'a.png');
-          $('#'+i+'b').attr('src','css/img/'+i+'b.png');
-          $(this).attr('src','css/img/'+id+'i.png');
-        }
-        $('.tools').find('img').mousedown(function(){
-          if ($(this).attr('id') == '5b' && $('#5b').attr('src') == 'css/img/5b.png') $('#5b').attr('src', 'css/img/5bi.png');
-          if (clicked.length - 1 == '#5b') $('#5b').mousedown(function(){ $('5b').attr('src','css/img/5bi.png')});
-        }); 
-        $(document).mouseup(function () {
-            if ($("#2a").attr('src') == "css/img/2a.png") {
-                $('#myCanvas').draggable();
-                $('#myCanvas').draggable('disable');
-            }  
-        });
-    });
-
-    //var currentButton = "#4a";
-
-    function setCurrent(){// set currentButton to the new id and hilite it. If there is already a current button, unhilite it.
-        if(this!=currentButton) { // if they are already the same, then don't bother
-          if(currentButton) {switchImg(currentButton);} // if current button is already set, then unset it
-          currentButton=this;
-          switchImg(currentButton);
-        }
-    }
-
-    function switchImg(element) { // switch the object attribute values for 'src' and 'dos'
-        $(element).attr({
-            'src': $(element).attr('dos'), 
-            'dos': $(element).attr('src') 
-        });
-    };
-
-//prevent highlighting when dragging mouse in IE
-   
-    //$('#applebutton').mousedown(function(event){event.preventDefault()});
-    
-    //tool buttons
-    var currentButton = "#4a";
-
-    function setCurrent(){// set currentButton to the new id and hilite it. If there is already a current button, unhilite it.
-        if(this!=currentButton) { // if they are already the same, then don't bother
-            if(currentButton) {switchImg(currentButton);} // if current button is already set, then unset it
-            currentButton=this;
-            switchImg(currentButton);
-        }
-    }
-
-    function switchImg(element){ // switch the object attribute values for 'src' and 'dos'
-        $(element).attr({
-          'src': $(element).attr('dos'),
-          'dos': $(element).attr('src') 
-        });
-    }
-
-    switchImg(currentButton); //set the first button to be ready to go
-
-    for(i=1; i<=10;i++){//set up all of the buttons
-        $("#"+i+"a").bind("mousedown",setCurrent);
-        $("#"+i+"b").bind("mousedown",setCurrent);
-    }
-
-    //remove class active from all tools if a non-shape tool is clicked
-    $('.tools').find('img:not(.shape)').mouseup(function(){
-        $('.tools').find('img').removeClass('active');
-    });
-//runs changeCur when a shape tool button is active
-    $('.shape').mousedown(function(){
-        $('.shape').removeClass('active');
-        $(this).addClass('active');
-        var toolID = $(this).attr('id')
-          if ($('#' + toolID).attr('src') == "css/img/" + toolID + "i.png") changeCur();
-    });
-
-    /*************/
-    /* End Tools */
-    /*************/
 
     /***********************/
     /* Begin Dropdown Menu */
