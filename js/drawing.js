@@ -361,11 +361,10 @@ $(document).ready(function(){
                 $('#selectionContainer').show();
                 $('#selected').hide();
                 points = [];
-                return false;
                 drop = false;
                 march = false;
+                return false;
             }
-            else return true;
         });
     }//end selection tool
 
@@ -373,6 +372,7 @@ $(document).ready(function(){
         drop = false;
     });
 
+    // works in other browsers but not chrome..
     $("#2a").mousedown(function(){
       canvas.onmousedown = function() {};
       $('#myCanvas').draggable({disabled: false});
