@@ -59,9 +59,6 @@ $(document).ready(function(){
   // Quit button
 
   // functions
-  function showtableYes(){
-    $("#closecanvastable").show();
-  }
 
   function hideContentsQuit (){
     $('.content').hide();
@@ -175,8 +172,8 @@ $(document).ready(function(){
   $('#cancelQuit').mouseup(function(){
     showtableCancel();
     $('#closecanvastable').removeClass('hidden');
-    $('#cancelQuit').css({'background':'white','color':'black'})
-    $('#quitClose').hide().css('z-index','');;
+    $('#cancelQuit').css({'background':'white','color':'black'});
+    $('#quitClose').hide().css('z-index','');
     $('.rowlines').show();
     $('#overlay').hide();
   });
@@ -184,7 +181,6 @@ $(document).ready(function(){
 ////////////////////////////////////////////clicking 'yes' on 'quit'
 
   $('#yesQuit').mouseup(function(){
-    //showtableYes();
     $('#yesQuit').css({'background':'white','color':'black'});
     $('#quitClose').hide().css('z-index','');
   });
@@ -335,16 +331,8 @@ $(document).ready(function(){
 
 
 //brings up save box
-  function showquitBoxClose(){
+  function showquitBoxClose() {
     $('#cl0sefile').show().css('z-index', '10001');
-  }
-//hides 'untitled' bar lines
-  function hidelinesClose(){
-    $('.rowlines, #closecanvastable').hide();
-  }
-//keeps canvas open after table8 mouseup
-  function keepCanvasClose(){
-    $('#contents').show().removeClass('hidden').addClass('visible');
   }
 
   // End "Close canvas button"
@@ -358,9 +346,8 @@ $(document).ready(function(){
       $('#overlay').hide();
     } else {
         $('#overlay').show();
-        setTimeout(keepCanvasClose,500);
         setTimeout(showquitBoxClose,500);
-        setTimeout(hidelinesClose,500);
+        setTimeout(hidelines,500);
     }
   });
   function test() {
