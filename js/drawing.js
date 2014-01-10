@@ -1341,106 +1341,144 @@ $(document).ready(function(){
     }
     
     function spray (){
-
+        var choice = $('#innerimagetable').attr('brushpattern');
         lineThickness = 1;
+        var fillpattern = new Image();
+        fillpattern.src = choice;
+        var pattern = ctx.createPattern(fillpattern, 'repeat');
         lastCur.push($('#myCanvas').css('cursor'));
-        newImg = new Image();
-        newImg.id = 'fill';
-        newImg.src = $('#innerimagetable').attr('brushpattern');
         canvas.onmousedown = function(e) {
             painting = true;
-            pattern = ctx.createPattern( newImg, 'repeat');
             ctx.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
-        }
-        canvas.onmouseup = function(e){
-            painting = false;
-        }       
-        canvas.onmousemove = function(e) {
-            var fillpattern = new Image();
-            var choice = $('#innerimagetable').attr('brushpattern');
-            fillpattern.src = choice;
-            var pattern = ctx.createPattern(fillpattern, 'repeat');
-            if (painting) {
-                mouseX = e.pageX - this.offsetLeft - 88;
-                mouseY = e.pageY - this.offsetTop - 55;
+            canvas.onmouseup = function(e){
+                painting = false;
+            }       
+            canvas.onmousemove = function(e) {
+                var fillpattern = new Image();
+                var choice = $('#innerimagetable').attr('brushpattern');
+                fillpattern.src = choice;
+                var pattern = ctx.createPattern(fillpattern, 'repeat');
+                if (painting) {
+                    mouseX = e.pageX - this.offsetLeft - 88;
+                    mouseY = e.pageY - this.offsetTop - 55;
 
-                // find all points between        
-                var x1 = mouseX,
-                    x2 = lastX,
-                    y1 = mouseY,
-                    y2 = lastY;
+                    // find all points between        
+                    var x1 = mouseX,
+                        x2 = lastX,
+                        y1 = mouseY,
+                        y2 = lastY;
 
 
-                var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
-                if (steep){
-                    var x = x1;
-                    x1 = y1;
-                    y1 = x;
+                    var steep = (Math.abs(y2 - y1) > Math.abs(x2 - x1));
+                    if (steep){
+                        var x = x1;
+                        x1 = y1;
+                        y1 = x;
 
-                    var y = y2;
-                    y2 = x2;
-                    x2 = y;
-                }
-                if (x1 > x2) {
-                    var x = x1;
-                    x1 = x2;
-                    x2 = x;
-
-                    var y = y1;
-                    y1 = y2;
-                    y2 = y;
-                }
-
-                var dx = x2 - x1,
-                    dy = Math.abs(y2 - y1),
-                    error = 0,
-                    de = dy / dx,
-                    yStep = -1,
-                    y = y1;
-
-                if (y1 < y2) {
-                    yStep = 1;
-                }
-
-                lineThickness = 1;
-
-                ctx.fillStyle = pattern;
-                for (var x = x1; x < x2; x++) {
-                    if (steep) {
-                        if (steep) {
-                            ctx.fillRect(y - 7 , x +2, lineThickness , lineThickness);
-                            ctx.fillRect(y - 7, x - 2, lineThickness , lineThickness);
-                            ctx.fillRect(y - 6, x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8, x + 4, lineThickness , lineThickness);
-                            ctx.fillRect(y, x + 6, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6, x + 8, lineThickness , lineThickness );
-                            ctx.fillRect(y + 12, x + 8, lineThickness , lineThickness );
-                            ctx.fillRect(y + 3, x + 12, lineThickness , lineThickness );
-                            ctx.fillRect(y + 10, x + 12, lineThickness , lineThickness );
-                        } 
-                        else {
-                            ctx.fillRect(x + 2, y - 7, lineThickness , lineThickness );
-                            ctx.fillRect(x - 2, y - 7, lineThickness , lineThickness );
-                            ctx.fillRect(x + 5, y - 6, lineThickness , lineThickness );
-                            ctx.fillRect(x + 4, y + 8, lineThickness , lineThickness );
-                            ctx.fillRect(x + 6, y, lineThickness , lineThickness );
-                            ctx.fillRect(x + 8, y + 6, lineThickness , lineThickness );
-                            ctx.fillRect(y + 8, x + 12, lineThickness , lineThickness );
-                            ctx.fillRect(y + 12, x + 3, lineThickness , lineThickness );
-                            ctx.fillRect(y + 12, x + 10, lineThickness , lineThickness );
-
-                        }
-                    } 
-                    error += de;
-                    if (error >= 0.5) {
-                        y += yStep;
-                        error -= 1.0;
+                        var y = y2;
+                        y2 = x2;
+                        x2 = y;
                     }
+                    if (x1 > x2) {
+                        var x = x1;
+                        x1 = x2;
+                        x2 = x;
+
+                        var y = y1;
+                        y1 = y2;
+                        y2 = y;
+                    }
+
+                    var dx = x2 - x1,
+                        dy = Math.abs(y2 - y1),
+                        error = 0,
+                        de = dy / dx,
+                        yStep = -1,
+                        y = y1;
+
+                    if (y1 < y2) {
+                        yStep = 1;
+                    }
+
+                    lineThickness = 1;
+
+                    ctx.fillStyle = pattern;
+                    for (var x = x1; x < x2; x++) {
+                        if (steep) {
+                            if((mouseY = lastY + 3) || (mouseY = lastY + 6) || (mouseY = lastY + 9) || (mouseY = lastY + 12) || (mouseY = lastY + 15) || (mouseY = lastY + 18) || (mouseY = lastY + 21) || (mouseY = lastY + 24) || (mouseY = lastY + 27) || (mouseY = lastY + 30) || (mouseY = lastY + 33) || (mouseY = lastY + 36)) {
+                            ctx.fillRect(y - 2 , x +4, lineThickness , lineThickness);
+                            ctx.fillRect(y - 2 , x +8, lineThickness , lineThickness);
+                            ctx.fillRect(y - 1 , x +11, lineThickness , lineThickness);
+                            ctx.fillRect(y , x +1, lineThickness , lineThickness);
+                            ctx.fillRect(y + 1 , x + 5, lineThickness , lineThickness);
+                            ctx.fillRect(y + 1 , x + 8, lineThickness , lineThickness);
+                            ctx.fillRect(y + 2 , x + 10, lineThickness , lineThickness);
+                            ctx.fillRect(y + 2 , x + 13, lineThickness , lineThickness);
+                            ctx.fillRect(y + 3 , x + 2, lineThickness , lineThickness);
+                            ctx.fillRect(y + 3 , x + 7, lineThickness , lineThickness);
+                            ctx.fillRect(y + 4 , x + 4, lineThickness , lineThickness);
+                            ctx.fillRect(y + 4 , x + 9, lineThickness , lineThickness);
+                            ctx.fillRect(y + 5 , x - 1, lineThickness , lineThickness);
+                            ctx.fillRect(y + 5 , x + 6, lineThickness , lineThickness);
+                            ctx.fillRect(y + 5 , x + 11, lineThickness , lineThickness);
+                            ctx.fillRect(y + 6 , x + 1, lineThickness , lineThickness);
+                            ctx.fillRect(y + 6 , x + 14, lineThickness , lineThickness);
+                            ctx.fillRect(y + 7 , x + 5, lineThickness , lineThickness);
+                            ctx.fillRect(y + 7 , x + 7, lineThickness , lineThickness);
+                            ctx.fillRect(y + 8 , x + 3, lineThickness , lineThickness);
+                            ctx.fillRect(y + 8 , x + 9, lineThickness , lineThickness);
+                            ctx.fillRect(y + 8 , x + 11, lineThickness , lineThickness);
+                            ctx.fillRect(y + 9 , x, lineThickness , lineThickness);
+                            ctx.fillRect(y + 10 , x + 5, lineThickness , lineThickness);
+                            ctx.fillRect(y + 10 , x + 8, lineThickness , lineThickness);
+                            ctx.fillRect(y + 11 , x + 12, lineThickness , lineThickness);
+                            ctx.fillRect(y + 12 , x + 3, lineThickness , lineThickness);
+                            ctx.fillRect(y + 12 , x + 9, lineThickness , lineThickness);
+                            ctx.fillRect(y + 13 , x + 6, lineThickness , lineThickness);
+                            }
+                            else {
+                            ctx.fillRect(y - 2 , x +4, lineThickness , lineThickness);
+                            ctx.fillRect(y - 2 , x +8, lineThickness , lineThickness);
+                            ctx.fillRect(y - 1 , x +11, lineThickness , lineThickness);
+                            ctx.fillRect(y , x +1, lineThickness , lineThickness);
+                            ctx.fillRect(y + 1 , x + 5, lineThickness , lineThickness);
+                            ctx.fillRect(y + 1 , x + 8, lineThickness , lineThickness);
+                            ctx.fillRect(y + 2 , x + 10, lineThickness , lineThickness);
+                            ctx.fillRect(y + 2 , x + 13, lineThickness , lineThickness);
+                            ctx.fillRect(y + 3 , x + 2, lineThickness , lineThickness);
+                            ctx.fillRect(y + 3 , x + 7, lineThickness , lineThickness);
+                            ctx.fillRect(y + 4 , x + 4, lineThickness , lineThickness);
+                            ctx.fillRect(y + 4 , x + 9, lineThickness , lineThickness);
+                            ctx.fillRect(y + 5 , x - 1, lineThickness , lineThickness);
+                            ctx.fillRect(y + 5 , x + 6, lineThickness , lineThickness);
+                            ctx.fillRect(y + 5 , x + 11, lineThickness , lineThickness);
+                            ctx.fillRect(y + 6 , x + 1, lineThickness , lineThickness);
+                            ctx.fillRect(y + 6 , x + 14, lineThickness , lineThickness);
+                            ctx.fillRect(y + 7 , x + 5, lineThickness , lineThickness);
+                            ctx.fillRect(y + 7 , x + 7, lineThickness , lineThickness);
+                            ctx.fillRect(y + 8 , x + 3, lineThickness , lineThickness);
+                            ctx.fillRect(y + 8 , x + 9, lineThickness , lineThickness);
+                            ctx.fillRect(y + 8 , x + 11, lineThickness , lineThickness);
+                            ctx.fillRect(y + 9 , x, lineThickness , lineThickness);
+                            ctx.fillRect(y + 10 , x + 5, lineThickness , lineThickness);
+                            ctx.fillRect(y + 10 , x + 8, lineThickness , lineThickness);
+                            ctx.fillRect(y + 11 , x + 12, lineThickness , lineThickness);
+                            ctx.fillRect(y + 12 , x + 3, lineThickness , lineThickness);
+                            ctx.fillRect(y + 12 , x + 9, lineThickness , lineThickness);
+                            ctx.fillRect(y + 13 , x + 6, lineThickness , lineThickness);
+                            }
+                        } 
+                        error += de;
+                        if (error >= 0.5) {
+                            y += yStep;
+                            error -= 1.0;
+                        }
+                    }
+                    lastX = mouseX;
+                    lastY = mouseY;
                 }
-                lastX = mouseX;
-                lastY = mouseY;
             }
         }
     }
@@ -1458,9 +1496,7 @@ $(document).ready(function(){
         //var ctx=c.getContext("2d");
         //var fillpattern = new Image();
 
-        newImg = new Image();
-        newImg.id = 'fill';
-        newImg.src = $('#innerimagetable').attr('brushpattern');
+        setFill();
             //pattern = ctx.createPattern( newImg, 'repeat');
         //console.log(newImg);
         //console.log(pattern);
@@ -1606,7 +1642,12 @@ $(document).ready(function(){
         }
         canvas.onmousedown = function(e) {
             painting = true;
-
+            var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
+            var data = imagedata.data;
+            ////console.log(data)
+            //console.log(data);
+            if (data[0] == 255) ctx.fillStyle = "black";
+            if (data[0] == 0) ctx.fillStyle  = "white";
             lastX = e.pageX - this.offsetLeft - 88;
             lastY = e.pageY - this.offsetTop - 55;
         };
@@ -1617,10 +1658,7 @@ $(document).ready(function(){
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
                 mouseY = e.pageY - this.offsetTop - 55;
-                var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
-                var data = imagedata.data;
-                if (data[3] == 255) ctx.fillStyle = "black";
-                if (data[3] == 0) ctx.fillStyle  = "white";
+                
                 // find all points between        
                 var x1 = mouseX,
                     x2 = lastX,
@@ -1691,21 +1729,20 @@ $(document).ready(function(){
     function drawjellybean2(dofill){
         lastCur.push($('#myCanvas').css('cursor'));
         changeWidth2();
+        setFill();
         var jellyStart = [];
         var jellyShape = [];
         canvas.onmousedown = function(e) {
             painting = true;
-            ctx.fillStyle = "black";
+            ctx.fillStyle = 'black';
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
             jellyStart.push(lastX, lastY);
         };
         canvas.onmouseup = function(e){
-            var fillpattern = new Image();
-            fillpattern.src = $('#innerimagetable').attr('brushpattern');
-            var pattern = context.createPattern(fillpattern, 'repeat');
             painting = false;
             //context.lineJoin = 'round'
+            pattern = context.createPattern( newImg, 'repeat');
             ctx.fillStyle = pattern;
             ctx.beginPath();
             ctx.moveTo(jellyStart[0], jellyStart[1]);
@@ -1950,10 +1987,8 @@ $(document).ready(function(){
     }
     function drawrect2 (dofill){
         lastCur.push($('#myCanvas').css('cursor'));
-        changeWidth2();
-        newImg = new Image();
-        newImg.id = 'fill';
-        newImg.src = $('#innerimagetable').attr('brushpattern');
+        changeWidth2(); 
+        setFill();
         // Rubber bands.......................................................
         function drawRubberbandShape(loc) {
             /*var texture = new Image();
@@ -2021,10 +2056,17 @@ $(document).ready(function(){
         drawcircle2(dofill);
     }
 
+    function setFill() {
+        newImg = new Image();
+        newImg.id = 'fill';
+        newImg.src = $('#innerimagetable').attr('brushpattern');
+    };
+
     function drawcircle2 (dofill){
         lastCur.push($('#myCanvas').css('cursor'));
         context.lineWidth = 1;
         changeWidth2();
+        setFill();
         function drawRubberbandShape(loc){
             var fillpattern = new Image();
             fillpattern.src = $('#innerimagetable').attr('brushpattern');
@@ -2063,6 +2105,8 @@ $(document).ready(function(){
             var loc = windowToCanvas(e.clientX, e.clientY);
             e.preventDefault(); // Prevent cursor change
             saveDrawingSurface();
+            pattern = context.createPattern( newImg, 'repeat');
+            context.fillStyle = pattern;
             mousedown.x = loc.x;
             mousedown.y = loc.y;
             dragging = true;
@@ -2102,185 +2146,182 @@ $(document).ready(function(){
         changeWidth2();
     // Functions..........................................................
         function drawRubberbandShape(loc) {
-        var fillpattern = new Image();
-        fillpattern.src = $('#innerimagetable').attr('brushpattern');
-        var pattern = context.createPattern(fillpattern, 'repeat');
-        context.lineJoin = "round";
-        context.lineCap = "round";
-        context.strokeStyle = 'black';
-        context.fillStyle = pattern;
-        context.beginPath();
-        //top left btm right
-        if ((loc.x > mousedown.x) && (loc.y > mousedown.y)) {
-            context.moveTo(mousedown.x + 3, mousedown.y - 3);
-            //top right
-            context.lineTo(loc.x - 3, mousedown.y - 3);
-            context.lineTo(loc.x - 2, mousedown.y - 2);
-            context.lineTo(loc.x - 1, mousedown.y - 2); 
-            context.lineTo(loc.x , mousedown.y - 1); 
-            context.lineTo(loc.x + 1, mousedown.y); 
-            context.lineTo(loc.x + 2, mousedown.y + 1);
-            context.lineTo(loc.x + 2, mousedown.y + 2);
-            context.lineTo(loc.x + 3, mousedown.y + 3);
-            //bottom righta
-            context.lineTo(loc.x + 3, loc.y - 3);
-            context.lineTo(loc.x + 2, loc.y - 2);
-            context.lineTo(loc.x + 2, loc.y - 1);
-            context.lineTo(loc.x + 1, loc.y);
-            context.lineTo(loc.x, loc.y + 1);
-            context.lineTo(loc.x - 1, loc.y + 2);
-            context.lineTo(loc.x - 2, loc.y + 2);
-            context.lineTo(loc.x - 3, loc.y + 3);
-            //bottom left
-            context.lineTo(mousedown.x + 3, loc.y + 3);
-            context.lineTo(mousedown.x + 2, loc.y + 2);
-            context.lineTo(mousedown.x + 1, loc.y + 2);
-            context.lineTo(mousedown.x, loc.y + 1);
-            context.lineTo(mousedown.x - 1, loc.y);
-            context.lineTo(mousedown.x - 2, loc.y - 1); 
-            context.lineTo(mousedown.x - 2, loc.y - 2); 
-            context.lineTo(mousedown.x - 3, loc.y - 3);
-            //top left
-            context.lineTo(mousedown.x - 3, mousedown.y + 3);
-            context.lineTo(mousedown.x - 2, mousedown.y + 2); 
-            context.lineTo(mousedown.x - 2, mousedown.y + 1); 
-            context.lineTo(mousedown.x - 1, mousedown.y); 
-            context.lineTo(mousedown.x , mousedown.y - 1); 
-            context.lineTo(mousedown.x + 1, mousedown.y - 2);
-            context.lineTo(mousedown.x + 2, mousedown.y - 2); 
-            context.lineTo(mousedown.x + 2, mousedown.y - 2); 
-            context.lineTo(mousedown.x + 3, mousedown.y - 3);
-            context.closePath();
+            setFill();
+            context.lineJoin = "round";
+            context.lineCap = "round";
+            context.strokeStyle = 'black';
+            context.beginPath();
+            //top left btm right
+            if ((loc.x > mousedown.x) && (loc.y > mousedown.y)) {
+                context.moveTo(mousedown.x + 3, mousedown.y - 3);
+                //top right
+                context.lineTo(loc.x - 3, mousedown.y - 3);
+                context.lineTo(loc.x - 2, mousedown.y - 2);
+                context.lineTo(loc.x - 1, mousedown.y - 2); 
+                context.lineTo(loc.x , mousedown.y - 1); 
+                context.lineTo(loc.x + 1, mousedown.y); 
+                context.lineTo(loc.x + 2, mousedown.y + 1);
+                context.lineTo(loc.x + 2, mousedown.y + 2);
+                context.lineTo(loc.x + 3, mousedown.y + 3);
+                //bottom righta
+                context.lineTo(loc.x + 3, loc.y - 3);
+                context.lineTo(loc.x + 2, loc.y - 2);
+                context.lineTo(loc.x + 2, loc.y - 1);
+                context.lineTo(loc.x + 1, loc.y);
+                context.lineTo(loc.x, loc.y + 1);
+                context.lineTo(loc.x - 1, loc.y + 2);
+                context.lineTo(loc.x - 2, loc.y + 2);
+                context.lineTo(loc.x - 3, loc.y + 3);
+                //bottom left
+                context.lineTo(mousedown.x + 3, loc.y + 3);
+                context.lineTo(mousedown.x + 2, loc.y + 2);
+                context.lineTo(mousedown.x + 1, loc.y + 2);
+                context.lineTo(mousedown.x, loc.y + 1);
+                context.lineTo(mousedown.x - 1, loc.y);
+                context.lineTo(mousedown.x - 2, loc.y - 1); 
+                context.lineTo(mousedown.x - 2, loc.y - 2); 
+                context.lineTo(mousedown.x - 3, loc.y - 3);
+                //top left
+                context.lineTo(mousedown.x - 3, mousedown.y + 3);
+                context.lineTo(mousedown.x - 2, mousedown.y + 2); 
+                context.lineTo(mousedown.x - 2, mousedown.y + 1); 
+                context.lineTo(mousedown.x - 1, mousedown.y); 
+                context.lineTo(mousedown.x , mousedown.y - 1); 
+                context.lineTo(mousedown.x + 1, mousedown.y - 2);
+                context.lineTo(mousedown.x + 2, mousedown.y - 2); 
+                context.lineTo(mousedown.x + 2, mousedown.y - 2); 
+                context.lineTo(mousedown.x + 3, mousedown.y - 3);
+                context.closePath();
+            }
+            //dragging top right to btm left
+            else if (loc.x < mousedown.x && loc.y > mousedown.y) {
+                context.moveTo(loc.x + 3, mousedown.y - 3);
+                //top right
+                context.lineTo(mousedown.x - 3, mousedown.y - 3);
+                context.lineTo(mousedown.x - 2, mousedown.y - 2);
+                context.lineTo(mousedown.x - 1, mousedown.y - 2); 
+                context.lineTo(mousedown.x , mousedown.y - 1); 
+                context.lineTo(mousedown.x + 1, mousedown.y); 
+                context.lineTo(mousedown.x + 2, mousedown.y + 1);
+                context.lineTo(mousedown.x + 2, mousedown.y + 2);
+                context.lineTo(mousedown.x + 3, mousedown.y + 3);
+                //bottom right
+                context.lineTo(mousedown.x + 3, loc.y - 3);
+                context.lineTo(mousedown.x + 2, loc.y - 2);
+                context.lineTo(mousedown.x + 2, loc.y - 1);
+                context.lineTo(mousedown.x + 1, loc.y);
+                context.lineTo(mousedown.x, loc.y + 1);
+                context.lineTo(mousedown.x - 1, loc.y + 2);
+                context.lineTo(mousedown.x - 2, loc.y + 2);
+                context.lineTo(mousedown.x - 3, loc.y + 3);
+                //bottom left
+                context.lineTo(loc.x + 3, loc.y + 3);
+                context.lineTo(loc.x + 2, loc.y + 2);
+                context.lineTo(loc.x + 1, loc.y + 2);
+                context.lineTo(loc.x, loc.y + 1);
+                context.lineTo(loc.x - 1, loc.y);
+                context.lineTo(loc.x - 2, loc.y - 1); 
+                context.lineTo(loc.x - 2, loc.y - 2); 
+                context.lineTo(loc.x - 3, loc.y - 3);
+                //top left
+                context.lineTo(loc.x - 3, mousedown.y + 3);
+                context.lineTo(loc.x - 2, mousedown.y + 2); 
+                context.lineTo(loc.x - 2, mousedown.y + 1); 
+                context.lineTo(loc.x - 1, mousedown.y); 
+                context.lineTo(loc.x , mousedown.y - 1); 
+                context.lineTo(loc.x + 1, mousedown.y - 2);
+                context.lineTo(loc.x + 2, mousedown.y - 2); 
+                context.lineTo(loc.x + 2, mousedown.y - 2); 
+                context.lineTo(loc.x + 3, mousedown.y - 3);
+                context.closePath();
+            }
+            //dragging btm left to top right
+            else if (loc.x > mousedown.x && loc.y < mousedown.y) {
+                context.moveTo(mousedown.x + 3, loc.y - 3);
+                //top right
+                context.lineTo(loc.x - 3, loc.y - 3);
+                context.lineTo(loc.x - 2, loc.y - 2);
+                context.lineTo(loc.x - 1, loc.y - 2); 
+                context.lineTo(loc.x , loc.y - 1); 
+                context.lineTo(loc.x + 1, loc.y); 
+                context.lineTo(loc.x + 2, loc.y + 1);
+                context.lineTo(loc.x + 2, loc.y + 2);
+                context.lineTo(loc.x + 3, loc.y + 3);
+                //bottom right
+                context.lineTo(loc.x + 3, mousedown.y - 3);
+                context.lineTo(loc.x + 2, mousedown.y - 2);
+                context.lineTo(loc.x + 2, mousedown.y - 1);
+                context.lineTo(loc.x + 1, mousedown.y);
+                context.lineTo(loc.x, mousedown.y + 1);
+                context.lineTo(loc.x - 1, mousedown.y + 2);
+                context.lineTo(loc.x - 2, mousedown.y + 2);
+                context.lineTo(loc.x - 3, mousedown.y + 3);
+                //bottom left
+                context.lineTo(mousedown.x + 3, mousedown.y + 3);
+                context.lineTo(mousedown.x + 2, mousedown.y + 2);
+                context.lineTo(mousedown.x + 1, mousedown.y + 2);
+                context.lineTo(mousedown.x, mousedown.y + 1);
+                context.lineTo(mousedown.x - 1, mousedown.y);
+                context.lineTo(mousedown.x - 2, mousedown.y - 1); 
+                context.lineTo(mousedown.x - 2, mousedown.y - 2); 
+                context.lineTo(mousedown.x - 3, mousedown.y - 3);
+                //top left
+                context.lineTo(mousedown.x - 3, loc.y + 3);
+                context.lineTo(mousedown.x - 2, loc.y + 2); 
+                context.lineTo(mousedown.x - 2, loc.y + 1); 
+                context.lineTo(mousedown.x - 1, loc.y); 
+                context.lineTo(mousedown.x , loc.y - 1); 
+                context.lineTo(mousedown.x + 1, loc.y - 2);
+                context.lineTo(mousedown.x + 2, loc.y - 2); 
+                context.lineTo(mousedown.x + 2, loc.y - 2); 
+                context.lineTo(mousedown.x + 3, loc.y - 3);
+                context.closePath();
+            }
+            //for draggig btm right to top left
+            else if ((loc.x < mousedown.x) && (loc.y < mousedown.y)) {
+                context.moveTo(loc.x + 3, loc.y - 3);
+                //top right
+                context.lineTo(mousedown.x - 3, loc.y - 3);
+                context.lineTo(mousedown.x - 2, loc.y - 2);
+                context.lineTo(mousedown.x - 1, loc.y - 2); 
+                context.lineTo(mousedown.x , loc.y - 1); 
+                context.lineTo(mousedown.x + 1, loc.y); 
+                context.lineTo(mousedown.x + 2, loc.y + 1);
+                context.lineTo(mousedown.x + 2, loc.y + 2);
+                context.lineTo(mousedown.x + 3, loc.y + 3);
+                //bottom right
+                context.lineTo(mousedown.x + 3, mousedown.y - 3);
+                context.lineTo(mousedown.x + 2, mousedown.y - 2);
+                context.lineTo(mousedown.x + 2, mousedown.y - 1);
+                context.lineTo(mousedown.x + 1, mousedown.y);
+                context.lineTo(mousedown.x, mousedown.y + 1);
+                context.lineTo(mousedown.x - 1, mousedown.y + 2);
+                context.lineTo(mousedown.x - 2, mousedown.y + 2);
+                context.lineTo(mousedown.x - 3, mousedown.y + 3);
+                //bottom left
+                context.lineTo(loc.x + 3, mousedown.y + 3);
+                context.lineTo(loc.x + 2, mousedown.y + 2);
+                context.lineTo(loc.x + 1, mousedown.y + 2);
+                context.lineTo(loc.x, mousedown.y + 1);
+                context.lineTo(loc.x - 1, mousedown.y);
+                context.lineTo(loc.x - 2, mousedown.y - 1); 
+                context.lineTo(loc.x - 2, mousedown.y - 2); 
+                context.lineTo(loc.x - 3, mousedown.y - 3);
+                //top left
+                context.lineTo(loc.x - 3, loc.y + 3);
+                context.lineTo(loc.x - 2, loc.y + 2); 
+                context.lineTo(loc.x - 2, loc.y + 1); 
+                context.lineTo(loc.x - 1, loc.y); 
+                context.lineTo(loc.x , loc.y - 1); 
+                context.lineTo(loc.x + 1, loc.y - 2);
+                context.lineTo(loc.x + 2, loc.y - 2); 
+                context.lineTo(loc.x + 2, loc.y - 2); 
+                context.lineTo(loc.x + 3, loc.y - 3);
+                context.closePath();
+            }
+            context.stroke();
+            if(dofill) context.fill();
         }
-        //dragging top right to btm left
-        else if (loc.x < mousedown.x && loc.y > mousedown.y) {
-            context.moveTo(loc.x + 3, mousedown.y - 3);
-            //top right
-            context.lineTo(mousedown.x - 3, mousedown.y - 3);
-            context.lineTo(mousedown.x - 2, mousedown.y - 2);
-            context.lineTo(mousedown.x - 1, mousedown.y - 2); 
-            context.lineTo(mousedown.x , mousedown.y - 1); 
-            context.lineTo(mousedown.x + 1, mousedown.y); 
-            context.lineTo(mousedown.x + 2, mousedown.y + 1);
-            context.lineTo(mousedown.x + 2, mousedown.y + 2);
-            context.lineTo(mousedown.x + 3, mousedown.y + 3);
-            //bottom right
-            context.lineTo(mousedown.x + 3, loc.y - 3);
-            context.lineTo(mousedown.x + 2, loc.y - 2);
-            context.lineTo(mousedown.x + 2, loc.y - 1);
-            context.lineTo(mousedown.x + 1, loc.y);
-            context.lineTo(mousedown.x, loc.y + 1);
-            context.lineTo(mousedown.x - 1, loc.y + 2);
-            context.lineTo(mousedown.x - 2, loc.y + 2);
-            context.lineTo(mousedown.x - 3, loc.y + 3);
-            //bottom left
-            context.lineTo(loc.x + 3, loc.y + 3);
-            context.lineTo(loc.x + 2, loc.y + 2);
-            context.lineTo(loc.x + 1, loc.y + 2);
-            context.lineTo(loc.x, loc.y + 1);
-            context.lineTo(loc.x - 1, loc.y);
-            context.lineTo(loc.x - 2, loc.y - 1); 
-            context.lineTo(loc.x - 2, loc.y - 2); 
-            context.lineTo(loc.x - 3, loc.y - 3);
-            //top left
-            context.lineTo(loc.x - 3, mousedown.y + 3);
-            context.lineTo(loc.x - 2, mousedown.y + 2); 
-            context.lineTo(loc.x - 2, mousedown.y + 1); 
-            context.lineTo(loc.x - 1, mousedown.y); 
-            context.lineTo(loc.x , mousedown.y - 1); 
-            context.lineTo(loc.x + 1, mousedown.y - 2);
-            context.lineTo(loc.x + 2, mousedown.y - 2); 
-            context.lineTo(loc.x + 2, mousedown.y - 2); 
-            context.lineTo(loc.x + 3, mousedown.y - 3);
-            context.closePath();
-        }
-        //dragging btm left to top right
-        else if (loc.x > mousedown.x && loc.y < mousedown.y) {
-            context.moveTo(mousedown.x + 3, loc.y - 3);
-            //top right
-            context.lineTo(loc.x - 3, loc.y - 3);
-            context.lineTo(loc.x - 2, loc.y - 2);
-            context.lineTo(loc.x - 1, loc.y - 2); 
-            context.lineTo(loc.x , loc.y - 1); 
-            context.lineTo(loc.x + 1, loc.y); 
-            context.lineTo(loc.x + 2, loc.y + 1);
-            context.lineTo(loc.x + 2, loc.y + 2);
-            context.lineTo(loc.x + 3, loc.y + 3);
-            //bottom right
-            context.lineTo(loc.x + 3, mousedown.y - 3);
-            context.lineTo(loc.x + 2, mousedown.y - 2);
-            context.lineTo(loc.x + 2, mousedown.y - 1);
-            context.lineTo(loc.x + 1, mousedown.y);
-            context.lineTo(loc.x, mousedown.y + 1);
-            context.lineTo(loc.x - 1, mousedown.y + 2);
-            context.lineTo(loc.x - 2, mousedown.y + 2);
-            context.lineTo(loc.x - 3, mousedown.y + 3);
-            //bottom left
-            context.lineTo(mousedown.x + 3, mousedown.y + 3);
-            context.lineTo(mousedown.x + 2, mousedown.y + 2);
-            context.lineTo(mousedown.x + 1, mousedown.y + 2);
-            context.lineTo(mousedown.x, mousedown.y + 1);
-            context.lineTo(mousedown.x - 1, mousedown.y);
-            context.lineTo(mousedown.x - 2, mousedown.y - 1); 
-            context.lineTo(mousedown.x - 2, mousedown.y - 2); 
-            context.lineTo(mousedown.x - 3, mousedown.y - 3);
-            //top left
-            context.lineTo(mousedown.x - 3, loc.y + 3);
-            context.lineTo(mousedown.x - 2, loc.y + 2); 
-            context.lineTo(mousedown.x - 2, loc.y + 1); 
-            context.lineTo(mousedown.x - 1, loc.y); 
-            context.lineTo(mousedown.x , loc.y - 1); 
-            context.lineTo(mousedown.x + 1, loc.y - 2);
-            context.lineTo(mousedown.x + 2, loc.y - 2); 
-            context.lineTo(mousedown.x + 2, loc.y - 2); 
-            context.lineTo(mousedown.x + 3, loc.y - 3);
-            context.closePath();
-        }
-        //for draggig btm right to top left
-        else if ((loc.x < mousedown.x) && (loc.y < mousedown.y)) {
-            context.moveTo(loc.x + 3, loc.y - 3);
-            //top right
-            context.lineTo(mousedown.x - 3, loc.y - 3);
-            context.lineTo(mousedown.x - 2, loc.y - 2);
-            context.lineTo(mousedown.x - 1, loc.y - 2); 
-            context.lineTo(mousedown.x , loc.y - 1); 
-            context.lineTo(mousedown.x + 1, loc.y); 
-            context.lineTo(mousedown.x + 2, loc.y + 1);
-            context.lineTo(mousedown.x + 2, loc.y + 2);
-            context.lineTo(mousedown.x + 3, loc.y + 3);
-            //bottom right
-            context.lineTo(mousedown.x + 3, mousedown.y - 3);
-            context.lineTo(mousedown.x + 2, mousedown.y - 2);
-            context.lineTo(mousedown.x + 2, mousedown.y - 1);
-            context.lineTo(mousedown.x + 1, mousedown.y);
-            context.lineTo(mousedown.x, mousedown.y + 1);
-            context.lineTo(mousedown.x - 1, mousedown.y + 2);
-            context.lineTo(mousedown.x - 2, mousedown.y + 2);
-            context.lineTo(mousedown.x - 3, mousedown.y + 3);
-            //bottom left
-            context.lineTo(loc.x + 3, mousedown.y + 3);
-            context.lineTo(loc.x + 2, mousedown.y + 2);
-            context.lineTo(loc.x + 1, mousedown.y + 2);
-            context.lineTo(loc.x, mousedown.y + 1);
-            context.lineTo(loc.x - 1, mousedown.y);
-            context.lineTo(loc.x - 2, mousedown.y - 1); 
-            context.lineTo(loc.x - 2, mousedown.y - 2); 
-            context.lineTo(loc.x - 3, mousedown.y - 3);
-            //top left
-            context.lineTo(loc.x - 3, loc.y + 3);
-            context.lineTo(loc.x - 2, loc.y + 2); 
-            context.lineTo(loc.x - 2, loc.y + 1); 
-            context.lineTo(loc.x - 1, loc.y); 
-            context.lineTo(loc.x , loc.y - 1); 
-            context.lineTo(loc.x + 1, loc.y - 2);
-            context.lineTo(loc.x + 2, loc.y - 2); 
-            context.lineTo(loc.x + 2, loc.y - 2); 
-            context.lineTo(loc.x + 3, loc.y - 3);
-            context.closePath();
-        }
-        context.stroke();
-        if(dofill) context.fill();
-    }
         function updateRubberband(loc) {
             updateRubberbandRectangle(loc);
             drawRubberbandShape(loc);
@@ -2289,6 +2330,8 @@ $(document).ready(function(){
             var loc = windowToCanvas(e.clientX, e.clientY);
             e.preventDefault(); // Prevent cursor change
             saveDrawingSurface();
+            pattern = context.createPattern( newImg, 'repeat');
+            context.fillStyle = pattern;
             mousedown.x = loc.x;
             mousedown.y = loc.y;
             dragging = true;
@@ -2330,6 +2373,7 @@ $(document).ready(function(){
 
         lastCur.push($('#myCanvas').css('cursor'));
         changeWidth2();
+        setFill();
         var startPositionarray = [];
         var endPositionarray = [];
         function drawRubberbandShape(loc) {
@@ -2375,9 +2419,7 @@ $(document).ready(function(){
             //console.log(startPositionarray);
         };
         canvas.ondblclick = function (e) {
-            var fillpattern = new Image();
-            fillpattern.src = $('#innerimagetable').attr('brushpattern');
-            var pattern = context.createPattern(fillpattern, 'repeat');
+            pattern = context.createPattern( newImg, 'repeat');
             loc = windowToCanvas(e.clientX, e.clientY);
             restoreDrawingSurface();
             updateRubberband(loc);
@@ -2385,7 +2427,7 @@ $(document).ready(function(){
             context.lineJoin = "miter";
             context.lineCap = "square";
             context.strokeStyle = "rbg(0, 0, 0)";
-            context.fillStyle = "white";
+            context.fillStyle = pattern;
             context.beginPath();
             //var sourceX = 3.1 * parseInt($('#vbContainer').css('left'));
             //var sourceY = 2.5 * parseInt($('#vbContainer').css('top'));
@@ -3277,8 +3319,8 @@ $(document).ready(function(){
     });
 
     $(document).on('mouseup', function(){
-        console.log(this.id);
-        console.log(window.drawn)
+        //console.log(this.id);
+        //console.log(window.drawn)
     });
 
     
@@ -3287,7 +3329,7 @@ $(document).ready(function(){
 
 //undo functions
     $(document).mouseup(function(e){
-        console.log(e.target.id);
+        //console.log(e.target.id);
     });
     $('#tempContainer2').show().css({'position':'absolute','left':'1000px'});
     var y = false;
