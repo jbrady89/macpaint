@@ -1738,23 +1738,28 @@ $(document).ready(function(){
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
             jellyStart.push(lastX, lastY);
+            ctx.moveTo(jellyStart[0], jellyStart[1]);
         };
         canvas.onmouseup = function(e){
             painting = false;
             //context.lineJoin = 'round'
             pattern = context.createPattern( newImg, 'repeat');
             ctx.fillStyle = pattern;
-            ctx.beginPath();
-            ctx.moveTo(jellyStart[0], jellyStart[1]);
-
+            //ctx.beginPath();
+            ctx.lineTo(jellyStart[0], jellyStart[1]);
+            //ctx.lineTo(jellyShape[jellyShape.length - 2], jellyShape[jellyShape.length - 1])
             // look at drawing code from chat app for a way to speed this up
             // add a new line each time in mousemove so it doesn't have to redraw the whole thing on mouseup
-            for(i=0;i<jellyShape.length;i+=2){
-                ctx.lineTo(jellyShape[i],jellyShape[i + 1]);
-            }
+            //for(i=0;i<jellyShape.length;i+=2){
+              //ctx.lineTo(jellyShape[i],jellyShape[i + 1]);
+            //}
             ctx.closePath();
-            if(dofill) ctx.fill();
             ctx.stroke();
+            if(dofill) {
+                console.log('fill');
+                console.log(ctx.fillStyle);
+                ctx.fill();
+            }
             jellyStart = [];
             jellyShape = [];
         }
@@ -1802,11 +1807,13 @@ $(document).ready(function(){
                 }
                 for (var x = x1; x < x2; x++) {
                     if (steep) {
-                        ctx.fillRect(y, x, lineThickness , lineThickness );
+                        ctx.lineTo(y, x, lineThickness , lineThickness );
+                        ctx.stroke();
                         jellyShape.push(y,x);
                     } 
                     else {
-                        ctx.fillRect(x, y, lineThickness , lineThickness );
+                        ctx.lineTo(x, y, lineThickness , lineThickness );
+                        ctx.stroke();
                         jellyShape.push(x,y);
                     }
                     error += de;
@@ -1934,6 +1941,7 @@ $(document).ready(function(){
         changeWidth2();
         function drawRubberbandShape(loc) {
             context.lineCap = "square";
+            context.lineJoin = "miter";
             context.strokeStyle = "black";
             context.beginPath();
             context.moveTo(mousedown.x, mousedown.y);
@@ -2144,9 +2152,9 @@ $(document).ready(function(){
         lastCur.push($('#myCanvas').css('cursor'));
         context.lineWidth = 1;
         changeWidth2();
+        setFill();
     // Functions..........................................................
         function drawRubberbandShape(loc) {
-            setFill();
             context.lineJoin = "round";
             context.lineCap = "round";
             context.strokeStyle = 'black';
@@ -2861,7 +2869,7 @@ $(document).ready(function(){
     //for changing fill pattern
     function changeImage2(){ 
         $('#innerimagetable').css("background-image", "url('css/img/pattern2.jpg')").css("background-position", "2px 2px");
-        $('#innerimagetable').attr('brushpattern', "css/img/pattern2.jpg");
+        //$('#innerimagetable').attr('brushpattern', "css/img/pattern2.jpg");
     }
     function changeImage3(){ 
         $('#innerimagetable').css("background-image", "url('css/img/pattern3.jpg')").css("background-position", "0px 3px");
@@ -2886,8 +2894,8 @@ $(document).ready(function(){
 
     function changeImage(){
         id = $(this).attr('id');
-        $('#innerimagetable').css("background-position", "2px 3px").css("background-image", "url('css/img//" +id+ ".jpg')");
-        $('#innerimagetable').attr('brushpattern', "css/img//"+id+".jpg");
+        $('#innerimagetable').css("background-position", "2px 3px").css("background-image", "url('css/img/" +id+ ".jpg')");
+        $('#innerimagetable').attr('brushpattern', "css/img/"+id+".jpg");
     };
 
     for (i=1; i<=1; i++) {
