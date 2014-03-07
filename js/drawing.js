@@ -1732,6 +1732,9 @@ $(document).ready(function(){
         setFill();
         var jellyStart = [];
         var jellyShape = [];
+        ctx.beginPath();
+        ctx.lineJoin = 'round'
+        ctx.lineCap = 'none'
         canvas.onmousedown = function(e) {
             painting = true;
             ctx.fillStyle = 'black';
