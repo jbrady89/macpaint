@@ -3317,7 +3317,7 @@ $(document).ready(function(){
                 $('#'+id+'flashdiv').hide().unbind('hover'); // I don't understand why taking this unbind out breaks it..
                 setTimeout(function(){
                     $('.nav-sub').hide();
-                    $('#applebutton').attr('src', 'css/img/applebuttonh.png');
+                    if ($('#aboutDiv').css('display') !== 'block') $('#applebutton').attr('src', 'css/img/applebuttonh.png');
                 }, 110);
                 //$('.nav-sub').hide();
                 /*$('#appledrop').one('hover', function () {

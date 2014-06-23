@@ -50,6 +50,7 @@ $(document).ready(function(){
     setTimeout(aboutPopup, 500);
     function aboutPopup(){
       $('#aboutDiv').show();
+      $('#applebutton').attr('src', 'css/img/applebuttoni.png');
     }
     $('#aboutOk').mousedown(function(){
       $('#aboutOk').css({'background':'black','color':'white'})
@@ -61,6 +62,7 @@ $(document).ready(function(){
       });
       $('#aboutOk').mouseup(function(){
         $('#aboutDiv').hide();
+        $('#applebutton').attr('src', 'css/img/applebuttonh.png');
         $(this).css({'background':'white','color':'black'});
       });
     });
