@@ -3287,11 +3287,13 @@ $(document).ready(function(){
 
     //menu flashing
     $('.nav-sub li').mouseup(function() {
+        var flashing = true;
+        //$('#overlay').show();
         if (!($(this).hasClass('inactive'))) {
         var id = $(this).closest('ul').parent().attr('id');
         //console.log(id);
 
-        $('#'+id+'flashdiv').show();
+        $('#'+id+'flashdiv').show()
         $('#'+id+'flashdiv').hover(function() {
             $('#'+id+'drop').show();
             if ( id == 'apple'){
@@ -3315,24 +3317,31 @@ $(document).ready(function(){
             if (count == 8) {
                 // clearInterval(whiteToBlack);
                 $('#'+id+'flashdiv').hide().unbind('hover'); // I don't understand why taking this unbind out breaks it..
+                $(_this).css({'background':'white','color':'black'});
                 setTimeout(function(){
                     $('.nav-sub').hide();
                     if ($('#aboutDiv').css('display') !== 'block') $('#applebutton').attr('src', 'css/img/applebuttonh.png');
+                    if ($('#overlay').css('display') !== 'block') {
+                        $('.list').css({'background':'white','color':'black'});
+                        $('.blackmenuside').hide();
+                    }
                 }, 110);
                 //$('.nav-sub').hide();
                 /*$('#appledrop').one('hover', function () {
                     $('#appledrop').hide();
                 });*/
+                flashing = false;
+                //$('#overlay').hide();
                 clearInterval(whiteToBlack);
             }
         }, 63);
     }
     });
 
-    $(document).on('mouseup', function(){
+    /*$(document).on('mouseup', function(){
         //console.log(this.id);
         //console.log(window.drawn)
-    });
+    });*/
 
     
     context.fillStyle = 'white';

@@ -1,15 +1,17 @@
 Dropdown Menu:
 
 	Clicked items don't flash fast enough
+	Gets laggy after clicking a few times
 
 	Apple:
-		-logo colors don't stay inverted while popups are present
+		-logo colors don't stay inverted while popups are present: x 
 
 	File:
-		-colors on word file stay inverted when clicking print draft, print catalog, print final
+		-colors on word file stay inverted when clicking print draft, print catalog, print final: x
 
 	Edit:
 		-clear button doesn't function at all
+		-clear shouldn't be active unless some part of the canvas been select with marching ants
 
 	Fontsize:
 		-numbers that have white fill with outline don't flash properly

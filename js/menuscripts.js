@@ -434,6 +434,14 @@ $(document).ready(function(){
 
 /***End File menu***/
 
+/***Edit Dropdown items***/
+
+  // does clear clear everything? (even what's not currently visible)
+  $('#clear').on('mouseup', function(){
+    // clear the current selection
+  });
+/***End Edit
+
 /***Goodies***/
 
 ////////////////////////////////////////////intro menu item
