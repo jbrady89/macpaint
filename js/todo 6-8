@@ -1,7 +1,7 @@
 Dropdown Menu:
 
 	Clicked items don't flash fast enough
-	Gets laggy after clicking a few times menu items a few times
+	Gets laggy after clicking a few times
 
 	Apple:
 		-logo colors don't stay inverted while popups are present: x 
@@ -11,7 +11,7 @@ Dropdown Menu:
 
 	Edit:
 		-clear button doesn't function at all
-		-clear shouldn't be active unless some part of the canvas been select with marching ants
+		-clear shouldn't be active unless some part of the canvas been selected with marching ants
 
 	Fontsize:
 		-numbers that have white fill with outline don't flash properly
