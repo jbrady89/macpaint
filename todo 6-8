@@ -1,0 +1,36 @@
+Dropdown Menu:
+
+	Clicked items don't flash fast enough
+	Gets laggy after clicking a few times
+
+	Apple:
+		-logo colors don't stay inverted while popups are present: x 
+
+	File:
+		-colors on word file stay inverted when clicking print draft, print catalog, print final: x
+
+	Edit:
+		-clear button doesn't function at all
+		-clear shouldn't be active unless some part of the canvas been select with marching ants
+
+	Fontsize:
+		-numbers that have white fill with outline don't flash properly
+
+	Style:
+		-text with white fill/black outline doesn't flash right
+		-'Style' stays inverted sometimes (click on underline, outline, or shadow and mouse out while it flashes)
+		-weird stuff happens when mousing out during the flashing
+
+Brushshapes functionality:
+	-cursor is offset compared to where the line is being drawn for some of them (large dot for example)
+	-brush shape fill color gets stuck on white after dbl clicking the eraser and then trying to use the brush again (works in ff not chorme)
+		-some work in IE but there are no cursors
+
+Tools:
+	-lasso
+	-selection tool doesn't invert color when selected
+	-shape/line tools don't have cursors in IE 
+		-selecting new brush shape interferes with brush cursor. it starts off with the correct one initially though
+
+Line Thickness Box
+	-changing line thickness while a brush shape is currently in use engages the line tool (but only sometimes?)
