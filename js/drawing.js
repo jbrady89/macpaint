@@ -59,13 +59,249 @@ $(document).ready(function(){
     });
      
     function bucket(){
-        $('#myCanvas').mousedown(function() {
+        console.log('bucket');
+        /*$('#myCanvas').mousedown(function() {
             $('#myCanvas').mousedown(function() {
                 var imagedata = context.getImageData(e.pageX, e.pageY, 0, 0);
                 if (data[0] == 255) ctx.fillStyle = "#000000";
                 if (data[0] == 0) ctx.fillStyle  = 'white';
             });
-        });
+        });*/
+                // Copyright 2010 William Malone (www.williammalone.com)
+        //
+        // Licensed under the Apache License, Version 2.0 (the "License");
+        // you may not use this file except in compliance with the License.
+        // You may obtain a copy of the License at
+        //
+        //   http://www.apache.org/licenses/LICENSE-2.0
+        //
+        // Unless required by applicable law or agreed to in writing, software
+        // distributed under the License is distributed on an "AS IS" BASIS,
+        // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        // See the License for the specific language governing permissions and
+        // limitations under the License.
+
+        /*jslint browser: true */
+        /*global G_vmlCanvasManager, $ */
+
+            "use strict";
+
+        var context,
+            canvasWidth = 490,
+            canvasHeight = 220,
+            curColor = {r: 0, g: 0, b: 0},
+            drawingAreaX = 0,
+            drawingAreaY = 0,
+            drawingAreaWidth,
+            drawingAreaHeight,
+            colorLayerData,
+            outlineLayerData,
+            totalLoadResources = 3,
+            curLoadResNum = 0,
+
+            // Clears the canvas.
+            clearCanvas = function () {
+
+                context.clearRect(0, 0, canvas.width, canvas.height);
+            },
+
+            // Draw the elements on the canvas
+            redraw = function () {
+                console.log('redraw');
+                clearCanvas();
+                context.putImageData(outlineLayerData, 0, 0);
+                console.log('clear');
+            },
+
+            matchOutlineColor = function (r, g, b, a) {
+
+                return (r + g + b < 100 && a === 255);
+            },
+
+            matchStartColor = function (pixelPos, startR, startG, startB) {
+
+                var r = outlineLayerData.data[pixelPos],
+                    g = outlineLayerData.data[pixelPos + 1],
+                    b = outlineLayerData.data[pixelPos + 2],
+                    a = outlineLayerData.data[pixelPos + 3];
+
+                // If current pixel of the outline image is black
+                if (matchOutlineColor(r, g, b, a)) {
+                    return false;
+                }
+
+                // If the current pixel matches the clicked color
+                if (r === startR && g === startG && b === startB) {
+                    return true;
+                }
+
+                // If current pixel matches the new color
+                if (r === curColor.r && g === curColor.g && b === curColor.b) {
+                    return false;
+                }
+
+                return true;
+            },
+
+            colorPixel = function (pixelPos, r, g, b, a) {
+
+                outlineLayerData.data[pixelPos] = r;
+                outlineLayerData.data[pixelPos + 1] = g;
+                outlineLayerData.data[pixelPos + 2] = b;
+                outlineLayerData.data[pixelPos + 3] = a !== undefined ? a : 255;
+            },
+
+            floodFill = function (startX, startY, startR, startG, startB) {
+                console.log('fill');
+                var newPos,
+                    x,
+                    y,
+                    pixelPos,
+                    reachLeft,
+                    reachRight,
+                    drawingBoundLeft = drawingAreaX,
+                    drawingBoundTop = drawingAreaY,
+                    drawingBoundRight = drawingAreaX + drawingAreaWidth - 1,
+                    drawingBoundBottom = drawingAreaY + drawingAreaHeight - 1,
+                    pixelStack = [[startX, startY]];
+
+                while (pixelStack.length) {
+
+                    newPos = pixelStack.pop();
+                    x = newPos[0];
+                    y = newPos[1];
+
+                    // Get current pixel position
+                    pixelPos = (y * canvasWidth + x) * 4;
+
+                    // Go up as long as the color matches and are inside the canvas
+                    while (y >= drawingBoundTop && matchStartColor(pixelPos, startR, startG, startB)) {
+                        y -= 1;
+                        pixelPos -= canvasWidth * 4;
+                    }
+
+                    pixelPos += canvasWidth * 4;
+                    y += 1;
+                    reachLeft = false;
+                    reachRight = false;
+
+                    // Go down as long as the color matches and in inside the canvas
+                    while (y <= drawingBoundBottom && matchStartColor(pixelPos, startR, startG, startB)) {
+                        y += 1;
+                        colorPixel(pixelPos, curColor.r, curColor.g, curColor.b);
+
+                        if (x > drawingBoundLeft) {
+                            if (matchStartColor(pixelPos - 4, startR, startG, startB)) {
+                                if (!reachLeft) {
+                                    // Add pixel to stack
+                                    pixelStack.push([x - 1, y]);
+                                    reachLeft = true;
+                                }
+                            } else if (reachLeft) {
+                                reachLeft = false;
+                            }
+                        }
+
+                        if (x < drawingBoundRight) {
+                            if (matchStartColor(pixelPos + 4, startR, startG, startB)) {
+                                if (!reachRight) {
+                                    // Add pixel to stack
+                                    pixelStack.push([x + 1, y]);
+                                    reachRight = true;
+                                }
+                            } else if (reachRight) {
+                                reachRight = false;
+                            }
+                        }
+
+                        pixelPos += canvasWidth * 4;
+                    }
+                }
+            },
+
+            // Start painting with paint bucket tool starting from pixel specified by startX and startY
+            paintAt = function (startX, startY) {
+                console.log('painting!');
+                var pixelPos = (startY * canvasWidth + startX) * 4,
+                    r = outlineLayerData.data[pixelPos],
+                    g = outlineLayerData.data[pixelPos + 1],
+                    b = outlineLayerData.data[pixelPos + 2],
+                    a = outlineLayerData.data[pixelPos + 3];
+                    console.log(pixelPos);
+
+                if (r === curColor.r && g === curColor.g && b === curColor.b) {
+                    console.log('same');
+                    // Return because trying to fill with the same color
+                    return;
+                }
+
+                if (matchOutlineColor(r, g, b, a)) {
+                    console.log('outline');
+                    // Return because clicked outline
+                    return;
+                }
+
+                floodFill(startX, startY, r, g, b);
+
+                redraw();
+            };
+
+            // Add mouse event listeners to the canvas
+
+                $('#myCanvas').mousedown(function (e) {
+                    console.log('mousedown');
+                    // Mouse down location
+                    var mouseX = e.pageX - this.offsetLeft,
+                        mouseY = e.pageY - this.offsetTop;
+                    if ((mouseY > drawingAreaY && mouseY < drawingAreaY + drawingAreaHeight) && (mouseX <= drawingAreaX + drawingAreaWidth)) {
+                        // Mouse click location on drawing area
+                        console.log('inside');
+                        paintAt(mouseX, mouseY);
+                    }
+                });
+
+            // Creates a canvas element, loads images, adds events, and draws the canvas for the first time.
+            /*init = function () {
+                console.log('init');
+                // Create the canvas (Neccessary for IE because it doesn't know what a canvas element is)
+                var canvas = document.createElement('canvas');
+                //canvas.setAttribute('width', canvasWidth);
+                //canvas.setAttribute('height', canvasHeight);
+                //canvas.setAttribute('id', 'canvas');
+                //document.getElementById('canvasDiv').appendChild(canvas);
+
+                if (typeof G_vmlCanvasManager !== "undefined") {
+                    canvas = G_vmlCanvasManager.initElement(canvas);
+                }
+                context = canvas.getContext("2d"), // Grab the 2d canvas context
+                drawingAreaX = 0,
+                drawingAreaY = 0,
+                drawingAreaWidth = canvas.width,
+                drawingAreaHeight = canvas.height;
+
+                // white background
+                context.beginPath();
+                context.fillStyle = "rgb(255, 255, 255)";
+                context.rect(0,0, canvasWidth, canvasHeight);
+                context.fill();
+                context.closePath();
+
+                // draw test shape
+                context.beginPath();
+                colorLayerData = context.getImageData(0, 0, canvasWidth, canvasHeight);
+                context.strokeStyle = "rgba(0, 0, 0, 1.0)";
+                context.rect(20.5, 20.5, 100,100);
+                context.stroke();
+                outlineLayerData = context.getImageData(0, 0, canvasWidth, canvasHeight);
+                context.closePath();
+                resourceLoaded();
+            };
+
+            return {
+                init: init
+            };*/
+            context = canvas.getContext("2d")
+            outlineLayerData = context.getImageData(0, 0, canvas.width, canvas.height);
     }
 
     /******************/
