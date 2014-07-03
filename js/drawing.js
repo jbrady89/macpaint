@@ -87,11 +87,11 @@ $(document).ready(function(){
             "use strict";
 
         var context,
-            canvasWidth = 490,
-            canvasHeight = 220,
+            canvasWidth = canvas.width,
+            canvasHeight = canvas.height,
             curColor = {r: 0, g: 0, b: 0},
-            drawingAreaX = 0,
-            drawingAreaY = 0,
+            drawingAreaX = 88,
+            drawingAreaY = 55,
             drawingAreaWidth,
             drawingAreaHeight,
             colorLayerData,
@@ -247,13 +247,18 @@ $(document).ready(function(){
             };
 
             // Add mouse event listeners to the canvas
-
+                $('#myCanvas').mousemove(function(e){
+                    console.log(e.pageX - this.offsetLeft - 88, e.pageY - this.offsetTop - 55);
+                });
                 $('#myCanvas').mousedown(function (e) {
                     console.log('mousedown');
                     // Mouse down location
-                    var mouseX = e.pageX - this.offsetLeft,
-                        mouseY = e.pageY - this.offsetTop;
-                    if ((mouseY > drawingAreaY && mouseY < drawingAreaY + drawingAreaHeight) && (mouseX <= drawingAreaX + drawingAreaWidth)) {
+                    var mouseX = e.pageX - this.offsetLeft - 92;
+                        mouseY = e.pageY - this.offsetTop - 100;
+                        console.log(mouseY, mouseX);
+                        console.log(drawingAreaY + $('#canvasBox').height());
+                        console.log(drawingAreaX + $('#canvasBox').width());
+                    if ((mouseY > drawingAreaY && mouseY < drawingAreaY + 239) && (mouseX <= drawingAreaX + 399)) {
                         // Mouse click location on drawing area
                         console.log('inside');
                         paintAt(mouseX, mouseY);
