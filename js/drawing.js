@@ -9,7 +9,6 @@ $(document).ready(function(){
         mousedown = {},
         rubberbandRect = {},
         dragging = false,
-        ctx = canvas.getContext('2d'),
         painting = false,
         lastX = 0,
         lastY = 0,
@@ -40,7 +39,7 @@ $(document).ready(function(){
     $('#3b').mousedown(spray);
     $('#4a').mousedown(paintbrush);
     $('#4b').mousedown(pencil);
-    $('#4b').dblclick(fatbits);  
+    $('#4b').dblclick(fatbits);
     $('#5b').mousedown(eraser);
     $('#5a').mousedown(drawlines);
     $('#6a').mousedown(function(){drawrect(false)});
@@ -64,18 +63,19 @@ $(document).ready(function(){
         console.log('bucket');
         "use strict";
 
-        var context,
-            canvasWidth = 414,
+        var canvasWidth = 414,
             canvasHeight = 239,
             curColor = {r: 0, g: 0, b: 0},
             drawingAreaX = 0,
             drawingAreaY = 0,
-            drawingAreaWidth,
-            drawingAreaHeight,
             colorLayerData,
             outlineLayerData,
             totalLoadResources = 3,
             curLoadResNum = 0,
+            //context = canvas.getContext("2d"); // Grab the 2d canvas context
+            drawingAreaWidth = canvas.width;
+            drawingAreaHeight = canvas.height;
+            outlineLayerData = context.getImageData(0, 0, canvasWidth, canvasHeight);
 
             // Clears the canvas.
             clearCanvas = function () {
@@ -222,45 +222,27 @@ $(document).ready(function(){
                 floodFill(startX, startY, r, g, b);
 
                 redraw();
-            },
-
-            // Add mouse event listeners to the canvas
-            createMouseEvents = function () {
-
-                $('#myCanvas').mousedown(function (e) {
-                    console.log('mousedown');
-                    // Mouse down location
-                    var mouseX = e.pageX - this.offsetLeft -88,
-                        mouseY = e.pageY - this.offsetTop - 55;
-                        console.log(mouseX, mouseY);
-                        //console.log(context.getImageData(mouseX,mouseY, 1, 1))
-                    if ((mouseY > drawingAreaY && mouseY < drawingAreaY + drawingAreaHeight) && (mouseX <= drawingAreaX + drawingAreaWidth)) {
-                        // Mouse click location on drawing area
-                        console.log('inside');
-                        paintAt(mouseX, mouseY);
-                        console.log(context.getImageData(mouseX,mouseY, 1,1));
-                    }
-                });
-            },
-
-            // Calls the redraw function after all neccessary resources are loaded.
-            resourceLoaded = function () {
-                createMouseEvents();
-            },
-
-            // Creates a canvas element, loads images, adds events, and draws the canvas for the first time.
-            init = function () {
-                context = canvas.getContext("2d"); // Grab the 2d canvas context
-                // Note: The above code is a workaround for IE 8 and lower. Otherwise we could have used:
-                //     context = document.getElementById('canvas').getContext("2d");
-                drawingAreaX = 0,
-                drawingAreaY = 0,
-                drawingAreaWidth = canvas.width;
-                drawingAreaHeight = canvas.height;
-                outlineLayerData = context.getImageData(0, 0, canvasWidth, canvasHeight);
-                resourceLoaded();
             };
-        init();
+
+            // wtf
+            canvas.onmousedown = null;
+            canvas.onmouseup = null;
+            canvas.onmousemove = null;
+            $('#myCanvas').mousedown(function (e) {
+                console.log('bucket mousedown');
+                console.log(e.target);
+                // Mouse down location
+                var mouseX = e.pageX - this.offsetLeft -88,
+                    mouseY = e.pageY - this.offsetTop - 55;
+                    console.log(mouseX, mouseY);
+                    //console.log(context.getImageData(mouseX,mouseY, 1, 1))
+                if ((mouseY > drawingAreaY && mouseY < drawingAreaY + drawingAreaHeight) && (mouseX <= drawingAreaX + drawingAreaWidth)) {
+                    // Mouse click location on drawing area
+                    console.log('inside');
+                    paintAt(mouseX, mouseY);
+                    console.log(context.getImageData(mouseX,mouseY, 1,1));
+                }
+            });
     }
 
     /******************/
@@ -678,7 +660,7 @@ $(document).ready(function(){
 
         canvas.onmousedown = function(e) {
             painting = true;
-            ctx.fillStyle = "pattern";
+            context.fillStyle = "pattern";
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
         };
@@ -732,25 +714,25 @@ $(document).ready(function(){
                 var fillpattern = new Image();
                 var choice = $('#innerimagetable').attr('brushpattern');
                 fillpattern.src = choice;
-                var pattern = ctx.createPattern(fillpattern, 'repeat');
+                var pattern = context.createPattern(fillpattern, 'repeat');
 
                 for (var x = x1; x < x2; x++) {
                    
-                    ctx.fillStyle = pattern;
+                    context.fillStyle = pattern;
                     if (steep) {
                         radius;
-                        ctx.fillCircle(y, x, radius);
+                        context.fillCircle(y, x, radius);
                     } 
                     else {
                         radius;
-                        ctx.fillCircle(x, y, radius);
+                        context.fillCircle(x, y, radius);
                     }
                     error += de;
                     if (error >= 0.5) {
                         y += yStep;
                         error -= 1.0;
                     }
-                    ctx.fill();
+                    context.fill();
                 }
                 lastX = mouseX;
                 lastY = mouseY;
@@ -760,29 +742,29 @@ $(document).ready(function(){
 
     $('#spraydesign').mousedown(function(){
         $('#myCanvas').css({"cursor":"url(brushshapes/groupofdots.png), default"});
-        largeDotif = function(ctx, x, y, lineThickness) {
+        largeDotif = function(context, x, y, lineThickness) {
             lineThickness = 1;
-            ctx.fillRect(y + 5, x, lineThickness , lineThickness );
-            ctx.fillRect(y + 1, x + 3, lineThickness , lineThickness );
-            ctx.fillRect(y + 11, x + 3, lineThickness , lineThickness );
-            ctx.fillRect(y + 7, x + 5, lineThickness , lineThickness );
-            ctx.fillRect(y, x + 7, lineThickness , lineThickness );
-            ctx.fillRect(y + 5, x + 9, lineThickness , lineThickness );
-            ctx.fillRect(y + 11, x + 9, lineThickness , lineThickness );
-            ctx.fillRect(y + 2, x + 12, lineThickness , lineThickness );
-            ctx.fillRect(y + 9, x + 12, lineThickness , lineThickness );
+            context.fillRect(y + 5, x, lineThickness , lineThickness );
+            context.fillRect(y + 1, x + 3, lineThickness , lineThickness );
+            context.fillRect(y + 11, x + 3, lineThickness , lineThickness );
+            context.fillRect(y + 7, x + 5, lineThickness , lineThickness );
+            context.fillRect(y, x + 7, lineThickness , lineThickness );
+            context.fillRect(y + 5, x + 9, lineThickness , lineThickness );
+            context.fillRect(y + 11, x + 9, lineThickness , lineThickness );
+            context.fillRect(y + 2, x + 12, lineThickness , lineThickness );
+            context.fillRect(y + 9, x + 12, lineThickness , lineThickness );
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 1;
-            ctx.fillRect(x, y + 5, lineThickness , lineThickness );
-            ctx.fillRect(x + 3, y + 1,  lineThickness , lineThickness );
-            ctx.fillRect(x + 3, y + 11,  lineThickness , lineThickness );
-            ctx.fillRect(x + 5, y + 7,  lineThickness , lineThickness );
-            ctx.fillRect(x + 7, y,  lineThickness , lineThickness );
-            ctx.fillRect(x + 9, y + 5,  lineThickness , lineThickness );
-            ctx.fillRect(x + 9, y + 11,  lineThickness , lineThickness );
-            ctx.fillRect(x + 12, y + 2,  lineThickness , lineThickness );
-            ctx.fillRect(x + 12, y + 9,  lineThickness , lineThickness );
+            context.fillRect(x, y + 5, lineThickness , lineThickness );
+            context.fillRect(x + 3, y + 1,  lineThickness , lineThickness );
+            context.fillRect(x + 3, y + 11,  lineThickness , lineThickness );
+            context.fillRect(x + 5, y + 7,  lineThickness , lineThickness );
+            context.fillRect(x + 7, y,  lineThickness , lineThickness );
+            context.fillRect(x + 9, y + 5,  lineThickness , lineThickness );
+            context.fillRect(x + 9, y + 11,  lineThickness , lineThickness );
+            context.fillRect(x + 12, y + 2,  lineThickness , lineThickness );
+            context.fillRect(x + 12, y + 9,  lineThickness , lineThickness );
         }
         $('#brushbox').css('display','block').css({'top':'88px','left':'248px'});
         spraydesign();
@@ -792,13 +774,13 @@ $(document).ready(function(){
     });
     $('#dot').mousedown(function(){
         $('#myCanvas').css({"cursor":"url(brushshapes/largerdot.png), default"});
-        largeDotif = function(ctx, x, y, lineThickness) {
+        largeDotif = function(context, x, y, lineThickness) {
             lineThickness = 2
-            ctx.fillRect(y - 1, x, lineThickness , lineThickness );
+            context.fillRect(y - 1, x, lineThickness , lineThickness );
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 2
-            ctx.fillRect(x - 1, y, lineThickness , lineThickness );
+            context.fillRect(x - 1, y, lineThickness , lineThickness );
         }
         $('#brushbox').css('display','block').css({'top':'120px','left':'248px'});
         spraydesign();
@@ -808,16 +790,16 @@ $(document).ready(function(){
     });
     $('#dottedhorizontalline').mousedown(function(){
         $('#myCanvas').css({"cursor":"url(brushshapes/largehorizontaldotted.png), default"});
-        largeDotif = function(ctx, x, y, lineThickness) {
+        largeDotif = function(context, x, y, lineThickness) {
             lineThickness = 1;
             for (i=0;i<16;i+=3){
-                ctx.fillRect(y + i, x , lineThickness , lineThickness );
+                context.fillRect(y + i, x , lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 1;
             for (i=0;i<16;i+=3){
-                ctx.fillRect(x + i, y, lineThickness , lineThickness );
+                context.fillRect(x + i, y, lineThickness , lineThickness );
             }
         }
         $('#brushbox').css('display','block').css({'top':'56px','left':'248px'});
@@ -828,16 +810,16 @@ $(document).ready(function(){
     });
     $('#dottedverticalline').mousedown(function(){
         $('#myCanvas').css({"cursor":"url(brushshapes/largeverticaldotted.png), default"});
-        largeDotif = function(ctx, x, y, lineThickness) {
+        largeDotif = function(context, x, y, lineThickness) {
             lineThickness = 1;
             for (i=0;i<16;i+=3){
-                ctx.fillRect(y, x + i, lineThickness , lineThickness );
+                context.fillRect(y, x + i, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 1;
             for (i=0;i<16;i+=3){
-                ctx.fillRect(x, y + i, lineThickness , lineThickness );
+                context.fillRect(x, y + i, lineThickness , lineThickness );
             }      
         }
         $('#brushbox').css('display','block').css({'top':'24px','left':'248px'});
@@ -848,13 +830,13 @@ $(document).ready(function(){
     });
     $('#smalldottedrighttiltline').mousedown(function(){
         $('#myCanvas').css({"cursor":"url(brushshapes/smalldottedline.png), default"});
-        largeDotif = function(ctx, x, y, lineThickness) {
+        largeDotif = function(context, x, y, lineThickness) {
             lineThickness = 1;
-            ctx.fillRect(y, x, lineThickness , lineThickness );  
+            context.fillRect(y, x, lineThickness , lineThickness );  
         }
-         largeDotelse = function(ctx, x, y, lineThickness) { 
+         largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 1;
-            ctx.fillRect(x, y, lineThickness , lineThickness );
+            context.fillRect(x, y, lineThickness , lineThickness );
         }
         $('#brushbox').css('display','block').css({'top':'120px','left':'216px'});
         spraydesign();
@@ -869,15 +851,15 @@ $(document).ready(function(){
     });
     $('#mediumdottedrighttiltline').mousedown(function(){
         $('#myCanvas').css({"cursor":"url(brushshapes/mediumtiltdotted.png), default"});
-        largeDotif = function(ctx, x, y, lineThickness) {
-            ctx.fillRect(y, x + 4, lineThickness , lineThickness );
-            ctx.fillRect(y + 2, x + 2, lineThickness , lineThickness );
-            ctx.fillRect(y + 4, x, lineThickness , lineThickness ); 
+        largeDotif = function(context, x, y, lineThickness) {
+            context.fillRect(y, x + 4, lineThickness , lineThickness );
+            context.fillRect(y + 2, x + 2, lineThickness , lineThickness );
+            context.fillRect(y + 4, x, lineThickness , lineThickness ); 
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
-            ctx.fillRect(x, y + 4, lineThickness , lineThickness );
-            ctx.fillRect(x + 2, y + 2, lineThickness , lineThickness );
-            ctx.fillRect(x + 4, y, lineThickness , lineThickness );    
+        largeDotelse = function(context, x, y, lineThickness) { 
+            context.fillRect(x, y + 4, lineThickness , lineThickness );
+            context.fillRect(x + 2, y + 2, lineThickness , lineThickness );
+            context.fillRect(x + 4, y, lineThickness , lineThickness );    
         }
         $('#brushbox').css('display','block').css({'top':'88px','left':'216px'});
         spraydesign();
@@ -891,12 +873,12 @@ $(document).ready(function(){
         lineThickness = 1;
         var fillpattern = new Image();
         fillpattern.src = choice;
-        var pattern = ctx.createPattern(fillpattern, 'repeat');
+        var pattern = context.createPattern(fillpattern, 'repeat');
         ///$('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
         lastCur.push($('#myCanvas').css('cursor'));
         canvas.onmousedown = function(e) {
             painting = true;
-            ctx.fillStyle = pattern;
+            context.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
         };
@@ -907,7 +889,7 @@ $(document).ready(function(){
             var fillpattern = new Image();
             var choice = $('#innerimagetable').attr('brushpattern');
             fillpattern.src = choice;
-            var pattern = ctx.createPattern(fillpattern, 'repeat');
+            var pattern = context.createPattern(fillpattern, 'repeat');
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
                 mouseY = e.pageY - this.offsetTop - 55;
@@ -951,10 +933,10 @@ $(document).ready(function(){
                 for (var x = x1; x < x2; x++) {
                     if (steep) {
             
-                        largeDotif(ctx, x, y, lineThickness);
+                        largeDotif(context, x, y, lineThickness);
                     }
                     else {
-                        largeDotelse(ctx, x, y, lineThickness);
+                        largeDotelse(context, x, y, lineThickness);
                     }
                     error += de;
                     if (error >= 0.5) {
@@ -971,19 +953,19 @@ $(document).ready(function(){
     var largeDotelse;
     $('#largedottedrighttiltline').mousedown(function(){
         $('#myCanvas').css({"cursor":"url(brushshapes/largetiltdotted.png), default"});
-        largeDotif = function(ctx, x, y, lineThickness) {
-            ctx.fillRect(y, x + 10, lineThickness , lineThickness );
-            ctx.fillRect(y + 2, x + 8, lineThickness , lineThickness );
-            ctx.fillRect(y + 4, x + 6, lineThickness , lineThickness );
-            ctx.fillRect(y + 6, x + 4, lineThickness , lineThickness );
-            ctx.fillRect(y + 8, x + 2, lineThickness , lineThickness );
+        largeDotif = function(context, x, y, lineThickness) {
+            context.fillRect(y, x + 10, lineThickness , lineThickness );
+            context.fillRect(y + 2, x + 8, lineThickness , lineThickness );
+            context.fillRect(y + 4, x + 6, lineThickness , lineThickness );
+            context.fillRect(y + 6, x + 4, lineThickness , lineThickness );
+            context.fillRect(y + 8, x + 2, lineThickness , lineThickness );
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
-            ctx.fillRect(x, y +9,  lineThickness , lineThickness );
-            ctx.fillRect(x + 2, y + 8,  lineThickness , lineThickness );
-            ctx.fillRect(x + 4, y + 6,  lineThickness , lineThickness );
-            ctx.fillRect(x + 6, y + 4,  lineThickness , lineThickness );
-            ctx.fillRect(x + 8, y + 2,  lineThickness , lineThickness ); 
+        largeDotelse = function(context, x, y, lineThickness) {
+            context.fillRect(x, y +9,  lineThickness , lineThickness );
+            context.fillRect(x + 2, y + 8,  lineThickness , lineThickness );
+            context.fillRect(x + 4, y + 6,  lineThickness , lineThickness );
+            context.fillRect(x + 6, y + 4,  lineThickness , lineThickness );
+            context.fillRect(x + 8, y + 2,  lineThickness , lineThickness ); 
         }
         $('#brushbox').css('display','block').css({'top':'56px','left':'216px'});
         spraydesign();
@@ -994,14 +976,14 @@ $(document).ready(function(){
 
     $('#xldottedrighttiltline').mousedown(function(){
         $('#myCanvas').css({"cursor":"url(brushshapes/xldottedrighttiltline.png), default"});
-        largeDotif = function(ctx, x, y, lineThickness) {
+        largeDotif = function(context, x, y, lineThickness) {
             for (i=-2, j=16;i<15, j>-1;i+=2, j-=2){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
+        largeDotelse = function(context, x, y, lineThickness) {
             for (i=-2, j=16;i<15, j>-1;i+=2, j-=2){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
         }
         
@@ -1013,14 +995,14 @@ $(document).ready(function(){
     });
 
     $('#smallhorizontalline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) {
+        largeDotif = function(context, x, y, lineThickness) {
             for (i=-1;i<3;i++){
-                ctx.fillRect(y + i, x, lineThickness , lineThickness );
+                context.fillRect(y + i, x, lineThickness , lineThickness );
             }
         }  
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             for (i=-1; i<3; i++) {                   
-                ctx.fillRect(x + i, y, lineThickness , lineThickness );
+                context.fillRect(x + i, y, lineThickness , lineThickness );
             }    
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/smallhorizontalline.png), default"});
@@ -1034,14 +1016,14 @@ $(document).ready(function(){
 
 
     $('#mediumhorizontalline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) {  
+        largeDotif = function(context, x, y, lineThickness) {  
             for (i=-1; i<6; i++) {                   
-                ctx.fillRect(y + i, x, lineThickness , lineThickness );
+                context.fillRect(y + i, x, lineThickness , lineThickness );
             }
         }
-         largeDotelse = function(ctx, x, y, lineThickness) { 
+         largeDotelse = function(context, x, y, lineThickness) { 
             for (i=-1; i<6; i++) {                   
-                ctx.fillRect(x + i, y, lineThickness , lineThickness );
+                context.fillRect(x + i, y, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/mediumhorizontalline.png), default"});
@@ -1052,16 +1034,16 @@ $(document).ready(function(){
         }
     });
     $('#largehorizontalline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) {   
+        largeDotif = function(context, x, y, lineThickness) {   
         lineThickness = 2; 
             for (i=-1; i<10; i++) {                   
-                ctx.fillRect(y + i, x, lineThickness , lineThickness );
+                context.fillRect(y + i, x, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 2; 
             for (i=-1; i<10; i++) {                   
-                ctx.fillRect(x + i, y, lineThickness , lineThickness );
+                context.fillRect(x + i, y, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/largehorizontalline.png), default"});
@@ -1072,15 +1054,15 @@ $(document).ready(function(){
         }
     });
     $('#xlhorizontalline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             for (i=-1; i<16; i++) {                   
-                ctx.fillRect(y + i, x, lineThickness , lineThickness );
+                context.fillRect(y + i, x, lineThickness , lineThickness );
             }
         }  
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 2;
             for (i=-1; i<15; i++) {                   
-                ctx.fillRect(x + i, y, lineThickness , lineThickness );
+                context.fillRect(x + i, y, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/xlhorizontalline.png), default"});
@@ -1091,14 +1073,14 @@ $(document).ready(function(){
         }
     });
     $('#smallverticalline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             for (i=0; i<4; i++) {                   
-                ctx.fillRect(y, x + i, lineThickness , lineThickness );
+                context.fillRect(y, x + i, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             for (i=0; i<4; i++) {                   
-                ctx.fillRect(x , y + i, lineThickness , lineThickness );
+                context.fillRect(x , y + i, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/smallverticalline.png), default"});
@@ -1109,14 +1091,14 @@ $(document).ready(function(){
         }
     });
     $('#mediumverticalline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             for (i=0; i<8; i++) {                   
-                ctx.fillRect(y, x + i, lineThickness , lineThickness );
+                context.fillRect(y, x + i, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             for (i=0; i<8; i++) {                   
-                ctx.fillRect(x , y + i, lineThickness , lineThickness );
+                context.fillRect(x , y + i, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/mediumverticalline.png), default"});
@@ -1128,16 +1110,16 @@ $(document).ready(function(){
     });
 
     $('#largeverticalline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             lineThickness = 2;
             for (i=0; i<12; i++) {                   
-                ctx.fillRect(y, x + i, lineThickness , lineThickness );
+                context.fillRect(y, x + i, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 2;
             for (i=0; i<12; i++) {                   
-                ctx.fillRect(x , y + i, lineThickness , lineThickness );
+                context.fillRect(x , y + i, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/largeverticalline.png), default"});
@@ -1148,16 +1130,16 @@ $(document).ready(function(){
         }
     });
     $('#xlverticalline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             lineThickness = 2;
             for (i=0; i<16; i++) {                   
-                ctx.fillRect(y, x + i, lineThickness , lineThickness );
+                context.fillRect(y, x + i, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) { 
+        largeDotelse = function(context, x, y, lineThickness) { 
             lineThickness = 2;
             for (i=0; i<16; i++) {                   
-                ctx.fillRect(x , y + i, lineThickness , lineThickness );
+                context.fillRect(x , y + i, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/xlverticalline.png), default"});
@@ -1170,20 +1152,20 @@ $(document).ready(function(){
 
 
     $('#smalllefttiltline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
-            ctx.fillRect(y, x-1, lineThickness , lineThickness );
-            ctx.fillRect(y, x, lineThickness , lineThickness );
-            ctx.fillRect(y + 1, x, lineThickness , lineThickness );
-            ctx.fillRect(y + 1, x + 1, lineThickness , lineThickness );
-            ctx.fillRect(y + 2, x + 1, lineThickness , lineThickness );
-            ctx.fillRect(y + 2, x + 2, lineThickness , lineThickness );
+        largeDotif = function(context, x, y, lineThickness) { 
+            context.fillRect(y, x-1, lineThickness , lineThickness );
+            context.fillRect(y, x, lineThickness , lineThickness );
+            context.fillRect(y + 1, x, lineThickness , lineThickness );
+            context.fillRect(y + 1, x + 1, lineThickness , lineThickness );
+            context.fillRect(y + 2, x + 1, lineThickness , lineThickness );
+            context.fillRect(y + 2, x + 2, lineThickness , lineThickness );
         }   
-        largeDotelse = function(ctx, x, y, lineThickness) {
+        largeDotelse = function(context, x, y, lineThickness) {
             for (i=0, j=-1;i<3, j<2;i++, j++){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
             for (i=0, j=0;i<3, j<3;i++, j++){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
         } 
         $('#myCanvas').css({"cursor":"url(brushshapes/smalllefttiltline.png), default"});
@@ -1196,20 +1178,20 @@ $(document).ready(function(){
 
 
     $('#mediumlefttiltline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             for (i=0, j=-1;i<6, j<5;i++, j++){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
             for (i=0, j=0;i<5, j<5;i++, j++){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
+        largeDotelse = function(context, x, y, lineThickness) {
             for (i=0, j=-1;i<6, j<5;i++, j++){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
             for (i=0, j=0;i<5, j<5;i++, j++){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }   
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/mediumlefttiltline.png), default"});
@@ -1224,20 +1206,20 @@ $(document).ready(function(){
 
 
     $('#largelefttiltline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             for (i=0, j=-1;i<10, j<10;i++, j++){
-                ctx.fillRect(y + i - 1, x + j - 1, lineThickness , lineThickness );
+                context.fillRect(y + i - 1, x + j - 1, lineThickness , lineThickness );
             }
             for (i=0, j=0;i<10, j<10;i++, j++){
-                ctx.fillRect(y + i - 1, x + j - 1, lineThickness , lineThickness );
+                context.fillRect(y + i - 1, x + j - 1, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
+        largeDotelse = function(context, x, y, lineThickness) {
             for (i=0, j=-1;i<10, j<9;i++, j++){
-                ctx.fillRect(x + i - 1, y + j - 1, lineThickness , lineThickness );
+                context.fillRect(x + i - 1, y + j - 1, lineThickness , lineThickness );
             }
             for (i=0, j=0;i<10, j<10;i++, j++){
-                ctx.fillRect(x + i - 1, y + j - 1, lineThickness , lineThickness );
+                context.fillRect(x + i - 1, y + j - 1, lineThickness , lineThickness );
             } 
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/largelefttiltline.png), default"});
@@ -1251,20 +1233,20 @@ $(document).ready(function(){
     });
 
     $('#xllefttiltline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             for (i=0, j=-1;i<15, j<14;i++, j++){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
             for (i=0, j=0;i<15, j<15;i++, j++){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
+        largeDotelse = function(context, x, y, lineThickness) {
             for (i=0, j=-1;i<15, j<14;i++, j++){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
             for (i=0, j=0;i<15, j<15;i++, j++){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             } 
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/xllefttiltline.png), default"});
@@ -1276,21 +1258,21 @@ $(document).ready(function(){
     });
 
     $('#smallrighttiltline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
-            ctx.fillRect(y, x + 2, lineThickness , lineThickness );
-            ctx.fillRect(y + 1, x + 2, lineThickness , lineThickness );
-            ctx.fillRect(y + 1, x + 1, lineThickness , lineThickness );
-            ctx.fillRect(y + 2, x + 1, lineThickness , lineThickness );
-            ctx.fillRect(y + 2, x, lineThickness , lineThickness );
-            ctx.fillRect(y + 3, x, lineThickness , lineThickness );
+        largeDotif = function(context, x, y, lineThickness) { 
+            context.fillRect(y, x + 2, lineThickness , lineThickness );
+            context.fillRect(y + 1, x + 2, lineThickness , lineThickness );
+            context.fillRect(y + 1, x + 1, lineThickness , lineThickness );
+            context.fillRect(y + 2, x + 1, lineThickness , lineThickness );
+            context.fillRect(y + 2, x, lineThickness , lineThickness );
+            context.fillRect(y + 3, x, lineThickness , lineThickness );
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
-            ctx.fillRect( x + 2, y, lineThickness , lineThickness );
-            ctx.fillRect( x + 2, y + 1, lineThickness , lineThickness );
-            ctx.fillRect( x + 1, y + 1, lineThickness , lineThickness );
-            ctx.fillRect( x + 1, y + 2, lineThickness , lineThickness );
-            ctx.fillRect( x, y + 2, lineThickness , lineThickness );
-            ctx.fillRect( x, y + 3, lineThickness , lineThickness );
+        largeDotelse = function(context, x, y, lineThickness) {
+            context.fillRect( x + 2, y, lineThickness , lineThickness );
+            context.fillRect( x + 2, y + 1, lineThickness , lineThickness );
+            context.fillRect( x + 1, y + 1, lineThickness , lineThickness );
+            context.fillRect( x + 1, y + 2, lineThickness , lineThickness );
+            context.fillRect( x, y + 2, lineThickness , lineThickness );
+            context.fillRect( x, y + 3, lineThickness , lineThickness );
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/smallrighttiltcur.png), default"});
         $('#brushbox').css('display','block').css({'top':'120px','left':'88px'});
@@ -1301,20 +1283,20 @@ $(document).ready(function(){
     });
 
     $('#mediumrighttiltline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             for (i=0, j=5;i<6, j>-1;i++, j--){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
             for (i=1, j=5;i<7, j>-1;i++, j--){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
+        largeDotelse = function(context, x, y, lineThickness) {
             for (i=0, j=5;i<6, j>-1;i++, j--){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
             for (i=1, j=5;i<7, j>-1;i++, j--){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/mediumrighttilt.png), default"});
@@ -1327,20 +1309,20 @@ $(document).ready(function(){
 
 
     $('#largerighttiltline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) {  
+        largeDotif = function(context, x, y, lineThickness) {  
             for (i=1, j=7;i<10, j>-2;i++, j--){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
             for (i=2, j=7;i<10, j>-1;i++, j--){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
+        largeDotelse = function(context, x, y, lineThickness) {
             for (i=1, j=7;i<10, j>-2;i++, j--){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
             for (i=2, j=7;i<7, j>-1;i++, j--){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/largerighttiltline.png), default"});
@@ -1351,22 +1333,22 @@ $(document).ready(function(){
         }
     });
     $('#xlrighttiltline').mousedown(function(){
-        largeDotif = function(ctx, x, y, lineThickness) { 
+        largeDotif = function(context, x, y, lineThickness) { 
             lineThickness = 2;
             for (i=2, j=12;i<16, j>-2;i++, j--){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
             for (i=2, j=12;i<15, j>-1;i++, j--){
-                ctx.fillRect(y + i, x + j, lineThickness , lineThickness );
+                context.fillRect(y + i, x + j, lineThickness , lineThickness );
             }
         }
-        largeDotelse = function(ctx, x, y, lineThickness) {
+        largeDotelse = function(context, x, y, lineThickness) {
             lineThickness = 2;
             for (i=2, j=12;i<16, j>-2;i++, j--){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
             for (i=2, j=12;i<15, j>-1;i++, j--){
-                ctx.fillRect(x + i, y + j, lineThickness , lineThickness );
+                context.fillRect(x + i, y + j, lineThickness , lineThickness );
             }
         }
         $('#myCanvas').css({"cursor":"url(brushshapes/xlrighttiltcursor.png), default"});
@@ -1508,20 +1490,20 @@ $(document).ready(function(){
                 var fillpattern = new Image();
                 var choice = $('#innerimagetable').attr('brushpattern');
                 fillpattern.src = choice;
-                var pattern = ctx.createPattern(fillpattern, 'repeat');
-                ctx.fillSquare = function(x, y, radius) {
-                    ctx.beginPath();
-                    ctx.moveTo(x-1, y-8);
-                    ctx.lineTo(x, y, radius, 0, Math.PI * 2, false);
+                var pattern = context.createPattern(fillpattern, 'repeat');
+                context.fillSquare = function(x, y, radius) {
+                    context.beginPath();
+                    context.moveTo(x-1, y-8);
+                    context.lineTo(x, y, radius, 0, Math.PI * 2, false);
                 };
                 for (var x = x1; x < x2; x++) {
-                    ctx.fillStyle = pattern;
+                    context.fillStyle = pattern;
                     if (steep) {
                         lineThickness;
-                        ctx.fillRect(y, x, lineThickness , lineThickness );
+                        context.fillRect(y, x, lineThickness , lineThickness );
                     } else {
                         lineThickness;
-                        ctx.fillRect(x, y, lineThickness , lineThickness );
+                        context.fillRect(x, y, lineThickness , lineThickness );
                     }
                     error += de;
                     if (error >= 0.5) {
@@ -1540,11 +1522,11 @@ $(document).ready(function(){
         lineThickness = 1;
         var fillpattern = new Image();
         fillpattern.src = choice;
-        var pattern = ctx.createPattern(fillpattern, 'repeat');
+        var pattern = context.createPattern(fillpattern, 'repeat');
         lastCur.push($('#myCanvas').css('cursor'));
         canvas.onmousedown = function(e) {
             painting = true;
-            ctx.fillStyle = pattern;
+            context.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
             canvas.onmouseup = function(e){
@@ -1554,7 +1536,7 @@ $(document).ready(function(){
                 var fillpattern = new Image();
                 var choice = $('#innerimagetable').attr('brushpattern');
                 fillpattern.src = choice;
-                var pattern = ctx.createPattern(fillpattern, 'repeat');
+                var pattern = context.createPattern(fillpattern, 'repeat');
                 if (painting) {
                     mouseX = e.pageX - this.offsetLeft - 88;
                     mouseY = e.pageY - this.offsetTop - 55;
@@ -1599,70 +1581,70 @@ $(document).ready(function(){
 
                     lineThickness = 1;
 
-                    ctx.fillStyle = pattern;
+                    context.fillStyle = pattern;
                     for (var x = x1; x < x2; x++) {
                         if (steep) {
                             if((mouseY = lastY + 3) || (mouseY = lastY + 6) || (mouseY = lastY + 9) || (mouseY = lastY + 12) || (mouseY = lastY + 15) || (mouseY = lastY + 18) || (mouseY = lastY + 21) || (mouseY = lastY + 24) || (mouseY = lastY + 27) || (mouseY = lastY + 30) || (mouseY = lastY + 33) || (mouseY = lastY + 36)) {
-                            ctx.fillRect(y - 2 , x +4, lineThickness , lineThickness);
-                            ctx.fillRect(y - 2 , x +8, lineThickness , lineThickness);
-                            ctx.fillRect(y - 1 , x +11, lineThickness , lineThickness);
-                            ctx.fillRect(y , x +1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 1 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 1 , x + 8, lineThickness , lineThickness);
-                            ctx.fillRect(y + 2 , x + 10, lineThickness , lineThickness);
-                            ctx.fillRect(y + 2 , x + 13, lineThickness , lineThickness);
-                            ctx.fillRect(y + 3 , x + 2, lineThickness , lineThickness);
-                            ctx.fillRect(y + 3 , x + 7, lineThickness , lineThickness);
-                            ctx.fillRect(y + 4 , x + 4, lineThickness , lineThickness);
-                            ctx.fillRect(y + 4 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x - 1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x + 6, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x + 11, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6 , x + 1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6 , x + 14, lineThickness , lineThickness);
-                            ctx.fillRect(y + 7 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 7 , x + 7, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 3, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 11, lineThickness , lineThickness);
-                            ctx.fillRect(y + 9 , x, lineThickness , lineThickness);
-                            ctx.fillRect(y + 10 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 10 , x + 8, lineThickness , lineThickness);
-                            ctx.fillRect(y + 11 , x + 12, lineThickness , lineThickness);
-                            ctx.fillRect(y + 12 , x + 3, lineThickness , lineThickness);
-                            ctx.fillRect(y + 12 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 13 , x + 6, lineThickness , lineThickness);
+                            context.fillRect(y - 2 , x +4, lineThickness , lineThickness);
+                            context.fillRect(y - 2 , x +8, lineThickness , lineThickness);
+                            context.fillRect(y - 1 , x +11, lineThickness , lineThickness);
+                            context.fillRect(y , x +1, lineThickness , lineThickness);
+                            context.fillRect(y + 1 , x + 5, lineThickness , lineThickness);
+                            context.fillRect(y + 1 , x + 8, lineThickness , lineThickness);
+                            context.fillRect(y + 2 , x + 10, lineThickness , lineThickness);
+                            context.fillRect(y + 2 , x + 13, lineThickness , lineThickness);
+                            context.fillRect(y + 3 , x + 2, lineThickness , lineThickness);
+                            context.fillRect(y + 3 , x + 7, lineThickness , lineThickness);
+                            context.fillRect(y + 4 , x + 4, lineThickness , lineThickness);
+                            context.fillRect(y + 4 , x + 9, lineThickness , lineThickness);
+                            context.fillRect(y + 5 , x - 1, lineThickness , lineThickness);
+                            context.fillRect(y + 5 , x + 6, lineThickness , lineThickness);
+                            context.fillRect(y + 5 , x + 11, lineThickness , lineThickness);
+                            context.fillRect(y + 6 , x + 1, lineThickness , lineThickness);
+                            context.fillRect(y + 6 , x + 14, lineThickness , lineThickness);
+                            context.fillRect(y + 7 , x + 5, lineThickness , lineThickness);
+                            context.fillRect(y + 7 , x + 7, lineThickness , lineThickness);
+                            context.fillRect(y + 8 , x + 3, lineThickness , lineThickness);
+                            context.fillRect(y + 8 , x + 9, lineThickness , lineThickness);
+                            context.fillRect(y + 8 , x + 11, lineThickness , lineThickness);
+                            context.fillRect(y + 9 , x, lineThickness , lineThickness);
+                            context.fillRect(y + 10 , x + 5, lineThickness , lineThickness);
+                            context.fillRect(y + 10 , x + 8, lineThickness , lineThickness);
+                            context.fillRect(y + 11 , x + 12, lineThickness , lineThickness);
+                            context.fillRect(y + 12 , x + 3, lineThickness , lineThickness);
+                            context.fillRect(y + 12 , x + 9, lineThickness , lineThickness);
+                            context.fillRect(y + 13 , x + 6, lineThickness , lineThickness);
                             }
                             else {
-                            ctx.fillRect(y - 2 , x +4, lineThickness , lineThickness);
-                            ctx.fillRect(y - 2 , x +8, lineThickness , lineThickness);
-                            ctx.fillRect(y - 1 , x +11, lineThickness , lineThickness);
-                            ctx.fillRect(y , x +1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 1 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 1 , x + 8, lineThickness , lineThickness);
-                            ctx.fillRect(y + 2 , x + 10, lineThickness , lineThickness);
-                            ctx.fillRect(y + 2 , x + 13, lineThickness , lineThickness);
-                            ctx.fillRect(y + 3 , x + 2, lineThickness , lineThickness);
-                            ctx.fillRect(y + 3 , x + 7, lineThickness , lineThickness);
-                            ctx.fillRect(y + 4 , x + 4, lineThickness , lineThickness);
-                            ctx.fillRect(y + 4 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x - 1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x + 6, lineThickness , lineThickness);
-                            ctx.fillRect(y + 5 , x + 11, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6 , x + 1, lineThickness , lineThickness);
-                            ctx.fillRect(y + 6 , x + 14, lineThickness , lineThickness);
-                            ctx.fillRect(y + 7 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 7 , x + 7, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 3, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 8 , x + 11, lineThickness , lineThickness);
-                            ctx.fillRect(y + 9 , x, lineThickness , lineThickness);
-                            ctx.fillRect(y + 10 , x + 5, lineThickness , lineThickness);
-                            ctx.fillRect(y + 10 , x + 8, lineThickness , lineThickness);
-                            ctx.fillRect(y + 11 , x + 12, lineThickness , lineThickness);
-                            ctx.fillRect(y + 12 , x + 3, lineThickness , lineThickness);
-                            ctx.fillRect(y + 12 , x + 9, lineThickness , lineThickness);
-                            ctx.fillRect(y + 13 , x + 6, lineThickness , lineThickness);
+                            context.fillRect(y - 2 , x +4, lineThickness , lineThickness);
+                            context.fillRect(y - 2 , x +8, lineThickness , lineThickness);
+                            context.fillRect(y - 1 , x +11, lineThickness , lineThickness);
+                            context.fillRect(y , x +1, lineThickness , lineThickness);
+                            context.fillRect(y + 1 , x + 5, lineThickness , lineThickness);
+                            context.fillRect(y + 1 , x + 8, lineThickness , lineThickness);
+                            context.fillRect(y + 2 , x + 10, lineThickness , lineThickness);
+                            context.fillRect(y + 2 , x + 13, lineThickness , lineThickness);
+                            context.fillRect(y + 3 , x + 2, lineThickness , lineThickness);
+                            context.fillRect(y + 3 , x + 7, lineThickness , lineThickness);
+                            context.fillRect(y + 4 , x + 4, lineThickness , lineThickness);
+                            context.fillRect(y + 4 , x + 9, lineThickness , lineThickness);
+                            context.fillRect(y + 5 , x - 1, lineThickness , lineThickness);
+                            context.fillRect(y + 5 , x + 6, lineThickness , lineThickness);
+                            context.fillRect(y + 5 , x + 11, lineThickness , lineThickness);
+                            context.fillRect(y + 6 , x + 1, lineThickness , lineThickness);
+                            context.fillRect(y + 6 , x + 14, lineThickness , lineThickness);
+                            context.fillRect(y + 7 , x + 5, lineThickness , lineThickness);
+                            context.fillRect(y + 7 , x + 7, lineThickness , lineThickness);
+                            context.fillRect(y + 8 , x + 3, lineThickness , lineThickness);
+                            context.fillRect(y + 8 , x + 9, lineThickness , lineThickness);
+                            context.fillRect(y + 8 , x + 11, lineThickness , lineThickness);
+                            context.fillRect(y + 9 , x, lineThickness , lineThickness);
+                            context.fillRect(y + 10 , x + 5, lineThickness , lineThickness);
+                            context.fillRect(y + 10 , x + 8, lineThickness , lineThickness);
+                            context.fillRect(y + 11 , x + 12, lineThickness , lineThickness);
+                            context.fillRect(y + 12 , x + 3, lineThickness , lineThickness);
+                            context.fillRect(y + 12 , x + 9, lineThickness , lineThickness);
+                            context.fillRect(y + 13 , x + 6, lineThickness , lineThickness);
                             }
                         } 
                         error += de;
@@ -1688,11 +1670,11 @@ $(document).ready(function(){
         lineThickness = 1;
         
        // var c=document.getElementById("myCanvas");
-        //var ctx=c.getContext("2d");
+        //var context=c.getContext("2d");
         //var fillpattern = new Image();
 
         setFill();
-            //pattern = ctx.createPattern( newImg, 'repeat');
+            //pattern = context.createPattern( newImg, 'repeat');
         //console.log(newImg);
         //console.log(pattern);
         canvas.onmousedown = function(e) {
@@ -1702,10 +1684,10 @@ $(document).ready(function(){
             
             //else $(document).css('cursor','default');
             //delay = setTimeout(function(){
-            pattern = ctx.createPattern( newImg, 'repeat');
+            pattern = context.createPattern( newImg, 'repeat');
             //}, 1);
             //console.log(pattern);
-            ctx.fillStyle = pattern;
+            context.fillStyle = pattern;
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
             }
@@ -1762,8 +1744,8 @@ $(document).ready(function(){
 
                 lineThickness = 1;
 
-                ctx.fillCircle = function(x, y, radius){
-        ctx.beginPath();
+                context.fillCircle = function(x, y, radius){
+        context.beginPath();
         //var a = e.pageX - 88;
         //var b = e.pageY - 55;
         var cW = $('#canvasbox').width();
@@ -1773,51 +1755,51 @@ $(document).ready(function(){
         if ($('#middletop').css('display') == 'block'){
             //var x = x - 91;
             var spreadX = cW - x;
-            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-            ctx.arc(spreadX + 180, y+1, radius, 0, Math.PI * 2, false);
-            ctx.moveTo(x + 88, y);
-            ctx.arc(spreadX + 180,spreadY + 198, radius, 0, Math.PI * 2, false);
-            ctx.moveTo(x, y);
-            ctx.arc(x,spreadY + 198, radius, 0, Math.PI * 2, false);
-            ctx.closePath();
+            context.arc(x, y, radius, 0, Math.PI * 2, false);
+            context.arc(spreadX + 180, y+1, radius, 0, Math.PI * 2, false);
+            context.moveTo(x + 88, y);
+            context.arc(spreadX + 180,spreadY + 198, radius, 0, Math.PI * 2, false);
+            context.moveTo(x, y);
+            context.arc(x,spreadY + 198, radius, 0, Math.PI * 2, false);
+            context.closePath();
         }
         // - two horizontal lines
         if ($('#leftmiddle').css('display') == 'block'){
             //var y = y - 56;
             var spreadY = cH - y;
-            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-            ctx.arc(x + 88, spreadY + 113, radius, 0, Math.PI * 2, false);
+            context.arc(x, y, radius, 0, Math.PI * 2, false);
+            context.arc(x + 88, spreadY + 113, radius, 0, Math.PI * 2, false);
         }
         // \ diagonal
         if ($('#lefttop').css('display') == 'block'){
-            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-            ctx.moveTo(y+80, x);
-            ctx.arc(y + 80, x  - 81, radius, 0, Math.PI * 2, false);
-            ctx.moveTo(x - 81,y + 180);
-            ctx.arc(spreadY-90, spreadX - 180, radius, 0, Math.PI * 2, false);
+            context.arc(x, y, radius, 0, Math.PI * 2, false);
+            context.moveTo(y+80, x);
+            context.arc(y + 80, x  - 81, radius, 0, Math.PI * 2, false);
+            context.moveTo(x - 81,y + 180);
+            context.arc(spreadY-90, spreadX - 180, radius, 0, Math.PI * 2, false);
         }
-        else ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-        ctx.closePath();
-        ctx.fill();
+        else context.arc(x, y, radius, 0, Math.PI * 2, false);
+        context.closePath();
+        context.fill();
     };
 
                 for (var x = x1; x < x2; x++) {
                     
                     var radius = 2; // or whatever
                     
-                    ctx.fillStyle = pattern;
+                    context.fillStyle = pattern;
                     if (steep) {
-                        ctx.fillCircle(y, x, radius);
+                        context.fillCircle(y, x, radius);
                     } 
                     else {
-                        ctx.fillCircle(x, y, radius);
+                        context.fillCircle(x, y, radius);
                     }
                     error += de;
                     if (error >= 0.5) {
                         y += yStep;
                         error -= 1.0;
                     }
-                    ctx.fill();
+                    context.fill();
                 }
                 lastX = mouseX;
                 lastY = mouseY;
@@ -1837,12 +1819,12 @@ $(document).ready(function(){
         }
         canvas.onmousedown = function(e) {
             painting = true;
-            var imagedata = ctx.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
+            var imagedata = context.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
             var data = imagedata.data;
             ////console.log(data)
             //console.log(data);
-            if (data[0] == 255) ctx.fillStyle = "black";
-            if (data[0] == 0) ctx.fillStyle  = "white";
+            if (data[0] == 255) context.fillStyle = "black";
+            if (data[0] == 0) context.fillStyle  = "white";
             lastX = e.pageX - this.offsetLeft - 88;
             lastY = e.pageY - this.offsetTop - 55;
         };
@@ -1891,10 +1873,10 @@ $(document).ready(function(){
                 }
                 for (var x = x1; x < x2; x++) {
                     if (steep) {
-                        ctx.fillRect(y, x, lineThickness , lineThickness );
+                        context.fillRect(y, x, lineThickness , lineThickness );
                     } 
                     else {
-                        ctx.fillRect(x, y, lineThickness , lineThickness );
+                        context.fillRect(x, y, lineThickness , lineThickness );
                     }
                     error += de;
                     if (error >= 0.5) {
@@ -1927,36 +1909,36 @@ $(document).ready(function(){
         setFill();
         var jellyStart = [];
         var jellyShape = [];
-        ctx.beginPath();
-        ctx.lineJoin = 'round'
-        ctx.lineCap = 'none'
+        context.beginPath();
+        context.lineJoin = 'round'
+        context.lineCap = 'none'
         canvas.onmousedown = function(e) {
             painting = true;
-            ctx.fillStyle = 'black';
+            context.fillStyle = 'black';
             lastX = e.pageX - canvas.offsetLeft - 88;
             lastY = e.pageY - canvas.offsetTop - 55;
             jellyStart.push(lastX, lastY);
-            ctx.moveTo(jellyStart[0], jellyStart[1]);
+            context.moveTo(jellyStart[0], jellyStart[1]);
         };
         canvas.onmouseup = function(e){
             painting = false;
             //context.lineJoin = 'round'
             pattern = context.createPattern( newImg, 'repeat');
-            ctx.fillStyle = pattern;
-            //ctx.beginPath();
-            ctx.lineTo(jellyStart[0], jellyStart[1]);
-            //ctx.lineTo(jellyShape[jellyShape.length - 2], jellyShape[jellyShape.length - 1])
+            context.fillStyle = pattern;
+            //context.beginPath();
+            context.lineTo(jellyStart[0], jellyStart[1]);
+            //context.lineTo(jellyShape[jellyShape.length - 2], jellyShape[jellyShape.length - 1])
             // look at drawing code from chat app for a way to speed this up
             // add a new line each time in mousemove so it doesn't have to redraw the whole thing on mouseup
             //for(i=0;i<jellyShape.length;i+=2){
-              //ctx.lineTo(jellyShape[i],jellyShape[i + 1]);
+              //context.lineTo(jellyShape[i],jellyShape[i + 1]);
             //}
-            ctx.closePath();
-            ctx.stroke();
+            context.closePath();
+            context.stroke();
             if(dofill) {
                 console.log('fill');
-                console.log(ctx.fillStyle);
-                ctx.fill();
+                console.log(context.fillStyle);
+                context.fill();
             }
             jellyStart = [];
             jellyShape = [];
@@ -2005,13 +1987,13 @@ $(document).ready(function(){
                 }
                 for (var x = x1; x < x2; x++) {
                     if (steep) {
-                        ctx.lineTo(y, x, lineThickness , lineThickness );
-                        ctx.stroke();
+                        context.lineTo(y, x, lineThickness , lineThickness );
+                        context.stroke();
                         jellyShape.push(y,x);
                     } 
                     else {
-                        ctx.lineTo(x, y, lineThickness , lineThickness );
-                        ctx.stroke();
+                        context.lineTo(x, y, lineThickness , lineThickness );
+                        context.stroke();
                         jellyShape.push(x,y);
                     }
                     error += de;
@@ -2030,7 +2012,7 @@ $(document).ready(function(){
         lineThickness = 17;
         canvas.onmousedown = function(e) {
             painting = true;
-            ctx.fillStyle = "#ffffff";
+            context.fillStyle = "#ffffff";
             lastX = e.pageX - this.offsetLeft - 90;
             lastY = e.pageY - this.offsetTop - 57;
         };
@@ -2085,9 +2067,9 @@ $(document).ready(function(){
 
                 for (var x = x1; x < x2; x++) {
                     if (steep) {
-                        ctx.fillRect(y, x, lineThickness , lineThickness );
+                        context.fillRect(y, x, lineThickness , lineThickness );
                     } else {
-                        ctx.fillRect(x, y, lineThickness , lineThickness );
+                        context.fillRect(x, y, lineThickness , lineThickness );
                     }
 
                     error += de;
@@ -2108,10 +2090,10 @@ $(document).ready(function(){
     }
     // Save and restore drawing surface...................................
     function saveDrawingSurface() {
-        drawingSurfaceImageData = ctx.getImageData(0, 0,canvas.width,canvas.height);
+        drawingSurfaceImageData = context.getImageData(0, 0,canvas.width,canvas.height);
     }
     function restoreDrawingSurface() {
-        ctx.putImageData(drawingSurfaceImageData, 0, 0);
+        context.putImageData(drawingSurfaceImageData, 0, 0);
     }
     function updateRubberbandRectangle(loc) {
         context.strokeStyle = "black";
@@ -2195,6 +2177,7 @@ $(document).ready(function(){
         lastCur.push($('#myCanvas').css('cursor'));
         changeWidth2(); 
         setFill();
+        $('#myCanvas').off('mousedown');
         // Rubber bands.......................................................
         function drawRubberbandShape(loc) {
             /*var texture = new Image();
@@ -2223,13 +2206,14 @@ $(document).ready(function(){
         }
     // Canvas event handlers..............................................
  canvas.onmousedown = function (e) {
+            console.log('rect mousedown');
             var loc = windowToCanvas(e.clientX, e.clientY);
             e.preventDefault(); // Prevent cursor change
             saveDrawingSurface();
             mousedown.x = loc.x;
             mousedown.y = loc.y;
-            pattern = ctx.createPattern( newImg, 'repeat');
-            if (dofill) ctx.fillStyle = pattern;
+            pattern = context.createPattern( newImg, 'repeat');
+            if (dofill) context.fillStyle = pattern;
             dragging = true;
         };
         canvas.onmousemove = function (e) {
@@ -2280,7 +2264,7 @@ $(document).ready(function(){
             var pattern = context.createPattern(fillpattern, 'repeat');
             drawEllipse(context, mousedown.x, mousedown.y, loc.x - mousedown.x, loc.y - mousedown.y);
             
-            function drawEllipse(ctx, x, y, w, h) {
+            function drawEllipse(context, x, y, w, h) {
                 var kappa = .5522848;
                   ox = (w / 2) * kappa, // control point offset horizontal
                   oy = (h / 2) * kappa, // control point offset vertical
@@ -2298,7 +2282,7 @@ $(document).ready(function(){
                 context.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
                 context.closePath();
                 if (dofill)context.fill();
-                ctx.stroke();
+                context.stroke();
             }
         }
         function updateRubberband(loc){
@@ -3591,7 +3575,7 @@ $(document).ready(function(){
                 $('#selectionContainer').css({'left': points[0] , 'top': points[1]});//positions selection canvas back to pre-dragged location
                 var selection = document.getElementById('selected');
                 var theImage = document.getElementById('newselectioncanvas');
-                var ctx = selection.getContext('2d');
+                var context = selection.getContext('2d');
                 var imageSelection = theImage.getContext('2d');
                 var top = parseInt($('#selectionContainer').css('top'));
                 var left = parseInt($('#selectionContainer').css('left'));
