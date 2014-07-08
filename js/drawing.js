@@ -225,10 +225,11 @@ $(document).ready(function(){
             };
 
             // wtf
-            canvas.onmousedown = null;
+            // have to turn off mousedown inside of every tool
+            // canvas.onmousedown = null;
             canvas.onmouseup = null;
             canvas.onmousemove = null;
-            $('#myCanvas').mousedown(function (e) {
+            canvas.onmousedown = function (e) {
                 console.log('bucket mousedown');
                 console.log(e.target);
                 // Mouse down location
@@ -242,7 +243,7 @@ $(document).ready(function(){
                     paintAt(mouseX, mouseY);
                     console.log(context.getImageData(mouseX,mouseY, 1,1));
                 }
-            });
+            };
     }
 
     /******************/
