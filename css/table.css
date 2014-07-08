@@ -795,8 +795,8 @@ body{}
 	position: absolute;
 	margin: 0px;
 	padding: 0px;
-    left: -91px;
-    top: -100px;
+    /*left: -91px;
+    top: -100px;*/
 	background: white;
 	z-index: 600;
 }
