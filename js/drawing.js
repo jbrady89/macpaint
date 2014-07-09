@@ -224,11 +224,11 @@ $(document).ready(function(){
                 redraw();
             };
 
-            // wtf
-            // have to turn off mousedown inside of every tool
-            // canvas.onmousedown = null;
+            // prevent action by events that were previously set
             canvas.onmouseup = null;
             canvas.onmousemove = null;
+
+            // fill something
             canvas.onmousedown = function (e) {
                 console.log('bucket mousedown');
                 console.log(e.target);
@@ -1824,8 +1824,8 @@ $(document).ready(function(){
             var data = imagedata.data;
             ////console.log(data)
             //console.log(data);
-            if (data[0] == 255) context.fillStyle = "black";
-            if (data[0] == 0) context.fillStyle  = "white";
+            //if (data[0] == 255) context.fillStyle = "black";
+            //if (data[0] == 0) context.fillStyle  = "white";
             lastX = e.pageX - this.offsetLeft - 88;
             lastY = e.pageY - this.offsetTop - 55;
         };
@@ -1836,7 +1836,12 @@ $(document).ready(function(){
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
                 mouseY = e.pageY - this.offsetTop - 55;
-                
+                imgData = context.getImageData(mouseX,mouseY, 1,1);
+                if (imgData.data[0] == 0) {
+                    context.fillStyle = "rgb(255,255,255)";
+                } else {
+                    context.fillStyle = "rgb(0,0,0)";
+                }
                 // find all points between        
                 var x1 = mouseX,
                     x2 = lastX,
