@@ -1836,12 +1836,16 @@ $(document).ready(function(){
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
                 mouseY = e.pageY - this.offsetTop - 55;
+
+                // get pixel data for current pixel
+                // if it's black, color it white and vice versa
                 imgData = context.getImageData(mouseX,mouseY, 1,1);
                 if (imgData.data[0] == 0) {
                     context.fillStyle = "rgb(255,255,255)";
                 } else {
                     context.fillStyle = "rgb(0,0,0)";
                 }
+                
                 // find all points between        
                 var x1 = mouseX,
                     x2 = lastX,
