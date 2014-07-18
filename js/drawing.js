@@ -437,6 +437,7 @@ $(document).ready(function(){
         }
         if (!drop){
             canvas.onmousedown = function (e) {
+                console.log('mousedown');
                 points = [];
                 var loc = windowToCanvas(e.clientX, e.clientY);
                 e.preventDefault(); // Prevent cursor change
@@ -465,10 +466,12 @@ $(document).ready(function(){
                 updateRubberband(loc);
                 dragging = false;
                 console.log(selection.width);
-                //clearInterval(marching);
+                clearInterval(marching);
+
                 //gets width and height of selection
                 w = Math.abs(loc.x - mousedown.x);
                 h = Math.abs(loc.y - mousedown.y);
+
                 //displays new canvas for the selection to be drawn 
                 $('#selectionContainer').css({'width':w,'height':h});
                 $('#selectionContainer').show();
@@ -477,25 +480,21 @@ $(document).ready(function(){
                 $('#newselectioncanvas').height(h - 2);
                 $('#selected').height(h);
                 $('#selected').show();
+
                 //selected area is copied from original canvas
                 //dragging selection top left to bottom right
                 context.fillStyle = 'white';
                 dottedSelection.strokeStyle = 'black';
-                //console.log(mouseX, mouseY);
                 if (loc.x > mousedown.x && loc.y > mousedown.y){
-                    //$('#selected').css('left', 1).css('top', 1);
                      $('#selected, #selectionContainer').offset({ left: mousedown.x + $('#canvasbox').offset().left, top: mousedown.y + $('#canvasbox').offset().top});
-                    //$('#selectionContainer').offset().left = mousedown.x;
-                    //$('#selectionContainer').offset().top = mousedown.y;//.css('top', points[1]);
-                    //console.log($('#selectionContainer').offset().left, $('#selectionContainer').offset().top);
                     tempCtx.fillStyle = 'white';
                     imageSelection.drawImage(canvas, mousedown.x + 2, mousedown.y + 2, w - 4, h - 4, 0, 0, theImage.width, theImage.height);
                     context.fillRect(mousedown.x - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
                     tempCtx.fillRect(mousedown.x - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
                     console.log(selection.width, $('#selected').width());
-                    //dottedSelection.save();
-                    //context.save();
-                    //imageSelection.save();
+                    dottedSelection.save();
+                    context.save();
+                    imageSelection.save();
                 }
                 //top right to bottom left
                 else if (loc.x < mousedown.x && loc.y > mousedown.y){
@@ -531,10 +530,15 @@ $(document).ready(function(){
                         .removeClass('inactive').addClass('active')
                         .mouseup(function(){
 
-                            var selDat = dottedSelection.getImageData(1,1, selection.width, selection.height);
+                            dottedSelection.fillRect(1,1, selection.width, selection.height);
+                            imageSelection.fillRect(1,1, theImage.width, theImage.height);
                             $('#selectionContainer').hide();
-                            var clear = true;
-                            $('#clear').removeClass('active').addClass('inactive');
+                            $('#selected').hide();
+                            context.save();
+                            points = [];
+                            drop = false;
+                            march = false;
+                            mousedown = {};
                         });
                 }
                 var dragSel;
