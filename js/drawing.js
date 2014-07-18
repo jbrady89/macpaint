@@ -348,6 +348,9 @@ $(document).ready(function(){
         var march = false;
         var antsData;
         var selectionData;
+        var mouseX,
+            mouseY;
+        var mousedown = {};
         context.strokeStyle = 'black';
         lastCur.push($('#myCanvas').css('cursor'));
         //console.log(lastCur);
@@ -442,6 +445,7 @@ $(document).ready(function(){
                 mousedown.y = loc.y;
                 mouseX = e.pageX - this.offsetLeft - 182;
                 mouseY = e.pageY - this.offsetTop - 158;
+                console.log(mousedown.x, mousedown.y);
                 points.push(mouseX, mouseY);
                 dragging = true;
             };
@@ -460,6 +464,7 @@ $(document).ready(function(){
                 restoreDrawingSurface();
                 updateRubberband(loc);
                 dragging = false;
+                console.log(selection.width);
                 //clearInterval(marching);
                 //gets width and height of selection
                 w = Math.abs(loc.x - mousedown.x);
@@ -476,40 +481,45 @@ $(document).ready(function(){
                 //dragging selection top left to bottom right
                 context.fillStyle = 'white';
                 dottedSelection.strokeStyle = 'black';
+                //console.log(mouseX, mouseY);
                 if (loc.x > mousedown.x && loc.y > mousedown.y){
                     //$('#selected').css('left', 1).css('top', 1);
-                    $('#selectionContainer').css('left', points[0] ).css('top', points[1]);
+                     $('#selected, #selectionContainer').offset({ left: mousedown.x + $('#canvasbox').offset().left, top: mousedown.y + $('#canvasbox').offset().top});
+                    //$('#selectionContainer').offset().left = mousedown.x;
+                    //$('#selectionContainer').offset().top = mousedown.y;//.css('top', points[1]);
+                    //console.log($('#selectionContainer').offset().left, $('#selectionContainer').offset().top);
                     tempCtx.fillStyle = 'white';
                     imageSelection.drawImage(canvas, mousedown.x + 2, mousedown.y + 2, w - 4, h - 4, 0, 0, theImage.width, theImage.height);
-                    context.fillRect(mousedown.x - 1, mousedown.y - 1, selection.width + 1, selection.height + 1);
-                    tempCtx.fillRect(mousedown.x - 1, mousedown.y - 1, w + 2, h + 2);
-                    dottedSelection.save();
-                    context.save();
-                    imageSelection.save();
+                    context.fillRect(mousedown.x - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
+                    tempCtx.fillRect(mousedown.x - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
+                    console.log(selection.width, $('#selected').width());
+                    //dottedSelection.save();
+                    //context.save();
+                    //imageSelection.save();
                 }
                 //top right to bottom left
                 else if (loc.x < mousedown.x && loc.y > mousedown.y){
-                    $('#selected').css('left',mouseX - w).css('top',mouseY);
-                    dottedSelection.drawImage(canvas, mousedown.x, loc.y, w, h, 1, 1, selection.width, selection.height);
-                    context.fillRect( mousedown.x, loc.y, w + 5, h + 5);
-                    tempCtx.fillRect(mousedown.x - 1, mousedown.y - 1, w + 2, h + 2);
-                    dottedSelection.save();
+                    $('#selected, #selectionContainer').offset({ left: mousedown.x - $('#selected').width() + $('#canvasbox').offset().left, top: mousedown.y + $('#canvasbox').offset().top});
+                    imageSelection.drawImage(canvas, mousedown.x - w + 2, mousedown.y + 2, w - 4, h - 4, 0, 0, theImage.width, theImage.height);
+                    context.fillRect(mousedown.x - $('#selected').width() - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
+                    tempCtx.fillRect(mousedown.x - w - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
+                    console.log(selection.width, $('#selected').width());
                 }
                 //bottom left to top right
                 else if (loc.x > mousedown.x && loc.y < mousedown.y){
-                    $('#selected').css('left',mouseX).css('top',mouseY - h);
-                    dottedSelection.drawImage(canvas, mousedown.y, loc.x, w, h, 1, 1, selection.width, selection.height);
-                    context.fillRect(mousedown.y, loc.x, w + 5, h + 5);
-                    tempCtx.fillRect(mousedown.x - 1, mousedown.y - 1, w + 2, h + 2);
-                    dottedSelection.save();
+                    $('#selected, #selectionContainer').offset({ left: mousedown.x + $('#canvasbox').offset().left, top: mousedown.y - $('#selected').height() + $('#canvasbox').offset().top});
+                    imageSelection.drawImage(canvas, mousedown.x + 2, mousedown.y  - $('#selected').height() + 2, w - 4, h - 4, 0, 0, theImage.width, theImage.height);
+                    context.fillRect(mousedown.x - 1, mousedown.y -  $('#selected').height() - 1, $('#selected').width() + 2, $('#selected').height() + 2);
+                    tempCtx.fillRect(mousedown.x - w - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
+                    console.log(selection.width, $('#selected').width());
                 }
                 //bottom right to top left
                 else if (loc.x < mousedown.x && loc.y < mousedown.y){
-                    $('#selected').css('left',mouseX - w).css('top',mouseY - h);
-                    dottedSelection.drawImage(canvas, loc.x, loc.y, w, h, 1, 1, selection.width, selection.height);
-                    context.fillRect(loc.x, loc.y, w + 5, h + 5);
-                    tempCtx.fillRect(mousedown.x - 1, mousedown.y - 1, w + 2, h + 2);
-                    dottedSelection.save();
+                    $('#selected, #selectionContainer').offset({ left: mousedown.x - $('#selected').width() + $('#canvasbox').offset().left, top: mousedown.y - $('#selected').height() + $('#canvasbox').offset().top});
+                    imageSelection.drawImage(canvas, mousedown.x - w + 2, mousedown.y - $('#selected').height() + 2 , w - 4, h - 4, 0, 0, theImage.width, theImage.height);
+                    context.fillRect(mousedown.x - $('#selected').width() - 1,mousedown.y - $('#selected').height() - 1, $('#selected').width() + 2, $('#selected').height() + 2);
+                    tempCtx.fillRect(mousedown.x - w - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
+                    console.log(selection.width, $('#selected').width());
                 }
                 //new canvas is made draggable
                 var top = parseInt($('#selected').css('top'));
@@ -517,11 +527,15 @@ $(document).ready(function(){
                 $('#selectionContainer').draggable();
                 var clear = false;
                 if (march) {//if marching ants are active..
-                    $('#clear').mouseup(function(){
-                        var selDat = dottedSelection.getImageData(1,1, selection.width, selection.height);
-                        $('#selectionContainer').hide();
-                        var clear = true;
-                    });
+                    $('#clear')
+                        .removeClass('inactive').addClass('active')
+                        .mouseup(function(){
+
+                            var selDat = dottedSelection.getImageData(1,1, selection.width, selection.height);
+                            $('#selectionContainer').hide();
+                            var clear = true;
+                            $('#clear').removeClass('active').addClass('inactive');
+                        });
                 }
                 var dragSel;
                 $('#selectionContainer').mousedown(function(){
@@ -542,7 +556,7 @@ $(document).ready(function(){
                     var left2 = -offsetX + parseInt($('#selected').css('left'));
                     var top2 =  -offsetY + parseInt($('#selected').css('top'));
                     //draw the image from selection back onto main canvas in new position
-                   // context.drawImage(selection, left2 - 1, top2 - 1, $('#selected').width() + 1, $('#selected').height() + 1);
+                    //context.drawImage(selection, left2 - 1, top2 - 1, $('#selected').width() + 1, $('#selected').height() + 1);
                 });
                 //marching ants animation
                 CanvasRenderingContext2D.prototype.dashedLine = function(x, y, x2, y2, dashArray, start) {
@@ -628,21 +642,26 @@ $(document).ready(function(){
                   currentOffset += 10;
                   if (currentOffset >= 100) currentOffset = 0;
                 }
+
                 drop = true;
             }   
-        }
-        $('#myCanvas').mouseup(function(){
-            if (drop){
-                context.restore();
-                $('#selectionContainer').show();
-                $('#selected').hide();
-                points = [];
-                drop = false;
-                march = false;
-                return false;
+        } else {
+            canvas.onmouseup = function (){
+                if (drop){
+                    console.log('mouseup');
+                    restoreDrawingSurface();
+                    context.restore();
+                    $('#selectionContainer').show();
+                    $('#selected').hide();
+                    points = [];
+                    drop = false;
+                    march = false;
+                    mousedown = {};
+                    return false;
+                }
             }
-        });
-    }//end selection tool
+        }   
+    }
 
     $('.tools').not('#1b').mouseup(function(){//resets variable so line 169 will equal true
         drop = false;
