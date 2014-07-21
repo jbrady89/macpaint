@@ -93,7 +93,7 @@ $(document).ready(function(){
 
             matchOutlineColor = function (r, g, b, a) {
 
-                return (r + g + b < 100 && a === 255);
+                return (r + g + b < 385 && a === 255);
             },
 
             matchStartColor = function (pixelPos, startR, startG, startB) {
@@ -103,13 +103,13 @@ $(document).ready(function(){
                     b = outlineLayerData.data[pixelPos + 2],
                     a = outlineLayerData.data[pixelPos + 3];
 
-                // If current pixel of the outline image is black
+                // If current pixel of the outline image is black or not white
                 if (matchOutlineColor(r, g, b, a)) {
                     return false;
                 }
 
-                // If the current pixel matches the clicked color
-                if (r === startR && g === startG && b === startB) {
+                // If the current pixel matches the clicked color or anything other than black
+                if (r === startR || r > 0 && g === startG || r > 0 && b === startB || r > 0) {
                     return true;
                 }
 
@@ -230,18 +230,20 @@ $(document).ready(function(){
 
             // fill something
             canvas.onmousedown = function (e) {
-                console.log('bucket mousedown');
-                console.log(e.target);
+                //console.log('bucket mousedown');
+                //console.log(e.target);
                 // Mouse down location
                 var mouseX = e.pageX - this.offsetLeft -88,
                     mouseY = e.pageY - this.offsetTop - 55;
-                    console.log(mouseX, mouseY);
+                    //console.log(mouseX, mouseY);
                     //console.log(context.getImageData(mouseX,mouseY, 1, 1))
                 if ((mouseY > drawingAreaY && mouseY < drawingAreaY + drawingAreaHeight) && (mouseX <= drawingAreaX + drawingAreaWidth)) {
                     // Mouse click location on drawing area
-                    console.log('inside');
+                    //console.log('inside');
                     paintAt(mouseX, mouseY);
-                    console.log(context.getImageData(mouseX,mouseY, 1,1));
+                    imgData = context.getImageData(mouseX,mouseY, 1,1);
+                    console.log(imgData.data[0], imgData.data[1], imgData.data[2]);
+                    //console.log(context.getImageData(mouseX,mouseY, 1,1));
                 }
             };
     }
@@ -353,9 +355,10 @@ $(document).ready(function(){
         var mousedown = {};
         context.strokeStyle = 'black';
         lastCur.push($('#myCanvas').css('cursor'));
-        //console.log(lastCur);
-        //console.log(lastBrushCur);
         $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
+        console.log(Object.prototype);
+        console.log(context);
+        console.log(CanvasRenderingContext2D.prototype);
         function drawRubberbandShape(loc) {
             CanvasRenderingContext2D.prototype.dashedLineTo = function (fromX, fromY, toX, toY, pattern) {
                 var lt = function (a, b) { return a <= b; };
@@ -2313,7 +2316,7 @@ $(document).ready(function(){
                 context.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
                 context.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
                 context.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
-                context.closePath();
+                //context.closePath();
                 if (dofill)context.fill();
                 context.stroke();
             }
