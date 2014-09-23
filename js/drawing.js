@@ -1,4 +1,5 @@
 window.drawn = false;
+"use strict";
 
 $(document).ready(function(){
     //http://jsfiddle.net/mBzVR/4/
@@ -61,7 +62,6 @@ $(document).ready(function(){
     var outlineLayerData;
     function bucket(){
         console.log('bucket');
-        "use strict";
 
         var canvasWidth = 414,
             canvasHeight = 239,
@@ -93,7 +93,7 @@ $(document).ready(function(){
 
             matchOutlineColor = function (r, g, b, a) {
 
-                return (r + g + b < 385 && a === 255);
+                return (r + g + b < 1 && a === 255);
             },
 
             matchStartColor = function (pixelPos, startR, startG, startB) {
@@ -102,6 +102,13 @@ $(document).ready(function(){
                     g = outlineLayerData.data[pixelPos + 1],
                     b = outlineLayerData.data[pixelPos + 2],
                     a = outlineLayerData.data[pixelPos + 3];
+
+                if (r > 0 && r < 255){
+                    r = 0;
+                    g = 0;
+                    b = 0;
+                }
+
 
                 // If current pixel of the outline image is black or not white
                 if (matchOutlineColor(r, g, b, a)) {
@@ -130,7 +137,7 @@ $(document).ready(function(){
             },
 
             floodFill = function (startX, startY, startR, startG, startB) {
-                console.log('fill');
+                // console.log('fill');
                 var newPos,
                     x,
                     y,
