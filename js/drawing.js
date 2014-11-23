@@ -1,5 +1,4 @@
 window.drawn = false;
-"use strict";
 
 $(document).ready(function(){
     //http://jsfiddle.net/mBzVR/4/
@@ -72,71 +71,10 @@ $(document).ready(function(){
     //context.fillStyle = 'rgb(255,255,255)';
     //context.fillRect(0, 0, canvas.width, canvas.height);
     function bucket(){
-<<<<<<< HEAD
 
             // prevent action by events that were previously set
             canvas.onmouseup = null;
             canvas.onmousemove = null;
-=======
-        console.log('bucket');
-
-        var canvasWidth = 414,
-            canvasHeight = 239,
-            curColor = {r: 0, g: 0, b: 0},
-            drawingAreaX = 0,
-            drawingAreaY = 0,
-            colorLayerData,
-            outlineLayerData,
-            totalLoadResources = 3,
-            curLoadResNum = 0,
-            //context = canvas.getContext("2d"); // Grab the 2d canvas context
-            drawingAreaWidth = canvas.width;
-            drawingAreaHeight = canvas.height;
-            outlineLayerData = context.getImageData(0, 0, canvasWidth, canvasHeight);
-
-            // Clears the canvas.
-            clearCanvas = function () {
-
-                context.clearRect(0, 0, canvas.width, canvas.height);
-            },
-
-            // Draw the elements on the canvas
-            redraw = function () {
-                console.log('redraw');
-                clearCanvas();
-                context.putImageData(outlineLayerData, 0, 0);
-                console.log('clear');
-            },
-
-            matchOutlineColor = function (r, g, b, a) {
-
-                return (r + g + b < 1 && a === 255);
-            },
-
-            matchStartColor = function (pixelPos, startR, startG, startB) {
-
-                var r = outlineLayerData.data[pixelPos],
-                    g = outlineLayerData.data[pixelPos + 1],
-                    b = outlineLayerData.data[pixelPos + 2],
-                    a = outlineLayerData.data[pixelPos + 3];
-
-                if (r > 0 && r < 255){
-                    r = 0;
-                    g = 0;
-                    b = 0;
-                }
-
-
-                // If current pixel of the outline image is black or not white
-                if (matchOutlineColor(r, g, b, a)) {
-                    return false;
-                }
-
-                // If the current pixel matches the clicked color or anything other than black
-                if (r === startR || r > 0 && g === startG || r > 0 && b === startB || r > 0) {
-                    return true;
-                }
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
 
             // fill something
             canvas.onmousedown = function (e) {
@@ -151,7 +89,6 @@ $(document).ready(function(){
             };
     }
 
-<<<<<<< HEAD
     var Startleft = parseInt($('.canvas').css('left'), 10);
     var Starttop = parseInt($('.canvas').css('top'), 10);
     vbLeft = parseInt($('#vbContainer').css('left'), 10);
@@ -164,47 +101,6 @@ $(document).ready(function(){
         'left': Math.abs( parseInt($('.canvas').css('left'), 10) / 3.25 ),
         'top': Math.abs( parseInt($('.canvas').css('top'), 10) / 3.1 )
     };
-=======
-                return true;
-            },
-
-            colorPixel = function (pixelPos, r, g, b, a) {
-
-                outlineLayerData.data[pixelPos] = r;
-                outlineLayerData.data[pixelPos + 1] = g;
-                outlineLayerData.data[pixelPos + 2] = b;
-                outlineLayerData.data[pixelPos + 3] = a !== undefined ? a : 255;
-            },
-
-            floodFill = function (startX, startY, startR, startG, startB) {
-                // console.log('fill');
-                var newPos,
-                    x,
-                    y,
-                    pixelPos,
-                    reachLeft,
-                    reachRight,
-                    drawingBoundLeft = drawingAreaX,
-                    drawingBoundTop = drawingAreaY,
-                    drawingBoundRight = drawingAreaX + drawingAreaWidth - 1,
-                    drawingBoundBottom = drawingAreaY + drawingAreaHeight - 1,
-                    pixelStack = [[startX, startY]];
-
-                while (pixelStack.length) {
-
-                    newPos = pixelStack.pop();
-                    x = newPos[0];
-                    y = newPos[1];
-
-                    // Get current pixel position
-                    pixelPos = (y * canvasWidth + x) * 4;
-
-                    // Go up as long as the color matches and are inside the canvas
-                    while (y >= drawingBoundTop && matchStartColor(pixelPos, startR, startG, startB)) {
-                        y -= 1;
-                        pixelPos -= canvasWidth * 4;
-                    }
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
 
     var vbOffset = $('#vbContainer').offset();
     console.log(vbOffset);
@@ -259,7 +155,6 @@ $(document).ready(function(){
             'top': vbStart.top + 'px'
         };
 
-<<<<<<< HEAD
         $('#vbContainer').css(origVbProps);
 
         $('.canvas').css({'top': currentTop + 'px','left': currentLeft + 'px'});
@@ -327,30 +222,6 @@ $(document).ready(function(){
         }
         changeCur();
         clicked = [lastActive];
-=======
-            // prevent action by events that were previously set
-            canvas.onmouseup = null;
-            canvas.onmousemove = null;
-
-            // fill something
-            canvas.onmousedown = function (e) {
-                //console.log('bucket mousedown');
-                //console.log(e.target);
-                // Mouse down location
-                var mouseX = e.pageX - this.offsetLeft -88,
-                    mouseY = e.pageY - this.offsetTop - 55;
-                    //console.log(mouseX, mouseY);
-                    //console.log(context.getImageData(mouseX,mouseY, 1, 1))
-                if ((mouseY > drawingAreaY && mouseY < drawingAreaY + drawingAreaHeight) && (mouseX <= drawingAreaX + drawingAreaWidth)) {
-                    // Mouse click location on drawing area
-                    //console.log('inside');
-                    paintAt(mouseX, mouseY);
-                    imgData = context.getImageData(mouseX,mouseY, 1,1);
-                    console.log(imgData.data[0], imgData.data[1], imgData.data[2]);
-                    //console.log(context.getImageData(mouseX,mouseY, 1,1));
-                }
-            };
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
     }
 
     // works in other browsers but not chrome..
@@ -475,10 +346,9 @@ $(document).ready(function(){
         var mousedown = {};
         context.strokeStyle = 'black';
         lastCur.push($('#myCanvas').css('cursor'));
+        //console.log(lastCur);
+        //console.log(lastBrushCur);
         $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
-        console.log(Object.prototype);
-        console.log(context);
-        console.log(CanvasRenderingContext2D.prototype);
         function drawRubberbandShape(loc) {
             CanvasRenderingContext2D.prototype.dashedLineTo = function (fromX, fromY, toX, toY, pattern) {
                 var lt = function (a, b) { return a <= b; };
@@ -560,7 +430,6 @@ $(document).ready(function(){
         }
         if (!drop){
             canvas.onmousedown = function (e) {
-                console.log('mousedown');
                 points = [];
                 var loc = windowToCanvas(e.clientX, e.clientY);
                 e.preventDefault(); // Prevent cursor change
@@ -569,11 +438,7 @@ $(document).ready(function(){
                 mousedown.y = loc.y;
                 mouseX = e.pageX - this.offsetLeft - 182;
                 mouseY = e.pageY - this.offsetTop - 158;
-<<<<<<< HEAD
                 //console.log(mousedown.x, mousedown.y);
-=======
-                console.log(mousedown.x, mousedown.y);
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                 points.push(mouseX, mouseY);
                 dragging = true;
             };
@@ -592,18 +457,11 @@ $(document).ready(function(){
                 restoreDrawingSurface();
                 updateRubberband(loc);
                 dragging = false;
-<<<<<<< HEAD
                 //console.log(selection.width);
                 //clearInterval(marching);
-=======
-                console.log(selection.width);
-                clearInterval(marching);
-
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                 //gets width and height of selection
                 w = Math.abs(loc.x - mousedown.x);
                 h = Math.abs(loc.y - mousedown.y);
-
                 //displays new canvas for the selection to be drawn 
                 $('#selectionContainer').css({'width':w,'height':h});
                 $('#selectionContainer').show();
@@ -612,37 +470,25 @@ $(document).ready(function(){
                 $('#newselectioncanvas').height(h - 2);
                 $('#selected').height(h);
                 $('#selected').show();
-
                 //selected area is copied from original canvas
                 //dragging selection top left to bottom right
                 context.fillStyle = 'white';
                 dottedSelection.strokeStyle = 'black';
                 ////console.log(mouseX, mouseY);
                 if (loc.x > mousedown.x && loc.y > mousedown.y){
-<<<<<<< HEAD
                     //$('#selected').css('left', 1).css('top', 1);
                      $('#selected, #selectionContainer').offset({ left: mousedown.x + $('#canvasbox').offset().left, top: mousedown.y + $('#canvasbox').offset().top});
                     //$('#selectionContainer').offset().left = mousedown.x;
                     //$('#selectionContainer').offset().top = mousedown.y;//.css('top', points[1]);
                     ////console.log($('#selectionContainer').offset().left, $('#selectionContainer').offset().top);
-=======
-                     $('#selected, #selectionContainer').offset({ left: mousedown.x + $('#canvasbox').offset().left, top: mousedown.y + $('#canvasbox').offset().top});
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                     tempCtx.fillStyle = 'white';
                     imageSelection.drawImage(canvas, mousedown.x + 2, mousedown.y + 2, w - 4, h - 4, 0, 0, theImage.width, theImage.height);
                     context.fillRect(mousedown.x - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
                     tempCtx.fillRect(mousedown.x - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
-<<<<<<< HEAD
                     //console.log(selection.width, $('#selected').width());
                     //dottedSelection.save();
                     //context.save();
                     //imageSelection.save();
-=======
-                    console.log(selection.width, $('#selected').width());
-                    dottedSelection.save();
-                    context.save();
-                    imageSelection.save();
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                 }
                 //top right to bottom left
                 else if (loc.x < mousedown.x && loc.y > mousedown.y){
@@ -650,11 +496,7 @@ $(document).ready(function(){
                     imageSelection.drawImage(canvas, mousedown.x - w + 2, mousedown.y + 2, w - 4, h - 4, 0, 0, theImage.width, theImage.height);
                     context.fillRect(mousedown.x - $('#selected').width() - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
                     tempCtx.fillRect(mousedown.x - w - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
-<<<<<<< HEAD
                     //console.log(selection.width, $('#selected').width());
-=======
-                    console.log(selection.width, $('#selected').width());
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                 }
                 //bottom left to top right
                 else if (loc.x > mousedown.x && loc.y < mousedown.y){
@@ -662,11 +504,7 @@ $(document).ready(function(){
                     imageSelection.drawImage(canvas, mousedown.x + 2, mousedown.y  - $('#selected').height() + 2, w - 4, h - 4, 0, 0, theImage.width, theImage.height);
                     context.fillRect(mousedown.x - 1, mousedown.y -  $('#selected').height() - 1, $('#selected').width() + 2, $('#selected').height() + 2);
                     tempCtx.fillRect(mousedown.x - w - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
-<<<<<<< HEAD
                     //console.log(selection.width, $('#selected').width());
-=======
-                    console.log(selection.width, $('#selected').width());
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                 }
                 //bottom right to top left
                 else if (loc.x < mousedown.x && loc.y < mousedown.y){
@@ -674,11 +512,7 @@ $(document).ready(function(){
                     imageSelection.drawImage(canvas, mousedown.x - w + 2, mousedown.y - $('#selected').height() + 2 , w - 4, h - 4, 0, 0, theImage.width, theImage.height);
                     context.fillRect(mousedown.x - $('#selected').width() - 1,mousedown.y - $('#selected').height() - 1, $('#selected').width() + 2, $('#selected').height() + 2);
                     tempCtx.fillRect(mousedown.x - w - 1, mousedown.y - 1, $('#selected').width() + 2, $('#selected').height() + 2);
-<<<<<<< HEAD
                     //console.log(selection.width, $('#selected').width());
-=======
-                    console.log(selection.width, $('#selected').width());
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                 }
                 //new canvas is made draggable
                 var top = parseInt($('#selected').css('top'));
@@ -690,22 +524,10 @@ $(document).ready(function(){
                         .removeClass('inactive').addClass('active')
                         .mouseup(function(){
 
-<<<<<<< HEAD
                             var selDat = dottedSelection.getImageData(1,1, selection.width, selection.height);
                             $('#selectionContainer').hide();
                             var clear = true;
                             $('#clear').removeClass('active').addClass('inactive');
-=======
-                            dottedSelection.fillRect(1,1, selection.width, selection.height);
-                            imageSelection.fillRect(1,1, theImage.width, theImage.height);
-                            $('#selectionContainer').hide();
-                            $('#selected').hide();
-                            context.save();
-                            points = [];
-                            drop = false;
-                            march = false;
-                            mousedown = {};
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                         });
                 }
                 var dragSel;
@@ -819,11 +641,7 @@ $(document).ready(function(){
         } else {
             canvas.onmouseup = function (){
                 if (drop){
-<<<<<<< HEAD
                     //console.log('mouseup');
-=======
-                    console.log('mouseup');
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
                     restoreDrawingSurface();
                     context.restore();
                     $('#selectionContainer').show();
@@ -837,11 +655,8 @@ $(document).ready(function(){
             }
         }   
     }
-<<<<<<< HEAD
 
     //end selection tool
-=======
->>>>>>> 9a4167c13e21eb88d94a632a09c6aa8543f56e63
 
     $('.tools').not('#1b').mouseup(function(){//resets variable so line 169 will equal true
         drop = false;
@@ -2017,8 +1832,8 @@ $(document).ready(function(){
             var data = imagedata.data;
             ////console.log(data)
             //console.log(data);
-            //if (data[0] == 255) context.fillStyle = "black";
-            //if (data[0] == 0) context.fillStyle  = "white";
+            if (data[0] == 255) context.fillStyle = "black";
+            if (data[0] == 0) context.fillStyle  = "white";
             lastX = e.pageX - this.offsetLeft - 88;
             lastY = e.pageY - this.offsetTop - 55;
         };
@@ -2029,15 +1844,6 @@ $(document).ready(function(){
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
                 mouseY = e.pageY - this.offsetTop - 55;
-
-                // get pixel data for current pixel
-                // if it's black, color it white and vice versa
-                imgData = context.getImageData(mouseX,mouseY, 1,1);
-                if (imgData.data[0] == 0) {
-                    context.fillStyle = "rgb(255,255,255)";
-                } else {
-                    context.fillStyle = "rgb(0,0,0)";
-                }
                 
                 // find all points between        
                 var x1 = mouseX,
@@ -2483,7 +2289,7 @@ $(document).ready(function(){
                 context.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
                 context.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
                 context.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
-                //context.closePath();
+                context.closePath();
                 if (dofill)context.fill();
                 context.stroke();
             }
