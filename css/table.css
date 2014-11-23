@@ -41,11 +41,7 @@ body{}
 	display: none;
 	z-index: 1001;
 }
-#selected {
-	display: block;
-	position:absolute;
-	z-index: 1000;
-}
+
 /*set dimensions and add main background*/
 .content {
 	height: 341px;
@@ -467,7 +463,7 @@ body{}
 	text-align: center;
 	z-index:600;
 	}
-/*lined window bar canvas*/
+/*lined window bar */
 .rowlines {
 	position: absolute;
 	display: block;
@@ -795,8 +791,8 @@ body{}
 	position: absolute;
 	margin: 0px;
 	padding: 0px;
-    /*left: -91px;
-    top: -100px;*/
+    left: -91px;
+    top: -100px;
 	background: white;
 	z-index: 600;
 }
@@ -840,19 +836,17 @@ body{}
 #viewBox {
 	left: 0px;
 	top: 0px;
-	width: 135px;
-	height: 77px;
-	background: white;
-	opacity: 0;
-	border: 1px dotted black;
+	width:100%;
+	height:100%;
+	background-color: transparent;
 	z-index: 550;
 }
 #vbContainer {
 	position: relative;
 	left: 29px;
-	top: 34px;
-	width: 135px;
-	height: 77px;
+	top: 33px;
+	width: 136px;
+	height: 78px;
 	background: none;
 	border: 1px dotted black;
 	z-index: 550;

@@ -7,7 +7,6 @@
     <link href="css/styles.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="css/dropdown-menu.css" media="screen" rel="stylesheet" type="text/css" />
     <script src="js/jquery-1.9.1.min.js"></script>
-    <script src="js/jquery-migrate-1.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
     <script type="text/javascript" src="js/nondrawing.js"></script>
     <script type="text/javascript" src="js/cursors.js"></script>
@@ -15,6 +14,7 @@
     <script type="text/javascript" src="js/window.js"></script>
     <script type="text/javascript" src="js/drawing.js"></script>
     <script type="text/javascript" src="js/textOnCanvas.js"></script>
+    <script src="js/floodfill.js"></script>
   </head>
   <body id="bodyid">
       <section class="content">
@@ -92,7 +92,7 @@
             <li class="inactive" id="cutline">Cut<img id="cut" src="css/img/menusymbol.jpg"/>K</li>
             <li class="inactive">Copy<img id="copy" src="css/img/menusymbol.jpg"/>C</li>
             <li id="pasteItem">Paste<img id="paste" src="css/img/menusymbol.jpg"/>V</li>
-            <li id="clear">Clear</li>
+            <li id="clear" class="inactive">Clear</li>
             <li class="dottedline" id="editdottedline2"></li>
             <li class="inactive" id="invert">Invert</li>
             <li class="inactive">Fill</li>
@@ -403,12 +403,16 @@
         <canvas class="rowlines" id="rlines1" width="414" height="17"></canvas>
         <!-- canvas for drawing -->
         <div id="canvasbox">
-          <!-- <div id="selectionContainer">
+          <div id="selectionContainer">
             <canvas id="newselectioncanvas" height="" width=""></canvas>
             <canvas id="selected" height="" width=""></canvas>
-          </div> -->
-          <!-- width="581" height="722" old canvas dimensions -->
-          <canvas class="canvas" id="myCanvas" width="414" height="239"></canvas>
+          </div>
+
+          <!-- width="414" height="239" old canvas dimensions -->
+          
+          <canvas class="canvas" id="myCanvas" width="581" height="722"></canvas>
+
+
           <div id="scaledcanvasdiv">
             <canvas id="scaledCanvas" height="239" width="190"></canvas>
             <div id="vbContainer"><div id="viewBox"></div></div>

@@ -1,0 +1,11 @@
+-alignment is off between real canvas and the mini canvas - x
+-how to implement different patterns for the floodfill 
+-floodfill misses some spots
+-take function defs out of handlers
+-separate handlers and functions
+-why does it load so slow?
+-floodfill needs to have a barrier
+-dbl clck eraser alignment off
+
+
+

@@ -28,9 +28,20 @@ Brushshapes functionality:
 
 Tools:
 	-lasso
-	-selection tool doesn't invert color when selected
+	-selection tool:
+		-clicking on the dropdown menu should pause the ants
+		-undo a clear should bring back the entire selection with active marching ants
+		-copy/paste
+		-adjust boundaries 
+		-clean it up
+		-ants seem to speed up after a few selections
+		-they also change width depending how the selection was done
+
 	-shape/line tools don't have cursors in IE 
 		-selecting new brush shape interferes with brush cursor. it starts off with the correct one initially though
 
+	-paint bucket
+		-doesn't work with oval, rounded rect unless they use a larger line thickness
+		
 Line Thickness Box
 	-changing line thickness while a brush shape is currently in use engages the line tool (but only sometimes?)

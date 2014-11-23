@@ -34,8 +34,8 @@ $(document).ready(function(){
     });
 
     var rect = canvas.getBoundingClientRect();
-        //console.log(rect);
-        //console.log($('.canvas').css('left') / 3, $('.canvas').css('top') / 3);
+        console.log(rect);
+        console.log($('.canvas').css('left') / 3, $('.canvas').css('top') / 3);
 
 
     // make initial area white
@@ -67,9 +67,9 @@ $(document).ready(function(){
     $('.tools').find('td').not('#5b').mouseup(function(){
         lastCur.push($('#myCanvas').css('cursor'));
     });
-
     //context.fillStyle = 'rgb(255,255,255)';
     //context.fillRect(0, 0, canvas.width, canvas.height);
+    var outlineLayerData;
     function bucket(){
 
             // prevent action by events that were previously set
@@ -78,47 +78,37 @@ $(document).ready(function(){
 
             // fill something
             canvas.onmousedown = function (e) {
- 
+                //console.log('bucket mousedown');
+                //console.log(e.target); 
                 // Mouse down location
                 var mouseX = e.pageX - this.offsetLeft -88,
                     mouseY = e.pageY - this.offsetTop - 55;
-                    //console.log(mouseX, mouseY);
-                    //console.log('inside');
+                    console.log(mouseX, mouseY);
+                    //console.log(context.getImageData(mouseX,mouseY, 1, 1))
+                //if ((mouseY > drawingAreaY && mouseY < drawingAreaY + drawingAreaHeight) && (mouseX <= drawingAreaX + drawingAreaWidth)) {
+                    // Mouse click location on drawing area
+                    console.log('inside');
+
                     floodFill(mouseX, mouseY, context, '#000000', 20);
-                    //console.log(context.getImageData(mouseX,mouseY, 1,1));
+                    console.log(context.getImageData(mouseX,mouseY, 1,1));
+                //}
             };
     }
 
-    var Startleft = parseInt($('.canvas').css('left'), 10);
-    var Starttop = parseInt($('.canvas').css('top'), 10);
-    vbLeft = parseInt($('#vbContainer').css('left'), 10);
-    vbTop = parseInt($('#vbContainer').css('top'), 10);
-    console.log('vbl: ' + vbLeft, 'vbt: ' + vbTop);
-    var currentLeft;
-    var currentTop;
-    var newCanvasPos = false;
-    vbStart = {
-        'left': Math.abs( parseInt($('.canvas').css('left'), 10) / 3.25 ),
-        'top': Math.abs( parseInt($('.canvas').css('top'), 10) / 3.1 )
-    };
-
-    var vbOffset = $('#vbContainer').offset();
-    console.log(vbOffset);
-
     $('#hand').dblclick(function(){
-        currentLeft = parseInt($('.canvas').css('left'), 10);
-        currentTop = parseInt($('.canvas').css('top'), 10);
-        console.log('hand left: ' + currentLeft, 'top: ' + currentTop);
-        showPage(currentLeft, currentTop);
+        var rect = canvas.getBoundingClientRect();
+        //console.log(rect);
+        var left = parseInt($('.canvas').css('left'), 10);
+        var top = parseInt($('.canvas').css('top'), 10);
+        console.log('left: ' + left, 'top: ' + top);
+        showPage(left, top);
     });
 
     $('#showPage').mouseup(function(){
-
         setTimeout(showPage,500);
     });
 
     function showPage(left, top){
-        console.log(left, top);
         $('#overlay').show();
         $('.canvas').hide();
         var canvas = document.getElementById('myCanvas');
@@ -126,94 +116,82 @@ $(document).ready(function(){
         var newCanvas = document.getElementById('scaledCanvas');
         var destCtx = newCanvas.getContext('2d');
         destCtx.clearRect(0, 0, newCanvas.width, newCanvas.height);
+        //save the current state of this canvas' drawing mode
+        //rect = canvas.getBoundingClientRect();
+        //console.log(rect);
         destCtx.save();
-        destCtx.scale(0.32,0.33);
+        destCtx.scale(.32,.33);
         destCtx.drawImage(canvas, 0, 0);
+        //restore destCtx to a 1,1 scale (and also 0,0 origin and 0 rotation)
         destCtx.restore();
-            startVbLeft  = Math.abs(parseInt(currentLeft, 10) * 0.325);
-            startVbTop   = Math.abs(parseInt(currentTop, 10) * 0.3);
-            vbWidth      = 415 * 0.32;
-            vbHeight     = 240 * 0.33;
-            vbProps      =
+        //console.log(rect.left, rect.top);
+        var canvasLeft  = Math.abs(parseInt(left, 10) * 0.31),
+            canvasTop   = Math.abs(parseInt(top, 10) * 0.31),
+            vbWidth     = 415 * 0.32,
+            vbHeight    = 240 * 0.33,
+            vbProps     = 
             {
                 'width' : vbWidth + 'px',
                 'height': vbHeight + 'px',
-                'left'  : newCanvasPos ? vbLeft + 'px' : vbStart.left + 'px',
-                'top'   : newCanvasPos ? vbTop + 'px' : vbStart.top + 'px'
+                'left'  : canvasLeft + 'px',
+                'top'   : canvasTop + 'px'
             };
-
+            
         $('#vbContainer').css(vbProps);
+        //console.log($('#vbContainer').width(), $('#vbContainer').height());
         $('#canvasbox').css('z-index','10500');
         
     }
-    // yes  works but cancel doesn't go back to initial location
-    $('#cancelScaled').mouseup(function() {
 
-        // move it back to the initial position
-        var origVbProps = {
-            'left': vbStart.left + 'px',
-            'top': vbStart.top + 'px'
-        };
-
-        $('#vbContainer').css(origVbProps);
-
-        $('.canvas').css({'top': currentTop + 'px','left': currentLeft + 'px'});
+    $('#yesScaled, #cancelScaled').mouseup(function(){
+        /*$('#overlay').hide();
+        console.log('repaint');
+        var left = parseInt($('.canvas').css('left'), 10);
+        var top = parseInt($('.canvas').css('top'), 10);
+        console.log(left, top);
+        console.log(canvas.width - (left + 414), canvas.height - (top + 239));
+        context.save();
+        //imgData = context.getImageData(91, 100, 414, 239);
+        context.fillStyle = 'blue';
+        // fill area in view and redraw other lines back on top
+        context.fillRect(Math.abs(left - 1), Math.abs(top ), 415, 239);
+        //context.drawImage(imgData, 91, 100,)
+        context.restore();*/
+        var left = parseInt($('#vbContainer').css('left'), 10) * -3.25;
+        var top = parseInt($('#vbContainer').css('top'), 10) * -3.12;
+        $('.canvas').css({'top': top + 'px','left': left + 'px'});
         $('.canvas').show();
-        newCanvasPos = false;
-
-    });
-
-    $('#yesScaled').on('click', function() {
-
-        // console.log(currentLeft, currentTop);
-        // console.log((currentLeft / vbLeft) * vbLeft);
-        console.log('vbl:'+ vbLeft, 'vbt: ' + vbTop);
-        // update the location
-        $('#vbContainer').css('left', vbLeft + 'px').css('top', vbTop + 'px');
-        var canvasLeft = (vbLeft * -3.25);
-        var canvasTop = (vbTop * -3);
-        // console.log(canvasLeft, canvasTop);
-        $('.canvas').css({
-            'top': canvasTop + 'px',
-            'left': canvasLeft + 'px'
-        });
-        console.log(canvasLeft, canvasTop);
-        $('.canvas').show();
-        newCanvasPos = true;
-
     });
 
     // clears canvas when eraser is dbl clicked
     $('#eraser').dblclick(function(){
-
         var temp2 = document.getElementById('temp2');
         var temp2Ctx = temp2.getContext('2d');
-            x = Math.abs( parseInt($('.canvas').css('left'), 10) );
-            y = Math.abs( parseInt($('.canvas').css('top'), 10) );
-
-        eraserClearCanvas(x, y);
-
+        var left = Math.abs( parseInt($('.canvas').css('left'), 10) );
+        var top = Math.abs( parseInt($('.canvas').css('top'), 10) );
+        //$('#undo').mouseup(function(){
+        //    context.drawImage(temp2, 0, 0, canvas.width, canvas.height);
+        //});
+        eraserClearCanvas(left, top);
         if ($('#4a').attr('src') == 'css/img/4ai.png') {
             $('#myCanvas').css('cursor', lastBrushCur[lastBrushCur.length - 1]);
         }
     });
 
-    function eraserClearCanvas(x, y){
-
+    function eraserClearCanvas(left, top){
         // use left and right position of main canvas to define the x,y starting point
         // track the canvas positioning at each step to see where the offset comes from
         context.fillStyle = 'white';
         tempCtx.fillStyle = 'white';
         temp2Ctx.fillStyle = 'white';
-        console.log('eraser left: ' + x, 'top: ' + y);
-        context.fillRect(x, y, 414, 240);
-        tempCtx.fillRect(x, y, $('#canvasbox').width() + 5, $('#canvasbox').height() + 5);
-        temp2Ctx.fillRect(x, y, $('#canvasbox').width() + 5, $('#canvasbox').height() + 5);
-        if ($('#5b').attr('src') == 'css/img/5bi.png') {
-            $('#5b').attr('src','css/img/5b.png');
-        }
+        console.log('left: ' + left, 'top: ' + top);
+        context.fillRect(left, top, 414, 240);
+        tempCtx.fillRect(left, top, $('#canvasbox').width() + 5, $('#canvasbox').height() + 5);
+        temp2Ctx.fillRect(left, top, $('#canvasbox').width() + 5, $('#canvasbox').height() + 5);
+        if ($('#5b').attr('src') == 'css/img/5bi.png') $('#5b').attr('src','css/img/5b.png');
         var lastActive = clicked[clicked.length-3];
-
+        //console.log(lastCur);
+        //console.log(lastCur[lastCur.length - 3]);
         $('#myCanvas').css('cursor', lastCur[lastCur.length - 1]);
         $(lastActive).attr('src', $(lastActive).attr('dos')).trigger('mousedown');
         if ($(this).attr('id') == '4a'){
@@ -221,21 +199,11 @@ $(document).ready(function(){
             $('#4a').trigger('mousedown');
         }
         changeCur();
+        //console.log(lastCur);
         clicked = [lastActive];
-    }
 
-    // works in other browsers but not chrome..
-    // hand tool
-    $("#2a").mousedown(function(){
-      canvas.onmousedown = function() {};
-      $('#myCanvas').draggable({
-        disabled: false,
-        drag: function(){
-            //console.log($('.canvas').css('left'), $('.canvas').css('top'));
-        }
-    });
-      $('#myCanvas').draggable({containment: '#largebox'});
-    });
+        //lastCur = [];
+    }
 
     /******************/
     /* Tool Selection */
@@ -662,6 +630,12 @@ $(document).ready(function(){
         drop = false;
     });
 
+    // works in other browsers but not chrome..
+    $("#2a").mousedown(function(){
+      canvas.onmousedown = function() {};
+      $('#myCanvas').draggable({disabled: false});
+      $('#myCanvas').draggable({containment: '#largebox'});
+    });
 
     function paintbrushsmall (){
         lastCur.push($('#myCanvas').css('cursor'));
