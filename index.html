@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Macpaint</title>
+    <link href="css/table.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/styles.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/dropdown-menu.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
+    <script type="text/javascript" src="js/nondrawing.js"></script>
+    <script type="text/javascript" src="js/cursors.js"></script>
+    <script type="text/javascript" src="js/menuscripts.js"></script>
+    <script type="text/javascript" src="js/window.js"></script>
+    <script type="text/javascript" src="js/drawing.js"></script>
+    <script type="text/javascript" src="js/textOnCanvas.js"></script>
+    <script src="js/floodfill.js"></script>
+  </head>
+  <body id="bodyid">
+      <section class="content">
+      <img class= "topleftcorner" src="css/img/topleftcorner.png">  <!-- corner img -->
+      <img class ="toprightcorner" src="css/img/toprightcorner.png">
+      <img class ="bottomleftcorner" src="css/img/bottomleftcorner.png">
+      <img class ="bottomrightcorner" src="css/img/bottomrightcorner.png">
+      <img id="discPopup" src='css/img/discPopup.png'>
+        <!--puzzple-->
+        <img id="gamepic" src="css/img/gameo.png"/>
+        <!--alarm-->
+        <div id="alarmdiv">
+          <div id="txt"></div>
+          <div id="txt2"></div>
+          <div id="txt3"></div>
+          <div id="txt4"></div>
+          <img id="alarmpic" src="css/img/alarmo.png"/>
+          <div id="alarmCheckbox" height="5" width="5"><img id="closeAlarm" src="css/img/closesymbol.png"/></div>
+          <div id="keyover"><img id="keyoverpic" src="css/img/keyover.png"/></div>
+          <div id="keydowno"><img id="keydownopic" src="css/img/keydown.png"/></div>
+          <div id="alarmdropdown"><img id="alarmdropdownpic" src="css/img/alarmdropdown.png"/></div>
+          <div id="alarmdropdown2"><img id="alarmdropdownpic2" src="css/img/alarmdropdown2.png"/></div>
+        </div>
+
+        <table id="alarmdrop" border="0">
+          <tr>
+            <td id="clockcell"><img id="inverseclock" src="css/img/inverseclock.png" ></td>
+            <td id="datecell"><img id="inversedate" src="css/img/inversedate.png" ></td>
+            <td id="alarmcell"><img id="inversealarm" src="css/img/inversealarm.png"></td>
+          </tr>
+        </table>
+        <div id="aboutDiv">
+          <img id="aboutPic" src="css/img/bill.png"/>
+          <div id="aboutOk" class="choicespopup"><span id="aboutText">Ok<span></div>
+        </div>
+<!-- menu section below -->
+      <!--the first section below is the apple section of the menu -->
+      <ul id="navigation" class="nav-main">  
+        <li id="apple"><img id="applebutton" src="css/img/applebuttonh.png">
+          <ul class="nav-sub" id="appledrop">
+            <li id="about">About MacPaint...</li>
+            <li class="dottedline" id="appledottedline"></li>
+            <li id="alarm">Alarm Clock</li>
+            <li>Calculator</li>
+            <li>Choose Printer</li>
+            <li>Control Panel</li>
+            <li>Key Caps</li>
+            <li>Note Pad</li>
+            <li id="puzzle">Puzzle</li>
+            <li>Scrap Book</li>
+          </ul>
+        </li>
+
+<!--this section below is the file section of the menu -->
+        <li id="file" class="list">File
+          <ul class="nav-sub" id="filedrop">
+            <li class="inactive" id="newcanvas">New</li>
+            <li class="inactive" id="openfile">Open</li>
+            <li id="closefile" class="active">Close</li>
+            <li id="savefile">Save</li>
+            <li id="saveAs">Save As...</li>
+            <li id="revert">Revert</li>
+            <li id="printdraft">Print Draft</li>
+            <li id="printfin">Print Final</li>
+            <li id="printcat">Print Catalog</li>
+            <li id="exitMP">Quit</li>
+          </ul>
+        </li>
+
+<!--this section below is the edit section of the menu -->
+        <li class="list" id="edit">Edit
+          <ul class="nav-sub" id="editdrop">
+            <li id="undo">Undo<img id="und0" src="css/img/menusymbol.jpg"/>Z</li>
+            <li class="dottedline" id="editdottedline"></li>
+            <li class="inactive" id="cutline">Cut<img id="cut" src="css/img/menusymbol.jpg"/>K</li>
+            <li class="inactive">Copy<img id="copy" src="css/img/menusymbol.jpg"/>C</li>
+            <li id="pasteItem">Paste<img id="paste" src="css/img/menusymbol.jpg"/>V</li>
+            <li id="clear" class="inactive">Clear</li>
+            <li class="dottedline" id="editdottedline2"></li>
+            <li class="inactive" id="invert">Invert</li>
+            <li class="inactive">Fill</li>
+            <li class="inactive">Trace Edges<img id="trace" src="css/img/menusymbol.jpg"/>E</li>
+            <li class="inactive">Flip Horizontal</li>
+            <li class="inactive">Flip Vertical</li>
+            <li class="inactive">Rotate</li>
+          </ul>
+        </li>
+        
+        <!--this section below is the goodies section of the menu -->
+        <li id="goodies" class="list">Goodies
+          <ul class="nav-sub" id="goodiesdrop">
+            <li id="grid"><span><img class="goodiesCheck" id="gridCheck" src="css/img/checkfs.png"></span>Grid</li>
+            <li id="fatbits"><span><img class="goodiesCheck" id="fatbitsCheck" src="css/img/checkfs.png"></span>FatBits</li>
+            <li id="showPage">Show Page</li>
+            <li id="editPattern">Edit Pattern</li>
+            <li id="brushShape">Brush Shape</li>
+            <li id="editMirror">Brush Mirrors</li>
+            <li id="menu_intro">Introduction</li>
+            <li id="menu_sCut">Short Cuts</li>
+          </ul>
+        </li>
+      <!-- this section below is the  font section of the menu -->
+        <li id="font" class="list">Font
+          <ul class="nav-sub" id="fontdrop">
+            <li class="font" id="font0"><img class="fontchecks" id="fontcheck0" src="css/img/checkfs.png">Athens</li>
+            <li class="font" id="font1"><img class="fontchecks" id="fontcheck1" src="css/img/checkfs.png">Chicago</li>
+            <li class="font" id="font2"><img class="fontchecks" id="fontcheck2" src="css/img/checkfs.png">Geneva</li>
+            <li class="font" id="font3"><img class="fontchecks" id="fontcheck3" src="css/img/checkfs.png">London</li>
+            <li class="font" id="font4"><img class="fontchecks" id="fontcheck4" src="css/img/checkfs.png">Monaco</li>
+            <li class="font" id="font5"><img class="fontchecks" id="fontcheck5" src="css/img/checkfs.png">New York</li>
+            <li class="font" id="font6"><img class="fontchecks" id="fontcheck6" src="css/img/checkfs.png">Venice</li>
+          </ul>
+        </li>
+
+<!-- this section below is the fontsize section of the menu -->
+        <li id="fontsize" class="list">Fontsize
+          <ul class="nav-sub" id="fontsizedrop">
+            <li id="fontsize0" class="outline 9 "><img class="fschecks" id="fscheck9" src="css/img/check.png"><div class="divfont ">9 Point</div></li>
+            <li id="fontsize1" class="outline 10 "><img class="fschecks" id="fscheck10" src="css/img/check.png"><div class="divfont">10</div></li>
+            <li id="fontsize2" class="outline 12 "><img class="fschecks" id="fscheck12" src="css/img/checkfs.png"><div class="divfont">12</div></li>
+            <li id="fontsize3" class="outline 14 "><img class="fschecks" id="fscheck14" src="css/img/check.png"><div class="divfont">14</div></li>
+            <li id="fontsize4" class="outline 18 "><img class="fschecks" id="fscheck18" src="css/img/check.png"><div class="divfont">18</div></li>
+            <li id="fontsize5" class="outline 24 "><img class="fschecks" id="fscheck24" src="css/img/check.png"><div class="divfont">24</div></li>
+            <li id="fontsize6" class="36"><img class="fschecks" id="fscheck36" src="css/img/check.png">36</li>
+            <li id="fontsize7" class="48"><img class="fschecks" id="fscheck48" src="css/img/check.png">48</li>
+            <li id="fontsize8" class="72"><img class="fschecks" id="fscheck72" src="css/img/check.png">72</li>
+          </ul>
+        </li>
+
+    
+    <!--this section below is the style section of the menu -->
+        <li id="style" class="list">Style
+          <ul class="nav-sub" id="styledrop">
+            <li id="style0"><span><img class="stylechecks" id="stylecheck0" src="css/img/checkfs.png"></span>Plain<img id="plain" class="symbol" src="css/img/menusymbol.jpg"/>P</li>
+            <li id="style1"><span><img class="stylechecks" id="stylecheck1" src="css/img/checkfs.png"></span><strong>Bold</strong><img id="b0ld" class="symbol" src="css/img/menusymbol.jpg"/>B</li>
+            <li id="style2"><span><img class="stylechecks" id="stylecheck2" src="css/img/checkfs.png"></span><i>Italic</i><img id="italic" class="symbol" src="css/img/menusymbol.jpg"/>I</li>
+            <li id="style3"><span><img class="stylechecks" id="stylecheck3" src="css/img/checkfs.png"></span><u>Underline</u><img id="underline" class="symbol" src="css/img/menusymbol.jpg"/>U</li>
+            <li id="outline" class="outline"><span><img class="stylechecks" id="stylecheck4" src="css/img/checkfs.png"></span><div id="outlinediv">Outline<img id="outl1ne" class="symbol" src="css/img/menusymbol.jpg"/>O</div></li>
+            <li id="shadow" class="outline"><span><img class="stylechecks" id="stylecheck5" src="css/img/checkfs.png"></span><div id="shadowdiv">Shadow<img id="shad0w" class="symbol" src="css/img/menusymbol.jpg"/>S</div></li>
+            <li class="dottedline" id="styledottedline"></li>
+            <li id="alignleft"><span><img class="stylechecks" id="stylecheck6" src="css/img/checkfs.png"></span>Align Left<img id="alignL" class="symbol" src="css/img/menusymbol.jpg"/>L</li>
+            <li id="style7"><span><img class="stylechecks" id="stylecheck7" src="css/img/checkfs.png"></span>Align Middle<img id="alignM" class="symbol" src="css/img/menusymbol.jpg"/>M</li>
+            <li id="style8"><span><img class="stylechecks" id="stylecheck8" src="css/img/checkfs.png"></span>Align Right<img id="alignR" class="symbol" src="css/img/menusymbol.jpg"/>R</li>
+          </ul>
+        </li>
+      </ul>
+        <!-- end of menu section -->
+          <!-- checkmarks for the fontsize -->
+        <div id="Mirrors">
+          <img id="lefttop" src="css/img/lefttop.png">
+          <img id="leftbottom" src="css/img/leftbottom.png">
+          <img id="leftmiddle" src="css/img/leftmiddle.png">
+          <img id="middletop" src="css/img/middletop.png">
+          <img id="MirrorsPic" src="css/img/brushmirrors.png" />
+          <div id="okMirrors" class="choicespopup"><span class="mirrorText">Ok</span></div>
+          <div id="noneMirrors" class="choicespopup"><span class="mirrorText">None</span></div>
+        </div>
+        <!-- table for drawing tools -->
+        <div id="toolstable"></div><!-- put a div around whole table so IE would allow a box shadow; ie won't add shadow to a table -->
+         <table class="tools" border="1" cellspacing="0">
+        <tr>
+          <td class="toolcell"><img class='tool' dos="css/img/1ai.png" src="css/img/1a.png" id="1a" style="display:block;"/></td>
+          <td class="toolcell"><img class='tool' dos="css/img/1bi.png" src="css/img/1b.png" id="1b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell" id="hand"><img class='tool' dos="css/img/2ai.png" src="css/img/2a.png" id="2a" style="display:block;"/></td>
+          <td class="toolcell"><img class='tool' dos="css/img/2bi.png" src="css/img/2b.png" id="2b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell"><img class='tool' dos="css/img/3ai.png" src="css/img/3a.png" id="3a" style="display:block;"/></td>
+          <td class="toolcell"><img class='tool' dos="css/img/3bi.png" src="css/img/3b.png" id="3b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell" id="brush"><img class='tool' dos="css/img/4ai.png" src="css/img/4a.png" id="4a" style="display:block;"/></td>
+          <td class="toolcell"><img class='tool' dos="css/img/4bi.png" src="css/img/4b.png" id="4b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell"><img class='shape' dos="css/img/5ai.png" src="css/img/5a.png" id="5a" style="display:block;"/></td>
+          <td class="toolcell" id="eraser"><img class='tool' dos="css/img/5bi.png" src="css/img/5b.png" id="5b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell"><img class='shape' dos="css/img/6ai.png" src="css/img/6a.png" id="6a" style="display:block;"/></td>
+          <td class="toolcell"><img class='shape' dos="css/img/6bi.png" src="css/img/6b.png" id="6b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell"><img class='shape' dos="css/img/7ai.png" src="css/img/7a.png" id="7a" style="display:block;"/></td>
+          <td class="toolcell"><img class='shape' dos="css/img/7bi.png" src="css/img/7b.png" id="7b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell"><img class='shape' dos="css/img/8ai.png" src="css/img/8a.png" id="8a" style="display:block;"/></td>
+          <td class="toolcell"><img class='shape' dos="css/img/8bi.png" src="css/img/8b.png" id="8b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell"><img class='shape' dos="css/img/9ai.png" src="css/img/9a.png" id="9a" style="display:block;"/></td>
+          <td class="toolcell"><img class='shape' dos="css/img/9bi.png" src="css/img/9b.png" id="9b" style="display:block;"/></td>
+        </tr>
+        <tr>
+          <td class="toolcell"><img class='shape' dos="css/img/10ai.png" src="css/img/10a.png" id="10a" style="display:block;"/></td>
+          <td class="toolcell"><img class='shape' dos="css/img/10bi.png" src="css/img/10b.png" id="10b" style="display:block;"/></td>
+        </tr>
+      </table> 
+<!--brush shapes pop-up -->
+  <div id="brushespopup">
+    <img id="brushes" src="css/img/brushespopup.png">
+    <div id="brushbox"></div>
+    <div id="brushestablediv">
+      <table class="brushes" id="brushestable" border="1">
+        <tr id="brushshapesrow0">
+          <td class="brushshapestablecells" id="xlsquare"></td>
+          <td class="brushshapestablecells" id="xlcircle"></td>
+          <td class="brushshapestablecells" id="xlrighttiltline"></td>
+          <td class="brushshapestablecells" id="xllefttiltline"></td>
+          <td class="brushshapestablecells" id="xlverticalline"></td>
+          <td class="brushshapestablecells" id="xlhorizontalline"></td>
+          <td class="brushshapestablecells" id="xldottedrighttiltline"></td>
+          <td class="brushshapestablecells" id="dottedverticalline"></td>
+        </tr>
+        <tr>
+          <td class="brushshapestablecells" id="largesquare"></td>
+          <td class="brushshapestablecells" id="largecircle"></td>
+          <td class="brushshapestablecells" id="largerighttiltline"></td>
+          <td class="brushshapestablecells" id="largelefttiltline"></td>
+          <td class="brushshapestablecells" id="largeverticalline"></td>
+          <td class="brushshapestablecells" id="largehorizontalline"></td>
+          <td class="brushshapestablecells" id="largedottedrighttiltline"></td>
+          <td class="brushshapestablecells" id="dottedhorizontalline"></td>
+        </tr>
+        <tr>
+          <td class="brushshapestablecells" id="mediumsquare"></td>
+          <td class="brushshapestablecells" id="mediumcircle"></td>
+          <td class="brushshapestablecells" id="mediumrighttiltline"></td>
+          <td class="brushshapestablecells" id="mediumlefttiltline"></td>
+          <td class="brushshapestablecells" id="mediumverticalline"></td>
+          <td class="brushshapestablecells" id="mediumhorizontalline"></td>
+          <td class="brushshapestablecells" id="mediumdottedrighttiltline"></td>
+          <td class="brushshapestablecells" id="spraydesign"></td>
+        </tr>
+        <tr>
+          <td class="brushshapestablecells" id="smallsquare"></td>
+          <td class="brushshapestablecells" id="smallcircle"></td>
+          <td class="brushshapestablecells" id="smallrighttiltline"></td>
+          <td class="brushshapestablecells" id="smalllefttiltline"></td>
+          <td class="brushshapestablecells" id="smallverticalline"></td>
+          <td class="brushshapestablecells" id="smallhorizontalline"></td>
+          <td class="brushshapestablecells" id="smalldottedrighttiltline"></td>
+          <td class="brushshapestablecells" id="dot"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+<!-- table for selecting line thickness -->
+      <div id="linestable"></div>
+      <table class="linethicknesstable">
+        <tr>
+          <td id="checkbox0cell"><img id="checkbox0" class="thickness" src="css/img/white1.png"></td>
+          <td id="line0cell"><img id="line0" class="thickness" src="css/img/lin1.png" idsuffix="0" ></td>
+        </tr>
+        <tr>
+          <td id="checkbox1cell"><img id="checkbox1" class="thickness" src="css/img/white2.png"></td>
+          <td id="line1cell"><img id="line1" class="thickness" src="css/img/lin22.png" idsuffix="1"></td>
+        </tr>
+        <tr>
+          <td id="checkbox2cell"><img id="checkbox2" class="thickness" src="css/img/white3.png"></td>
+          <td id="line2cell"><img id="line2" class="thickness" src="css/img/lin33.png" idsuffix="2"></td>
+        </tr>
+        <tr>
+          <td  id="checkbox3cell"><img id="checkbox3" class="thickness" src="css/img/white4.png"></td>
+          <td id="line3cell"><img id="line3" class="thickness" src="css/img/lin44.png" idsuffix="3"></td>
+        </tr>
+        <tr>
+          <td  id="checkbox4cell"><img id="checkbox4" class="thickness" src="css/img/white5.png"></td>
+          <td id="line4cell"><img id="line4" class="thickness" src="css/img/lin55.png" idsuffix="4"></td>
+        </tr>
+      </table>
+      <img id="linethicknesscheck" src="css/img/check.png" />
+
+      <!-- table showing current pattern -->
+      <div id="outerleftbrushtable" class="outerleftbrushtable">
+        <tr>
+          <td>  
+            <table class="innerimagetable" id="innerimagetable" brushpattern="css/img/pattern1.jpg">
+            </table>
+          </td>
+        </tr>
+      </div>
+      <!-- edit pattern function pop-up -->
+      <div id="patternchangeboxdiv">
+        <img id="patternchangebox" src="css/img/patternchangebox.png" />
+        <div id ="leftBox"></div>
+        <div id="rightBox"></div>
+        <div id="okEdits" class="choicespopup"><span class="closeText">Ok</span></div>
+        <div id="cancelEdits" class="choicespopup"><span class="closeText">Cancel</span></div>
+      </div>
+
+      <table class="rightbrushtable" border="1">  <!-- table for patterns -->
+        <tr>
+          <td id="pattern1" dosc="url('css/img/pattern1.jpg')"></td>
+          <td id="pattern2" dosc="url('css/img/pattern2.jpg')"></td>
+          <td id="pattern3" dosc="url('css/img/pattern3.jpg')"></td>
+          <td id="pattern4" dosc="url('css/img/pattern4.jpg')"></td>
+          <td id="pattern5" dosc="url('css/img/pattern5.jpg')"></td>
+          <td id="pattern6" dosc="url('css/img/pattern6.jpg')"></td>
+          <td id="pattern7" dosc="url('css/img/pattern7.jpg')"></td>
+          <td id="pattern8" dosc="url('css/img/pattern8.jpg')"></td>
+          <td id="pattern9" dosc="url('css/img/pattern9.jpg')"></td>
+          <td id="pattern10" dosc="url('css/img/pattern10.jpg')"></td>
+          <td id="pattern11" dosc="url('css/img/pattern11.jpg')"></td>
+          <td id="pattern12" dosc="url('css/img/pattern12.jpg')"></td>
+          <td id="pattern13" dosc="url('css/img/pattern13.jpg')"></td>
+          <td id="pattern14" dosc="url('css/img/pattern14.jpg')"></td>
+          <td id="pattern15" dosc="url('css/img/pattern15.jpg')"></td>
+          <td id="pattern16" dosc="url('css/img/pattern16.jpg')"></td>
+          <td id="pattern17" dosc="url('css/img/pattern17.jpg')"></td>
+          <td id="pattern18" dosc="url('css/img/pattern18.jpg')"></td>
+          <td id="pattern19" dosc="url('css/img/pattern19.jpg')"></td>
+        </tr>
+        <tr>
+          <td id="pattern20" dosc="url('css/img/pattern20.jpg')"></td>
+          <td id="pattern21" dosc="url('css/img/pattern21.jpg')"></td>
+          <td id="pattern22" dosc="url('css/img/pattern22.jpg')"></td>
+          <td id="pattern23" dosc="url('css/img/pattern23.jpg')"></td>
+          <td id="pattern24" dosc="url('css/img/pattern24.jpg')"></td>
+          <td id="pattern25" dosc="url('css/img/pattern25.jpg')"></td>
+          <td id="pattern26" dosc="url('css/img/pattern26.jpg')"></td>
+          <td id="pattern27" dosc="url('css/img/pattern27.jpg')"></td>
+          <td id="pattern28" dosc="url('css/img/pattern28.jpg')"></td>
+          <td id="pattern29" dosc="url('css/img/pattern29.jpg')"></td>
+          <td id="pattern30" dosc="url('css/img/pattern30.jpg')"></td>
+          <td id="pattern31" dosc="url('css/img/pattern31.jpg')"></td>
+          <td id="pattern32" dosc="url('css/img/pattern32.jpg')"></td>
+          <td id="pattern33" dosc="url('css/img/pattern33.jpg')"></td>
+          <td id="pattern34" dosc="url('css/img/pattern34.jpg')"></td>
+          <td id="pattern35" dosc="url('css/img/pattern35.jpg')"></td>
+          <td id="pattern36" dosc="url('css/img/pattern36.jpg')"></td>
+          <td id="pattern37" dosc="url('css/img/pattern37.jpg')"></td>
+          <td id="pattern38" dosc="url('css/img/pattern38.jpg')"></td> 
+        </tr>
+      </table>
+      <!-- adds black space to main menu items when hovered/clicked-->
+      <img class="blackmenuside" id="fileblackmenuside" src="css/img/navmainblackspace.png" />
+      <img class="blackmenuside" id="editblackmenuside" src="css/img/navmainblackspace.png" />
+      <img class="blackmenuside" id="goodiesblackmenuside" src="css/img/navmainblackspace.png" />
+      <img class="blackmenuside" id="fontblackmenuside" src="css/img/navmainblackspace.png" />
+      <img class="blackmenuside" id="fontsizeblackmenuside" src="css/img/navmainblackspace.png" />
+      <img class="blackmenuside" id="styleblackmenuside" src="css/img/navmainblackspace.png" />
+      <!--
+      <table id="gametable">
+        <tr>
+          <td id="space1"><img id="slot1" src="img/16.png" /></td>
+          <td id="space2"><img id="slot2" src="img/2.png" /></td>
+          <td id="space3"><img id="slot3" src="img/3.png" /></td>
+          <td id="space4"><img id="slot4" src="img/4.png" /></td>
+        </tr>
+        <tr>
+          <td id="space5"><img id="slot5" src="img/5.png" /></td>
+          <td id="space6"><img id="slot6" src="img/6.png" /></td>
+          <td id="space7"><img id="slot7" src="img/7.png" /></td>
+          <td id="space8"><img id="slot8" src="img/8.png" /></td>
+        </tr>
+        <tr>
+          <td id="space9"><img id="slot9" src="img/9.png" /></td>
+          <td id="space10"><img id="slot10" src="img/10.png" /></td>
+          <td id="space11"><img id="slot11" src="img/11.png" /></td>
+          <td id="space12"><img id="slot12" src="img/12.png" /></td>
+        </tr>
+        <tr>
+          <td id="space13"><img id="slot13" src="img/13.png" /></td>
+          <td id="space14"><img id="slot14" src="img/14.png" /></td>
+          <td id="space15"><img id="slot15" src="img/15.png" /></td>
+          <td id="space16"><img id="slot16" src="img/16.png" /></td>
+        </tr>
+      </table>
+      -->
+      <!-- divs with the canvases and stuff that involves closing the files below -->
+      <div id="contents">
+        <div id="namecontainer">
+        <div id='filename'><div id='filenameinner'>untitled</div></div>
+        </div>
+        <div id="behinduppercanvastable"></div>
+        <!-- box in 'untitled' bar -->
+        <div id="closecanvastable">
+          <div id="checkbox" height="5" width="5"><img id="closecanvas" src="css/img/closesymbol.png" draggable="false"/></div>
+        </div>
+        <!-- canvas for 'untitled' bar -->
+        <div id="cboxouterbox"></div>
+        <canvas class="rowlines" id="rlines1" width="414" height="17"></canvas>
+        <!-- canvas for drawing -->
+        <div id="canvasbox">
+          <div id="selectionContainer">
+            <canvas id="newselectioncanvas" height="" width=""></canvas>
+            <canvas id="selected" height="" width=""></canvas>
+          </div>
+
+          <!-- width="414" height="239" old canvas dimensions -->
+          
+          <canvas class="canvas" id="myCanvas" width="581" height="722"></canvas>
+
+
+          <div id="scaledcanvasdiv">
+            <canvas id="scaledCanvas" height="239" width="190"></canvas>
+            <div id="vbContainer"><div id="viewBox"></div></div>
+          </div>
+          <div id="cancelScaled" class="choicespopup"><span class='closeText'>Cancel</span></div>
+          <div id="yesScaled" class="choicespopup"><span class='closeText'>OK</span></div>
+          <div id="largebox"></div>
+        </div>        
+        <!-- introduction item in 'goodies' -->
+        <div id="intro">
+          <img id="introduction" src="css/img/intro.png"/>
+          <div id="introbutton" class="choicespopup"><span class='closeText'>Cancel</span></div>
+        </div>
+        <!-- shortcut item in 'goodies' -->
+        <div id="shortcut">
+          <img id="shortcuts" src="css/img/shortcuts.png"/>
+          <div id="sCutbutton" class="choicespopup"><span class='closeText'>Cancel</span></div>
+        </div>
+        <!-- pop-up that appears when box in 'untitled' bar clicked -->
+        <div id="saveClose" class="popupdiv" >
+          <img id="savePopup"   src="css/img/save.png"/>
+          <div id="cancelSave" class="choicespopup"><span class='closeText'>Cancel</span></div>
+          <div id="yesSave" class="choicespopup"><span class='closeText'>Yes</span></div>
+          <div id="noSave" class="choicespopup"><span class='closeText'>No</span></div>
+        </div>
+        <!-- pop-up that appears when 'quit' item in 'file' dropdown clicked -->
+        <div id="quitClose" class="popupdiv" >
+          <img id="quitPopup" src="css/img/save.png"/>
+          <div id="cancelQuit" class="choicespopup"><span class='closeText'>Cancel</span></div>
+          <div id="yesQuit" class="choicespopup"><span class='closeText'>Yes</span></div>
+          <div id="noQuit" class="choicespopup"><span class='closeText'>No</span></div>
+        </div>
+        <!-- pop-up that appears when 'close' item in 'file' dropdown clicked -->
+        <div id="cl0sefile" class="popupdiv" >
+          <img id="closePopup" src="css/img/save.png"/>
+          <div id="cancelClose" class="choicespopup"><span class='closeText'>Cancel</span></div>
+          <div id="yesClose" class="choicespopup"><span class='closeText'>Yes</span></div>
+          <div id="noClose" class="choicespopup"><span class='closeText'>No</span></div>
+        </div>
+        <!-- revert popup -->
+        <div id="revertdiv" class="popupdiv">
+          <img id="revertPopup" src="css/img/revertpopup.png"/>
+          <div id="cancelRevert" class="choicespopup"><span class='closeText'>Cancel</span></div>
+          <div id="yesRevert" class="choicespopup"><span class='closeText'>Ok</span></div>
+        </div>
+        <!-- pop-up that appears when you want to save -->
+        <div id="savedocumentdiv">
+          <img id="savedocument" src="css/img/savedocument.png"/>
+          <form value = "" id="filenametext">
+            <input type="text" name="pass_word" id="typed" class="password_test" style="float:left;"/>
+          </form>
+          <div id="saveYes" class="saveDivs">
+            <span id="saveIt"><span class='closeText'>Save</span></span>
+          </div>
+          <div id="saveCancel" class="saveDivs"><span class='closeText' class="choicespopup">Cancel</span></div>
+          <div id="saveEject" class="saveDivs"><span class='closeText'>Eject</span></div>
+          <div id="saveDrive" class="saveDivs"><span class='closeText'>Drive</span></div>
+        </div>
+      </div>
+    </section>
+    <!-- to capture click -->
+    <div id="overlay"></div>
+    <br>
+    <br>
+    <div id="textArea" style=" width:200px; height: 20px;"><a href="" id="imageLink" target ="_blank">Your Image</a></div>
+    <!-- divs that appear over the nav-sub while the menu item is flashing -->
+    <div id="editflashdiv"></div>
+    <div id="goodiesflashdiv"></div>
+    <div id="fileflashdiv"></div>
+    <div id="fontflashdiv"></div>
+    <div id="fontsizeflashdiv"></div>
+    <div id="styleflashdiv"></div>
+    <div id="appleflashdiv"></div>
+    <!-- temporary canvases used for undo function -->
+    <div id="tempContainer"><canvas id="temp" height="722" width="581"></canvas></div>
+    <div id="tempContainer2"><canvas id="temp2" height="722" width="581"></canvas></div>
+    <div id="newPatContainer"><canvas id="newPat" height="16" width="16"></canvas></div>
+    <div id="newPatContainer2"><canvas id="newPat2" height="16" width="16"></canvas></div>
+    <!-- canvas for making xor cursor 
+    <canvas id="cursorcanvas" width="10" height="16"></canvas>
+    -->
+    <canvas id="newselectioncanvas"></canvas>
+  </body>
+</html>
+
+
