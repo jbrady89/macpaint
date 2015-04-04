@@ -295,9 +295,9 @@ body{}
 
 /*holds image for current pattern*/
 .innerimagetable {
-	position:absolute;
-	left: 7px;
-	top: 5px;
+	margin: auto;
+  	position: absolute;
+  	top: 0; left: 0; bottom: 0; right: 0;
 	width: 28px;
 	height: 23px;
 	border: 1px solid #000000;
@@ -1141,8 +1141,9 @@ body{}
 	top: 0px;
 	z-index: 1100000;
 }
-#alarmdiv{
+#alarmDiv{
 	background:white;
+	display: none;
 }
 #keyover {
 	left: 382px;

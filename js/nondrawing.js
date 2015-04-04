@@ -88,4 +88,11 @@ $(document).ready(function(){
       });
     });
   });
+
+  $('#alarm').on('mouseup', function(){
+    setTimeout(function(){
+      $('#alarmDiv').show();
+
+    }, 500);
+  });
 });

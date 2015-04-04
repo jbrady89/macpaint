@@ -1830,12 +1830,12 @@ $(document).ready(function(){
         var imagedata, data;
         canvas.onmousedown = function(e) {
             painting = true;
-            var imagedata = context.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
+            /*var imagedata = context.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
             var data = imagedata.data;
             ////console.log(data)
             //console.log(data);
             if (data[0] == 255) context.fillStyle = "black";
-            if (data[0] == 0) context.fillStyle  = "white";
+            if (data[0] == 0) context.fillStyle  = "white";*/
             lastX = e.pageX - this.offsetLeft - 88;
             lastY = e.pageY - this.offsetTop - 55;
         };
@@ -2705,7 +2705,8 @@ $(document).ready(function(){
         }
     };*/
 
-    $('#alarmdiv, #alarmdrop').hide();
+    // hid these in the css
+    //$('#alarmdiv, #alarmdrop').hide();
 
 
 //preset checkmarks when page loads

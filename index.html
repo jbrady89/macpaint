@@ -26,7 +26,7 @@
         <!--puzzple-->
         <img id="gamepic" src="css/img/gameo.png"/>
         <!--alarm-->
-        <div id="alarmdiv">
+        <div id="alarmDiv">
           <div id="txt"></div>
           <div id="txt2"></div>
           <div id="txt3"></div>
@@ -37,15 +37,15 @@
           <div id="keydowno"><img id="keydownopic" src="css/img/keydown.png"/></div>
           <div id="alarmdropdown"><img id="alarmdropdownpic" src="css/img/alarmdropdown.png"/></div>
           <div id="alarmdropdown2"><img id="alarmdropdownpic2" src="css/img/alarmdropdown2.png"/></div>
+          <table id="alarmdrop" border="0">
+            <tr>
+              <td id="clockcell"><img id="inverseclock" src="css/img/inverseclock.png" ></td>
+              <td id="datecell"><img id="inversedate" src="css/img/inversedate.png" ></td>
+              <td id="alarmcell"><img id="inversealarm" src="css/img/inversealarm.png"></td>
+            </tr>
+          </table>
         </div>
 
-        <table id="alarmdrop" border="0">
-          <tr>
-            <td id="clockcell"><img id="inverseclock" src="css/img/inverseclock.png" ></td>
-            <td id="datecell"><img id="inversedate" src="css/img/inversedate.png" ></td>
-            <td id="alarmcell"><img id="inversealarm" src="css/img/inversealarm.png"></td>
-          </tr>
-        </table>
         <div id="aboutDiv">
           <img id="aboutPic" src="css/img/bill.png"/>
           <div id="aboutOk" class="choicespopup"><span id="aboutText">Ok<span></div>
@@ -292,13 +292,9 @@
       <img id="linethicknesscheck" src="css/img/check.png" />
 
       <!-- table showing current pattern -->
-      <div id="outerleftbrushtable" class="outerleftbrushtable">
-        <tr>
-          <td>  
-            <table class="innerimagetable" id="innerimagetable" brushpattern="css/img/pattern1.jpg">
-            </table>
-          </td>
-        </tr>
+      <div id="outerleftbrushtable" class="outerleftbrushtable">  
+        <div class="innerimagetable" id="innerimagetable" brushpattern="css/img/pattern1.jpg"></div>
+            
       </div>
       <!-- edit pattern function pop-up -->
       <div id="patternchangeboxdiv">
