@@ -75,6 +75,10 @@ body{}
 	margin: 0px;
 }
 
+.toolcell img {
+	display:block;
+}
+
 /*images for tools table*/
 * .btn {
 	height: 20px;
@@ -82,24 +86,29 @@ body{}
 }
 
 /*brush patterns table*/
-.rightbrushtable {
+.patternsContainer {
 	color: #000000;
 	margin: 0;
-	padding: 0px;
+	padding: 0;
 	position:absolute;
 	left:129px;
 	top: 307px;
-	border: 1px solid #000000;
-	border-collapse: collapse;
 	box-shadow: 1px 1px #000000;
+}
+.rightbrushtable {
+	position:relative;
+	border-collapse: collapse;
+	
 }
 
 .rightbrushtable td {
-	border-bottom: none;
-	padding: 0px;
+	/*border-bottom: none;*/
+	padding: 0;
 	text-align: left;
 	background-repeat: repeat;
+	border-collapse: collapse;
 }
+
 /*sets the background of each brush pattern table cell*/
 #pattern1 {
 	background-image:url('img/pattern1.jpg');
@@ -309,8 +318,8 @@ body{}
 
 .outerleftbrushtable {
 	color: #000000;
-	margin: 0px;
-	padding: 0px;	
+	margin: 0;
+	padding: 0;	
 	position:absolute;
 	height: 33px;
 	width: 42px;
