@@ -1826,6 +1826,8 @@ $(document).ready(function(){
                 $('#line'+i+'cell').mousedown(pencil);
             }
         }
+
+        var imagedata, data;
         canvas.onmousedown = function(e) {
             painting = true;
             var imagedata = context.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
@@ -1844,6 +1846,13 @@ $(document).ready(function(){
             if (painting) {
                 mouseX = e.pageX - this.offsetLeft - 88;
                 mouseY = e.pageY - this.offsetTop - 55;
+
+                var imagedata = context.getImageData(e.pageX - this.offsetLeft - 88 , e.pageY - this.offsetTop - 55, 1, 1);
+                var data = imagedata.data;
+                ////console.log(data)
+                //console.log(data);
+                if (data[0] == 255) context.fillStyle = "black";
+                if (data[0] == 0) context.fillStyle  = "white";
                 
                 // find all points between        
                 var x1 = mouseX,
