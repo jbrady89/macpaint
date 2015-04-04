@@ -1,2 +1,17 @@
+Todo list as of 4-3-2015
+
 1. cursors for tools not working in IE
-2. 
+2. spray tool
+3. fill tool is buggy
+	a. only works with black
+	b. boundary calculation gets messed up after using hand
+4. Sassify the css
+5. clean up the menu
+	a. items with white text should flash the opposite way as the black text items
+		-Shadow and Outline items in Style dropdown
+6. text tool
+7. hand tool
+8. selection tool
+9. brush mirrors
+
+
